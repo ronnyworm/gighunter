@@ -20,7 +20,24 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 de:
-    date:
-      order: [ !ruby/symbol day, !ruby/symbol month, !ruby/symbol year ]
-      month_names:
-        [~, Januar, Februar, März, April, Mai, Juni, Juli, August, September, Oktober, November, Dezember]
+  date:
+    order: [ !ruby/symbol day, !ruby/symbol month, !ruby/symbol year ]
+    month_names:
+      [~, Januar, Februar, März, April, Mai, Juni, Juli, August, September, Oktober, November, Dezember]
+  models:
+    indextitle: "%{model} anzeigen"
+    edittitle: "%{model} bearbeiten"
+
+    gigs: Gigs
+    gig: Gig
+
+    show: Anzeigen
+    edit: Bearbeiten
+    destroy: Löschen
+    confirm_to_destroy: Bist du sicher, dass du löschen möchtest? Die Aktion kann nicht rückgängig gemacht werden.
+    new: neu
+    created: "Gespeichert!"
+    updated: "Gespeichert!"
+    destroyed: "Das Löschen war erfolgreich"
+  back: "Zurück"
+  save: "Speichern"

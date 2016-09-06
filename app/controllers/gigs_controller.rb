@@ -29,7 +29,7 @@ class GigsController < ApplicationController
 
     respond_to do |format|
       if @gig.save
-        format.html { redirect_to @gig, notice: 'Gig was successfully created.' }
+        format.html { redirect_to @gig, notice: I18n.t('models.created') }
         format.json { render :show, status: :created, location: @gig }
       else
         format.html { render :new }
@@ -43,7 +43,7 @@ class GigsController < ApplicationController
   def update
     respond_to do |format|
       if @gig.update(gig_params)
-        format.html { redirect_to @gig, notice: 'Gig was successfully updated.' }
+        format.html { redirect_to @gig, notice: I18n.t('models.updated') }
         format.json { render :show, status: :ok, location: @gig }
       else
         format.html { render :edit }
@@ -57,7 +57,7 @@ class GigsController < ApplicationController
   def destroy
     @gig.destroy
     respond_to do |format|
-      format.html { redirect_to gigs_url, notice: 'Gig was successfully destroyed.' }
+      format.html { redirect_to gigs_url, notice: I18n.t('models.destroyed') }
       format.json { head :no_content }
     end
   end

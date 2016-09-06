@@ -1,6 +1,6 @@
-<h1>Editing Gig</h1>
+<h1><%= I18n.t("models.edittitle", model: I18n.t("models.gig")) %></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @gig %> |
-<%= link_to 'Back', gigs_path %>
+<%= link_to I18n.t("models.show"), @gig %> |
+<%= link_to I18n.t("back"), gigs_path %>

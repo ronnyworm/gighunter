@@ -1,25 +1,27 @@
-<p id="notice"><%= notice %></p>
+<h1><%= I18n.t('models.indextitle', model: I18n.t('models.gigs')) %></h1>
 
-<h1>Listing Gigs</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @gigs.each do |gig| %>
+<div class="table-responsive">
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th colspan="3" class="col-md-12"></th>
+  </tr>
+</thead>
+
+<tbody>
+  <% @gigs.each do |gig| %>
       <tr>
-        <td><%= link_to 'Show', gig %></td>
-        <td><%= link_to 'Edit', edit_gig_path(gig) %></td>
-        <td><%= link_to 'Destroy', gig, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to I18n.t('models.show'), gig %></td>
+        <td><%= link_to I18n.t('models.edit'), edit_gig_path(gig) %></td>
+        <td><%= link_to I18n.t('models.destroy'), gig, method: :delete, data: { confirm: I18n.t('models.confirm_to_destroy') } %></td>
       </tr>
     <% end %>
-  </tbody>
+</tbody>
 </table>
+</div>
 
 <br>
 
-<%= link_to 'New Gig', new_gig_path %>
+<%= link_to I18n.t('models.new'), new_gig_path, class: "btn btn-default" %>
