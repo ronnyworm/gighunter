@@ -8,6 +8,20 @@ This is a work in progress!
 
 More documentation to be added soon.
 
+## Setup
+The following constants should be set up in your environment.
+
+for mailing
+
+- GIG_HUNTER_MAIL_SENDER
+- GIG_HUNTER_MAIL_HOST
+- GIG_HUNTER_GMAIL_USERNAME
+- GIG_HUNTER_GMAIL_PASSWORD
+
+for devise 
+
+- SECRET_KEY_BASE
+
 
 ## Data model
 to be added soon
