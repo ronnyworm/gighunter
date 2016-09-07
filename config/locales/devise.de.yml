@@ -18,6 +18,16 @@ de:
       sign_up: "Registrieren"
       login: "Anmelden"
       logout: "Abmelden"
+      forgot_password: "Passwort vergessen?"
+      received_no_confirmation: "Hast du keine Bestätigung erhalten?"
+      received_no_unlock: "Hast du keine E-Mail zum Entsperren erhalten?"
+      sign_in_with: Anmelden mit
+
+      user:
+        password: "Passwort"
+        password_confirmation: "Passwort bestätigen"
+        password_characters_min: "(mindestens %{count} Zeichen)"
+        email: "E-Mail"
     failure:
       already_authenticated: "Du bist schon angemeldet."
       unauthenticated: "Bitte melde Dich an."

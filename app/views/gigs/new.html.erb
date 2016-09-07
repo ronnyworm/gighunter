@@ -1,5 +1,5 @@
-<h1>New Gig</h1>
+<h1><%= I18n.t("models.newtitle", model: I18n.t("models.gig")) %></h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Back', gigs_path %>
+<%= link_to I18n.t("back"), gigs_path %>

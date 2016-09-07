@@ -27,6 +27,7 @@ de:
   models:
     indextitle: "%{model} anzeigen"
     edittitle: "%{model} bearbeiten"
+    newtitle: "Neuer %{model}"
 
     gigs: Gigs
     gig: Gig
