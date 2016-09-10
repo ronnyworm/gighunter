@@ -11,13 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160910182641) do
+ActiveRecord::Schema.define(version: 20160910222508) do
 
   create_table "bands", force: :cascade do |t|
     t.text     "tech_rider"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "name"
+  end
+
+  create_table "contactlocations", force: :cascade do |t|
+    t.integer  "contact_id"
+    t.integer  "location_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "telephone"
+    t.text     "info"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "gigs", force: :cascade do |t|
@@ -28,6 +44,17 @@ ActiveRecord::Schema.define(version: 20160910182641) do
     t.string   "link_forum"
     t.text     "vorhandenes_equipment"
     t.integer  "user_id"
+    t.string   "stagesize"
+    t.integer  "location_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string   "name"
+    t.string   "address"
+    t.string   "website"
+    t.boolean  "festival"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "status_values", force: :cascade do |t|

@@ -4,6 +4,11 @@
 <table class="table table-striped">
 <tbody>
 	<tr>
+		<td><strong>Location</strong></td>
+		<td><%= @gig.location.name %></td>
+	</tr>
+
+	<tr>
 		<td><strong>Stagetime</strong></td>
 		<td><%= @gig.datetime %></td>
 	</tr>
@@ -16,6 +21,11 @@
 	<tr>
 		<td><strong>Verantwortlich</strong></td>
 		<td><%= @gig.user ? @gig.user.name : "(noch niemand)" %></td>
+	</tr>
+
+	<tr>
+		<td><strong>Bühnengröße</strong></td>
+		<td><%= @gig.stagesize %></td>
 	</tr>
 
 	<tr>
