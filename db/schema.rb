@@ -11,9 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160906122147) do
+ActiveRecord::Schema.define(version: 20160910081116) do
+
+  create_table "bands", force: :cascade do |t|
+    t.text     "tech_rider"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "gigs", force: :cascade do |t|
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.string   "name"
+    t.datetime "datetime"
+    t.string   "link_forum"
+    t.text     "vorhandenes_equipment"
+    t.integer  "status_id"
+    t.integer  "user_id"
+  end
+
+  create_table "statuses", force: :cascade do |t|
+    t.string   "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -33,6 +51,8 @@ ActiveRecord::Schema.define(version: 20160906122147) do
     t.boolean  "admin"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "instrumente"
+    t.integer  "band_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
