@@ -12,3 +12,20 @@ admin:
   band_id: 1
   instruments: Vocals
   name: Alfred
+  admin: true
+
+holz:
+  id: 2
+  email: b@b.de
+  encrypted_password: <%= User.new.send(:password_digest, 'asdf') %>
+  band_id: 1
+  instruments: Guitars
+  name: Heino
+
+bauer:
+  id: 3
+  email: c@b.de
+  encrypted_password: <%= User.new.send(:password_digest, 'asdf') %>
+  band_id: 1
+  instruments: Drums
+  name: Bauer

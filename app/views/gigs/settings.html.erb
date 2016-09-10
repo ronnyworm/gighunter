@@ -1,0 +1,20 @@
+<h1>Einstellungen</h1>
+
+
+<h2>Statuswerte</h2>
+<div class="table-responsive">
+<table class="table table-striped">
+
+<tbody>
+  <% @status_values.each do |sv| %>
+      <tr>
+        <td><%= sv.text %></td>
+        <td>bearbeiten</td>
+        <td>löschen (mit allen Konsequenzen)</td>
+      </tr>
+    <% end %>
+</tbody>
+</table>
+</div>
+
+neuen Status am Ende der Tabelle hinzufügen (das wär cool)

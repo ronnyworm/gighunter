@@ -77,6 +77,14 @@ class GigsController < ApplicationController
     @members = current_user.band.user
   end
 
+  def settings
+    @status_values = current_user.band.status_value
+  end
+
+  def post_settings
+    redirect_to settings_path, notice: "Die Einstellungen wurden geändert."
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_gig
