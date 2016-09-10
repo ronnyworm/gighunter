@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160910222508) do
+ActiveRecord::Schema.define(version: 20160910233158) do
 
   create_table "bands", force: :cascade do |t|
     t.text     "tech_rider"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20160910222508) do
     t.text     "info"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "band_id"
   end
 
   create_table "gigs", force: :cascade do |t|
@@ -55,6 +56,7 @@ ActiveRecord::Schema.define(version: 20160910222508) do
     t.boolean  "festival"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "band_id"
   end
 
   create_table "status_values", force: :cascade do |t|

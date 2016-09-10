@@ -1,0 +1,39 @@
+<h1>Locations</h1>
+
+
+
+<div class="table-responsive">
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Adresse</th>
+    <th>Website</th>
+    <th>Festival?</th>
+    <th colspan="2"></th>
+  </tr>
+</thead>
+
+<tbody>
+  <% @locations.each do |location| %>
+    <tr>
+      <td><%= location.name %></td>
+      <td><%= location.address %></td>
+      <td><%= location.website %></td>
+      <td><%= location.festival ? "ja" : "nein" %></td>
+      <td></td>
+    </tr>
+  <% end %>
+  <%= form_tag "/locations" do %>
+    <tr>
+      <td><%= text_field_tag :name, nil, class: "form-control", placeholder: "Name" %></td>
+      <td><%= text_field_tag :address, nil, class: "form-control", placeholder: "Adresse" %></td>
+      <td><%= text_field_tag :website, nil, class: "form-control", placeholder: "Website" %></td>
+      
+      <td><%= check_box_tag :festival, class: "form-control" %></td>
+      <td><%= button_tag "Hinzufügen", type: "submit", class: "btn btn-primary" %></td>
+    </tr>
+  <% end %>
+</tbody>
+</table>
+</div>

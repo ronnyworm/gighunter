@@ -5,7 +5,7 @@
 <tbody>
 	<tr>
 		<td><strong>Location</strong></td>
-		<td><%= @gig.location.name %></td>
+		<td><%= @gig.location ? @gig.location.name : "(nicht zugeordnet)" %></td>
 	</tr>
 
 	<tr>
@@ -25,7 +25,7 @@
 
 	<tr>
 		<td><strong>Bühnengröße</strong></td>
-		<td><%= @gig.stagesize %></td>
+		<td><%= @gig.stagesize ? @gig.stagesize : "(leer)" %></td>
 	</tr>
 
 	<tr>

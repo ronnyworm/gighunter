@@ -1,0 +1,39 @@
+<h1>Kontakte</h1>
+
+
+
+<div class="table-responsive">
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>E-Mail</th>
+    <th>Telefon</th>
+    <th>Info</th>
+    <th></th>
+  </tr>
+</thead>
+
+<tbody>
+  <% @contacts.each do |contact| %>
+    <tr>
+      <td><%= contact.name %></td>
+      <td><%= contact.email %></td>
+      <td><%= contact.telephone %></td>
+      <td><%= contact.info %></td>
+      <td></td>
+    </tr>
+  <% end %>
+  <%= form_tag "/contacts" do %>
+    <tr>
+      <td><%= text_field_tag :name, nil, class: "form-control", placeholder: "Name" %></td>
+      <td><%= email_field_tag :email, nil, class: "form-control", placeholder: "E-Mail" %></td>
+      <td><%= text_field_tag :telephone, nil, class: "form-control", placeholder: "Telefon" %></td>
+      
+      <td><%= text_field_tag :info, nil, class: "form-control", placeholder: "weitere Info" %></td>
+      <td><%= button_tag "Hinzufügen", type: "submit", class: "btn btn-primary" %></td>
+    </tr>
+  <% end %>
+</tbody>
+</table>
+</div>

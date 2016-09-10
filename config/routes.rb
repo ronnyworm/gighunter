@@ -3,10 +3,14 @@ Rails.application.routes.draw do
   resources :gigs
 
   get 'band/:id' => 'gigs#band'
-  post 'band/:id' => 'gigs#band'
 
   get 'settings' => 'gigs#settings'
   post 'settings' => 'gigs#post_settings'
+
+  get 'locations' => 'gigs#locations'
+  post 'locations' => 'gigs#post_locations'
+  get 'contacts' => 'gigs#contacts'
+  post 'contacts' => 'gigs#post_contacts'
 
   root 'gigs#index'
   # The priority is based upon order of creation: first created -> highest priority.

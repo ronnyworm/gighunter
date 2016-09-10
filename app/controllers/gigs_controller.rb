@@ -82,6 +82,26 @@ class GigsController < ApplicationController
     @members = current_user.band.user
   end
 
+  def locations
+    @locations = current_user.band.location
+  end
+
+  def post_locations
+    Location.create(band_id: current_user.band.id, name: params[:name], address: params[:address], festival: params[:festival], website: params[:website])
+
+    redirect_to locations_path, notice: "Die Location wurde gespeichert."
+  end
+
+  def contacts
+    @contacts = current_user.band.contact
+  end
+
+  def post_contacts
+    Contact.create(band_id: current_user.band.id, name: params[:name], email: params[:email], telephone: params[:telephone], info: params[:info])
+
+    redirect_to contacts_path, notice: "Der Kontakt wurde gespeichert."
+  end
+
   def settings
     @status_values = current_user.band.status_value
   end
