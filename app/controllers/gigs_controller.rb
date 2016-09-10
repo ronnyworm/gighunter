@@ -6,7 +6,10 @@ class GigsController < ApplicationController
   # GET /gigs
   # GET /gigs.json
   def index
+    # hier muss noch korrigiert werden, dass nur die Gigs der aktuellen Band angezeigt werden
     @gigs = Gig.all
+    @status_values = current_user.band.status_value
+    @members = current_user.band.user
   end
 
   # GET /gigs/1
@@ -26,10 +29,15 @@ class GigsController < ApplicationController
   # POST /gigs
   # POST /gigs.json
   def create
-    @gig = Gig.new(gig_params)
+    @gig = Gig.new(name: params[:name], user_id: User.find_by(name: params[:responsible]))
+
 
     respond_to do |format|
       if @gig.save
+
+
+        Status.create(gig_id: @gig.id, status_value_id: StatusValue.find_by(text: params[:status_value]).id)
+
         format.html { redirect_to @gig, notice: I18n.t('models.created') }
         format.json { render :show, status: :created, location: @gig }
       else
@@ -70,10 +78,7 @@ class GigsController < ApplicationController
 
 
 
-
-
-
-  def show_band
+  def band
     @members = current_user.band.user
   end
 
@@ -82,6 +87,8 @@ class GigsController < ApplicationController
   end
 
   def post_settings
+    StatusValue.create(band_id: current_user.band.id, text: params[:text], order: params[:order])
+
     redirect_to settings_path, notice: "Die Einstellungen wurden geändert."
   end
 
@@ -89,10 +96,5 @@ class GigsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_gig
       @gig = Gig.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def gig_params
-      params.require(:gig).permit(:name, :datetime, :link_forum, :vorhandenes_equipment, :status_id, :user_id)
     end
 end

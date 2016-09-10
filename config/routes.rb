@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   devise_for :users
   resources :gigs
 
-  get 'band/:id' => 'gigs#show_band'
+  get 'band/:id' => 'gigs#band'
+  post 'band/:id' => 'gigs#band'
+
   get 'settings' => 'gigs#settings'
   post 'settings' => 'gigs#post_settings'
 

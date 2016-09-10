@@ -5,16 +5,31 @@
 <div class="table-responsive">
 <table class="table table-striped">
 
+<!--thead>
+  <tr>
+    <th>Text</th>
+    <th>Reihenfolge</th>
+  </tr>
+</thead-->
+
 <tbody>
   <% @status_values.each do |sv| %>
-      <tr>
-        <td><%= sv.text %></td>
-        <td>bearbeiten</td>
-        <td>löschen (mit allen Konsequenzen)</td>
-      </tr>
-    <% end %>
+    <tr>
+      <td><%= sv.text %></td>
+      <td><%= sv.order %></td>
+      <td>umbenennen</td>
+      <td>löschen (mit allen Konsequenzen)</td>
+    </tr>
+  <% end %>
+  <%= form_tag "/settings" do %>
+    <tr>
+      <td><%= text_field_tag :text, nil, class: "form-control", placeholder: "Text" %></td>
+      <td><%= number_field_tag :order, nil, class: "form-control", placeholder: "Reihenfolge" %></td>
+      <td><%= button_tag "Hinzufügen", type: "submit", class: "btn btn-primary" %></td>
+      <td></td>
+      <td></td>
+    </tr>
+  <% end %>
 </tbody>
 </table>
 </div>
-
-neuen Status am Ende der Tabelle hinzufügen (das wär cool)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160910090754) do
+ActiveRecord::Schema.define(version: 20160910182641) do
 
   create_table "bands", force: :cascade do |t|
     t.text     "tech_rider"
@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(version: 20160910090754) do
     t.datetime "datetime"
     t.string   "link_forum"
     t.text     "vorhandenes_equipment"
-    t.integer  "status_id"
     t.integer  "user_id"
   end
 
@@ -36,6 +35,7 @@ ActiveRecord::Schema.define(version: 20160910090754) do
     t.integer  "band_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "order"
   end
 
   create_table "statuses", force: :cascade do |t|

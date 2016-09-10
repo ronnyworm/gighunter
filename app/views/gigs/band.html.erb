@@ -13,15 +13,13 @@
 
 <tbody>
   <% @members.each do |member| %>
-      <tr>
-        <td><%= member.name %></td>
-        <td><%= member.instruments %></td>
-      </tr>
-    <% end %>
+    <tr>
+      <td><%= member.name %></td>
+      <td><%= member.instruments %></td>
+    </tr>
+  <% end %>
 </tbody>
 </table>
 </div>
 
-<br>
-
-<%= link_to I18n.t('models.new'), new_gig_path, class: "btn btn-default" %>
+Mitglieder müssen hinzugefügt werden können, Instrumente und Namen geändert werden können

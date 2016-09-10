@@ -8,11 +8,14 @@
 a:
   band_id: 1
   text: unbearbeitet
+  order: 1
 
 b:
   band_id: 1
   text: Kontakt aufgenommen
+  order: 2
 
 c:
   band_id: 1
   text: erledigt
+  order: 3

@@ -4,7 +4,7 @@ class Gig < ActiveRecord::Base
 
 	def current_status
 		if status and not status.empty?
-			status.order(:created_at).first.status_value.text
+			StatusValue.find(status.order(:created_at).first.status_value_id).text
 		else
 			""
 		end

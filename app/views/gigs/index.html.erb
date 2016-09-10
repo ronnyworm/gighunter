@@ -7,29 +7,35 @@
 <thead>
   <tr>
     <th>Name</th>
-    <th>Zeit</th>
+    <th>Stagetime</th>
     <th>Status</th>
     <th>Verantwortlich</th>
-    <th colspan="3"></th>
+    <th colspan="2"></th>
   </tr>
 </thead>
 
 <tbody>
   <% @gigs.each do |gig| %>
-      <tr>
-        <td><%= gig.name %></td>
-        <td><%= gig.datetime %></td>
-        <td><%= gig.current_status %></td>
-        <td><%= gig.user.name %></td>
-        <td><%= link_to I18n.t('models.show'), gig %></td>
-        <td><%= link_to I18n.t('models.edit'), edit_gig_path(gig) %></td>
-        <td><%= link_to I18n.t('models.destroy'), gig, method: :delete, data: { confirm: I18n.t('models.confirm_to_destroy') } %></td>
-      </tr>
-    <% end %>
+    <tr>
+      <td><%= gig.name %></td>
+      <td><%= gig.datetime %></td>
+      <td><%= gig.current_status %></td>
+      <td><%= gig.user ? gig.user.name : "(noch niemand)" %></td>
+      <td><%= link_to I18n.t('models.edit'), gig %></td>
+      <td><%= link_to I18n.t('models.destroy'), gig, method: :delete, data: { confirm: I18n.t('models.confirm_to_destroy') } %></td>
+    </tr>
+  <% end %>
+  <%= form_tag "/gigs" do %>
+    <tr>
+      <td><%= text_field_tag :name, nil, class: "form-control", placeholder: "Name" %></td>
+      <td></td>
+      <td><%= select_tag :status_value, options_for_select(@status_values.map { |e| e.text }, @status_values.order(:order).first.text), class: "form-control" %></td>
+      <td><%= select_tag :responsible, options_for_select(@members.map { |e| e.name }, @members.first), class: "form-control" %></td>
+      <td><%= button_tag "Hinzufügen", type: "submit", class: "btn btn-primary" %></td>
+      <td></td>
+      <td></td>
+    </tr>
+  <% end %>
 </tbody>
 </table>
 </div>
-
-<br>
-
-<%= link_to I18n.t('models.new'), new_gig_path, class: "btn btn-default" %>

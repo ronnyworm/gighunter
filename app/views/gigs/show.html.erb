@@ -1,2 +1,33 @@
-<%= link_to I18n.t("models.edit"), edit_gig_path(@gig) %> |
-<%= link_to I18n.t("back"), gigs_path %>
+<h1><%= @gig.name %></h1>
+
+<div class="table-responsive">
+<table class="table table-striped">
+<tbody>
+	<tr>
+		<td><strong>Stagetime</strong></td>
+		<td><%= @gig.datetime %></td>
+	</tr>
+
+	<tr>
+		<td><strong>Status</strong></td>
+		<td><%= @gig.current_status %> (Link zur Historie einfügen oder direkt hier hinschreiben)</td>
+	</tr>
+
+	<tr>
+		<td><strong>Verantwortlich</strong></td>
+		<td><%= @gig.user ? @gig.user.name : "(noch niemand)" %></td>
+	</tr>
+
+	<tr>
+		<td><strong>Link Forum</strong></td>
+		<td><%= @gig.link_forum ? link_to("Link", @gig.link_forum) : "(leer)" %></td>
+	</tr>
+</tbody>
+</table>
+</div>
+
+<h2>Vorhandenes Equipment</h2>
+<p><%= @gig.vorhandenes_equipment ? @gig.vorhandenes_equipment : "(noch nichts eingetragen)" %></p>
+
+<strong>Hier soll kein bearbeiten-Button sein, sondern das soll direkt hier funktionieren! Klick auf Feld - bearbeitbar und speichern-Button erscheint. Im Notfall mit Popup.</strong>
+<%= link_to I18n.t("back"), gigs_path, class: "btn btn-default" %>
