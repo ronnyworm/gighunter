@@ -11,12 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160910081116) do
+ActiveRecord::Schema.define(version: 20160910090754) do
 
   create_table "bands", force: :cascade do |t|
     t.text     "tech_rider"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "name"
   end
 
   create_table "gigs", force: :cascade do |t|
@@ -30,10 +31,18 @@ ActiveRecord::Schema.define(version: 20160910081116) do
     t.integer  "user_id"
   end
 
-  create_table "statuses", force: :cascade do |t|
+  create_table "status_values", force: :cascade do |t|
     t.string   "text"
+    t.integer  "band_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "statuses", force: :cascade do |t|
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "gig_id"
+    t.integer  "status_value_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -51,8 +60,8 @@ ActiveRecord::Schema.define(version: 20160910081116) do
     t.boolean  "admin"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.string   "instrumente"
     t.integer  "band_id"
+    t.string   "instruments"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

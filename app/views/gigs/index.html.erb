@@ -6,13 +6,21 @@
 <table class="table table-striped">
 <thead>
   <tr>
-    <th colspan="3" class="col-md-12"></th>
+    <th>Name</th>
+    <th>Zeit</th>
+    <th>Status</th>
+    <th>Verantwortlich</th>
+    <th colspan="3"></th>
   </tr>
 </thead>
 
 <tbody>
   <% @gigs.each do |gig| %>
       <tr>
+        <td><%= gig.name %></td>
+        <td><%= gig.datetime %></td>
+        <td><%= gig.current_status %></td>
+        <td><%= gig.user.name %></td>
         <td><%= link_to I18n.t('models.show'), gig %></td>
         <td><%= link_to I18n.t('models.edit'), edit_gig_path(gig) %></td>
         <td><%= link_to I18n.t('models.destroy'), gig, method: :delete, data: { confirm: I18n.t('models.confirm_to_destroy') } %></td>

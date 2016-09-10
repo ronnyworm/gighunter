@@ -1,6 +1,8 @@
 class GigsController < ApplicationController
   before_action :set_gig, only: [:show, :edit, :update, :destroy]
 
+  before_action :authenticate_user!
+
   # GET /gigs
   # GET /gigs.json
   def index
@@ -59,6 +61,20 @@ class GigsController < ApplicationController
       format.html { redirect_to gigs_url, notice: I18n.t('models.destroyed') }
       format.json { head :no_content }
     end
+  end
+
+
+
+
+
+
+
+
+
+
+
+  def show_band
+    @members = current_user.band.user
   end
 
   private

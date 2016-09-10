@@ -1,0 +1,27 @@
+<h1><%= current_user.band.name %></h1>
+
+
+
+<div class="table-responsive">
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th>Mitglied</th>
+    <th>Instrumente</th>
+  </tr>
+</thead>
+
+<tbody>
+  <% @members.each do |member| %>
+      <tr>
+        <td><%= member.name %></td>
+        <td><%= member.instruments %></td>
+      </tr>
+    <% end %>
+</tbody>
+</table>
+</div>
+
+<br>
+
+<%= link_to I18n.t('models.new'), new_gig_path, class: "btn btn-default" %>
