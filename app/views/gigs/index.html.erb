@@ -6,6 +6,7 @@
 <table class="table table-striped">
 <thead>
   <tr>
+    <th>Location</th>
     <th>Name</th>
     <th>Stagetime</th>
     <th>Status</th>
@@ -17,6 +18,7 @@
 <tbody>
   <% @gigs.each do |gig| %>
     <tr>
+      <td><%= gig.location ? gig.location.name : "(nicht zugeordnet)" %></td>
       <td><%= gig.name %></td>
       <td><%= gig.datetime %></td>
       <td><%= gig.current_status %></td>
@@ -27,6 +29,7 @@
   <% end %>
   <%= form_tag "/gigs" do %>
     <tr>
+      <td><%= select_tag :location_id, options_for_select(@locations.map { |e| e.name }, @locations.first.name), class: "form-control" %></td>
       <td><%= text_field_tag :name, nil, class: "form-control", placeholder: "Name" %></td>
       <td></td>
       <td><%= select_tag :status_value, options_for_select(@status_values.map { |e| e.text }, @status_values.order(:order).first.text), class: "form-control" %></td>

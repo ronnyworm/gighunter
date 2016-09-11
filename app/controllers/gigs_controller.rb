@@ -10,6 +10,7 @@ class GigsController < ApplicationController
     @gigs = Gig.all
     @status_values = current_user.band.status_value
     @members = current_user.band.user
+    @locations = current_user.band.location
   end
 
   # GET /gigs/1
@@ -29,7 +30,7 @@ class GigsController < ApplicationController
   # POST /gigs
   # POST /gigs.json
   def create
-    @gig = Gig.new(name: params[:name], user_id: User.find_by(name: params[:responsible]))
+    @gig = Gig.new(name: params[:name], user_id: User.find_by(name: params[:responsible]), location_id: Location.find_by(name: params[:location_id]).id)
 
 
     respond_to do |format|

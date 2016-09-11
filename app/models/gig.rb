@@ -3,6 +3,8 @@ class Gig < ActiveRecord::Base
 	has_many :status
 	belongs_to :location
 
+	validates :location_id, presence: true
+
 	def current_status
 		if status and not status.empty?
 			StatusValue.find(status.order(:created_at).first.status_value_id).text
