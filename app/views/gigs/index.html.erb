@@ -25,8 +25,20 @@
       <td><%= gig.datetime %></td>
       <td><%= gig.current_status %></td>
       <td><%= gig.user ? gig.user.name : "(noch niemand)" %></td>
-      <td><%= link_to I18n.t('models.edit'), gig %></td>
-      <td><%= link_to I18n.t('models.destroy'), gig, method: :delete, data: { confirm: I18n.t('models.confirm_to_destroy') } %></td>
+      <td align="center">
+        <%= link_to gig do %>
+          <div style="height:100%;width:100%">
+            <i class="glyphicon glyphicon-edit"></i>
+          </div>
+        <% end %>
+      </td>
+      <td align="center">
+        <%= link_to gig, method: :delete, data: { confirm: I18n.t('models.confirm_to_destroy') } do %>
+          <div style="height:100%;width:100%">
+            <i class="glyphicon glyphicon-remove"></i>
+          </div>
+        <% end %>
+      </td>
     </tr>
   <% end %>
   <%= form_tag "/gigs" do %>
@@ -34,10 +46,14 @@
       <td><%= select_tag :location_id, options_for_select(@locations.map { |e| e.name }, @locations.first.name), class: "form-control" %></td>
       <td><%= text_field_tag :name, nil, class: "form-control", placeholder: "Name" %></td>
       <td></td>
+      <td></td>
       <td><%= select_tag :status_value, options_for_select(@status_values.map { |e| e.text }, @status_values.order(:order).first.text), class: "form-control" %></td>
       <td><%= select_tag :responsible, options_for_select(@members.map { |e| e.name }, @members.first), class: "form-control" %></td>
-      <td><%= button_tag "Hinzufügen", type: "submit", class: "btn btn-primary" %></td>
-      <td></td>
+      <td>
+        <%= button_tag nil, type: "submit", class: "btn btn-primary" do %>
+          <i class="glyphicon glyphicon-plus"></i>
+        <% end %>
+      </td>
       <td></td>
     </tr>
   <% end %>
