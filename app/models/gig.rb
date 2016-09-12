@@ -12,4 +12,28 @@ class Gig < ActiveRecord::Base
 			"(leer)"
 		end
 	end
+
+	def contact
+		if location
+			if location.contactlocation
+				if location.contactlocation.first
+					if location.contactlocation.first.contact
+						c = location.contactlocation.first.contact
+						return c
+					end
+				end
+			end
+		end
+
+		nil
+	end
+
+	def contact_summary
+		c = contact
+		if c
+			"#{c.name} (#{c.email})"
+		else
+			"(nicht zugeordnet)"
+		end
+	end
 end

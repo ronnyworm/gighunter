@@ -8,6 +8,7 @@
   <tr>
     <th>Location</th>
     <th>Name</th>
+    <th>Kontakt</th>
     <th>Stagetime</th>
     <th>Status</th>
     <th>Verantwortlich</th>
@@ -20,6 +21,7 @@
     <tr>
       <td><%= gig.location ? gig.location.name : "(nicht zugeordnet)" %></td>
       <td><%= gig.name %></td>
+      <td><%= gig.contact ? gig.contact.name : "(leer)" %></td>
       <td><%= gig.datetime %></td>
       <td><%= gig.current_status %></td>
       <td><%= gig.user ? gig.user.name : "(noch niemand)" %></td>

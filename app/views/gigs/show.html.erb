@@ -9,13 +9,18 @@
 	</tr>
 
 	<tr>
+		<td><strong>Kontakt</strong></td>
+		<td><%= @gig.contact_summary  %></td>
+	</tr>
+
+	<tr>
 		<td><strong>Stagetime</strong></td>
 		<td><%= @gig.datetime %></td>
 	</tr>
 
 	<tr>
 		<td><strong>Status</strong></td>
-		<td><%= @gig.current_status %> (Link zur Historie einfügen oder direkt hier hinschreiben)</td>
+		<td><%= @gig.current_status %> <em>(Link zur Historie einfügen oder direkt hier hinschreiben)</em></td>
 	</tr>
 
 	<tr>

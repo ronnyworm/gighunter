@@ -17,7 +17,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><%= link_to 'Gigs', gigs_path if current_user %></li>
-        <li><%= link_to 'Kontaktpersonen', contacts_path if current_user %></li>
+        <li><%= link_to 'Kontakte', contacts_path if current_user %></li>
         <li><%= link_to 'Locations', locations_path if current_user %></li>
         <li><%= link_to 'Band', "/band/#{current_user.band.id}" if current_user %></li>
         <li><%= link_to 'Einstellungen', "/settings" if current_user %></li>
