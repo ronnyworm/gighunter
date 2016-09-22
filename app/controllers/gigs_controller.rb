@@ -30,7 +30,17 @@ class GigsController < ApplicationController
   # POST /gigs
   # POST /gigs.json
   def create
+
     @gig = Gig.new(name: params[:name], user_id: User.find_by(name: params[:responsible]), location_id: Location.find_by(name: params[:location_id]).id)
+
+    datetime = params[:datetime]
+    if datetime !~ /\d\d\d\d-\d\d-\d\d \d\d:\d\d/
+      @gig.errors.add(:datetime, " hat das falsche Format!")
+      render :new
+      return
+    end
+
+    @gig[:datetime] = DateTime.parse(datetime)
 
 
     respond_to do |format|

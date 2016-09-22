@@ -22,7 +22,7 @@
       <td><%= gig.location ? gig.location.name : "(nicht zugeordnet)" %></td>
       <td><%= gig.name %></td>
       <td><%= gig.contact ? gig.contact.name : "(leer)" %></td>
-      <td><%= gig.datetime %></td>
+      <td><%= readable_datetime(gig.datetime) %></td>
       <td><%= gig.current_status %></td>
       <td><%= gig.user ? gig.user.name : "(noch niemand)" %></td>
       <td align="center">
@@ -46,7 +46,7 @@
       <td><%= select_tag :location_id, options_for_select(@locations.map { |e| e.name }, @locations.first.name), class: "form-control" %></td>
       <td><%= text_field_tag :name, nil, class: "form-control", placeholder: "Name" %></td>
       <td></td>
-      <td></td>
+      <td><%= text_field_tag :datetime, nil, class: "form-control", placeholder: "JJJJ-MM-TT SS:MM" %></td>
       <td><%= select_tag :status_value, options_for_select(@status_values.map { |e| e.text }, @status_values.order(:order).first.text), class: "form-control" %></td>
       <td><%= select_tag :responsible, options_for_select(@members.map { |e| e.name }, @members.first), class: "form-control" %></td>
       <td>

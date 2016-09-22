@@ -15,7 +15,7 @@
 
 	<tr>
 		<td><strong>Stagetime</strong></td>
-		<td><%= @gig.datetime %></td>
+		<td><%= readable_datetime(@gig.datetime) %></td>
 	</tr>
 
 	<tr>
@@ -45,4 +45,6 @@
 <p><%= @gig.vorhandenes_equipment ? @gig.vorhandenes_equipment : "(noch nichts eingetragen)" %></p>
 
 <strong>Hier soll kein bearbeiten-Button sein, sondern das soll direkt hier funktionieren! Klick auf Feld - bearbeitbar und speichern-Button erscheint. Im Notfall mit Popup.</strong>
+
+<br>
 <%= link_to I18n.t("back"), gigs_path, class: "btn btn-default" %>
