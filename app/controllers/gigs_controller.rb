@@ -21,36 +21,30 @@ class GigsController < ApplicationController
   # GET /gigs/new
   def new
     @gig = Gig.new
+
+    set_contact_and_location
   end
 
   # GET /gigs/1/edit
   def edit
+    set_contact_and_location
   end
 
   # POST /gigs
   # POST /gigs.json
   def create
+    gig_params = set_attributes
 
-    @gig = Gig.new(name: params[:name], user_id: User.find_by(name: params[:responsible]), location_id: Location.find_by(name: params[:location_id]).id)
+    @gig = Gig.new(gig_params)
 
-    datetime = params[:datetime]
-    if datetime !~ /\d\d\d\d-\d\d-\d\d \d\d:\d\d/ and datetime !~ /\d\d\d\d-\d\d-\d\d/
-      @gig.errors.add(:datetime, " hat das falsche Format!")
-      render :new
-      return
-    end
-
-    @gig[:datetime] = ActiveSupport::TimeZone[Rails.application.config.time_zone].parse(datetime)
-
-
+    binding.pry
 
     respond_to do |format|
       if @gig.save
 
+        Status.create(gig_id: @gig.id, status_value_id: StatusValue.find_by(text: @status).id)
 
-        Status.create(gig_id: @gig.id, status_value_id: StatusValue.find_by(text: params[:status_value]).id)
-
-        format.html { redirect_to @gig, notice: I18n.t('models.created') }
+        format.html { redirect_to edit_gig_path(@gig), notice: I18n.t('models.created') }
         format.json { render :show, status: :created, location: @gig }
       else
         format.html { render :new }
@@ -62,9 +56,11 @@ class GigsController < ApplicationController
   # PATCH/PUT /gigs/1
   # PATCH/PUT /gigs/1.json
   def update
+    gig_params = set_attributes
+
     respond_to do |format|
       if @gig.update(gig_params)
-        format.html { redirect_to @gig, notice: I18n.t('models.updated') }
+        format.html { redirect_to edit_gig_path(@gig), notice: I18n.t('models.updated') }
         format.json { render :show, status: :ok, location: @gig }
       else
         format.html { render :edit }
@@ -95,7 +91,7 @@ class GigsController < ApplicationController
   end
 
   def locations
-    @locations = current_user.band.location
+    @locations = Location.all
   end
 
   def post_locations
@@ -105,7 +101,7 @@ class GigsController < ApplicationController
   end
 
   def contacts
-    @contacts = current_user.band.contact
+    @contacts = Contact.all
   end
 
   def post_contacts
@@ -128,5 +124,68 @@ class GigsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_gig
       @gig = Gig.find(params[:id])
+    end
+
+    def set_contact_and_location
+      if @gig.location
+        params[:locationname] = @gig.location.name
+        params[:locationisfestival] = @gig.location.festival
+        params[:locationaddress] = @gig.location.address
+        params[:locationwebsite] = @gig.location.website
+      end
+
+      if @gig.contact
+        params[:contactname] = @gig.contact.name
+        params[:contactemail] = @gig.contact.email
+        params[:contactphone] = @gig.contact.telephone
+        params[:contactinfo] = @gig.contact.info
+      end
+    end
+
+    def set_attributes
+      unless params[:gig]
+        raise "Wir brauchen params[:gig]!"
+      end
+
+      name = params[:gig][:name]
+      datetime = params[:gig][:datetimereadable]
+      if datetime !~ /(\d\d\d\d-\d\d-\d\d \d\d:\d\d)|(\d\d\d\d-\d\d-\d\d)/
+        datetime = nil
+      end
+
+      datetime = ActiveSupport::TimeZone[Rails.application.config.time_zone].parse(datetime)    
+      vorhandenes_equipment = params[:gig][:vorhandenes_equipment]
+      stagesize = params[:gig][:stagesize]
+      link_forum = params[:gig][:link_forum]
+      user_id = User.find_by(name: params[:gig][:user]).id
+      @status = params[:gig][:status]
+
+      # contact
+      contactname = params[:contactname]
+      contact = Contact.find_by(name: contactname)
+      unless contact
+        contact = Contact.create(name: contactname, email: params[:contactemail], telephone: params[:contactphone], info: params[:contactinfo])
+      end
+
+      # location
+      locationname = params[:locationname]
+      location = Location.find_by(name: locationname)
+      if not location
+        location = Location.create(name: locationname, address: params[:locationaddress], website: params[:locationwebsite], festival: params[:locationisfestival])
+
+        Contactlocation.create(location_id: location.id, contact_id: contact.id)
+      elsif not Contactlocation.find_by(location_id: location.id, contact_id: contact.id)
+        Contactlocation.create(location_id: location.id, contact_id: contact.id)
+      end
+
+      {
+        name: name,
+        datetime: datetime,
+        vorhandenes_equipment: vorhandenes_equipment,
+        stagesize: stagesize,
+        link_forum: link_forum,
+        user_id: user_id,
+        location_id: location.id
+      }
     end
 end

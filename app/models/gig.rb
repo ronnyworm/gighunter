@@ -6,6 +6,7 @@ class Gig < ActiveRecord::Base
 	validates :location_id, presence: true
 	validates :name, presence: true
 	validates :datetime, presence: true
+	validates_format_of :datetime, :with => /(\d\d\d\d-\d\d-\d\d \d\d:\d\d)|(\d\d\d\d-\d\d-\d\d)/
 
 	def current_status
 		if status and not status.empty?
@@ -30,6 +31,14 @@ class Gig < ActiveRecord::Base
 		nil
 	end
 
+	def datetimereadable
+		if datetime
+			datetime.strftime("%Y-%m-%d %H:%M")
+		else
+			""
+		end
+	end
+	
 	def contact_summary
 		c = contact
 		if c

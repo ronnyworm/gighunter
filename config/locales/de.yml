@@ -22,7 +22,8 @@
 de:
   errors:
     messages:
-      blank: "muss angegeben werden!"
+      blank: "muss angegeben werden ..."
+      invalid: "hat ein ungültiges Format ..."
       could_not_be_saved:
         one: "Ein Fehler ist leider aufgetreten ..."
         other: "Es sind leider %{count} Fehler aufgetreten ..."

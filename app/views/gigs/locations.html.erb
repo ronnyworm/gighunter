@@ -10,6 +10,7 @@
     <th>Adresse</th>
     <th>Website</th>
     <th>Festival?</th>
+    <th>Kontakt</th>
     <th colspan="2"></th>
   </tr>
 </thead>
@@ -21,6 +22,7 @@
       <td><%= location.address %></td>
       <td><%= location.website %></td>
       <td><%= location.festival ? "ja" : "nein" %></td>
+      <td><%= location.contact_summary %></td>
       <td></td>
     </tr>
   <% end %>
@@ -31,6 +33,7 @@
       <td><%= text_field_tag :website, nil, class: "form-control", placeholder: "Website" %></td>
       
       <td><%= check_box_tag :festival, class: "form-control" %></td>
+      <td></td>
       <td><%= button_tag "Hinzufügen", type: "submit", class: "btn btn-primary" %></td>
     </tr>
   <% end %>

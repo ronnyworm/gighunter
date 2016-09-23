@@ -1,3 +1,8 @@
+<% 
+    @status_values = current_user.band.status_value
+    @members = current_user.band.user
+%>
+
 <%= form_for(@gig) do |f| %>
   <% if @gig.errors.any? %>
     <div id="error_explanation">
@@ -11,7 +16,106 @@
     </div>
   <% end %>
 
-  <p>Hier ganz viele Felder machen, damit mit einem Speichern der Gig komplett fertig angelegt ist.</p>
+  <div class="form-group row">
+    <div class="col-md-6">
+      <%= f.label :name, "Name" %><br />
+      <%= f.text_field :name, placeholder: "Bei einem Festival nur das Jahr", autofocus: true, class: "form-control" %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :datetimereadable, "Stagetime" %><br />
+      <%= f.text_field :datetimereadable, placeholder: "JJJJ-MM-TT (SS:MM)", class: "form-control" %><br />
+      <span>Wenn du die Uhrzeit noch nicht weißt, lass sie einfach weg ;)<br />
+      (Ein Datum solltest du trotzdem schon angeben)<br />
+      Wenn du den Tag noch nicht weißt, gib für ihn einfach 01 ein.</span>
+
+    </div>
+  </div>
+
+
+
+  <h3>Location</h3>
+  <% if is_active? "gigs#edit" %>
+    <p>ℹ️&nbsp;&nbsp;um etwas an der Location selbst zu ändern, gehe bitte in die Ansicht für Locations.</p>
+  <% end %>
+  <div class="form-group row">
+    <div class="col-md-6">
+      <%= label_tag :locationname, "Name" %><br />
+      <%= text_field_tag :locationname, nil, placeholder: "Bei einem Festival der Name", class: "form-control", value: params[:locationname] %>
+    </div>
+    <div class="col-md-6">
+      <%= label_tag :locationaddress, "Adresse" %><br />
+      <%= text_field_tag :locationaddress, nil, placeholder: "(lass das leer, wenn es die Location schon gibt)", class: "form-control", value: params[:locationaddress] %>
+    </div>
+    <div class="col-md-6">
+      <%= label_tag :locationwebsite, "Website" %><br />
+      <%= text_field_tag :locationwebsite, nil, placeholder: "(lass das leer, wenn es die Location schon gibt)", class: "form-control", value: params[:locationwebsite] %>
+    </div>
+
+    <div class="col-md-6">
+      <br />
+      <%= label_tag :locationisfestival, "Ist ein Festival?" %>
+      <%= check_box_tag :locationisfestival, nil, class: "form-control", value: params[:locationisfestival] %>
+    </div>
+  </div>
+
+
+
+  <h3>Kontakt</h3>
+  <% if is_active? "gigs#edit" %>
+    <p>ℹ️&nbsp;&nbsp;um etwas am Kontakt selbst zu ändern, gehe bitte in die Ansicht für Kontakte.</p>
+  <% end %>
+  <div class="form-group row">
+    <div class="col-md-6">
+      <%= label_tag :contactname, "Name" %><br />
+      <%= text_field_tag :contactname, nil, class: "form-control", value: params[:contactname] %>
+    </div>
+
+    <div class="col-md-6">
+      <%= label_tag :contactemail, "E-Mail" %><br />
+      <%= email_field_tag :contactemail, nil, placeholder: "(lass das leer, wenn es den Kontakt schon gibt)", class: "form-control", value: params[:contactemail] %>
+    </div>
+
+    <div class="col-md-6">
+      <%= label_tag :contactphone, "Telefon" %><br />
+      <%= text_field_tag :contactphone, nil, placeholder: "(lass das leer, wenn es den Kontakt schon gibt)", class: "form-control", value: params[:contactphone] %>
+    </div>
+
+    <div class="col-md-6">
+      <%= label_tag :contactinfo, "weitere Info" %><br />
+      <%= text_field_tag :contactinfo, nil, placeholder: "(lass das leer, wenn es den Kontakt schon gibt)", class: "form-control", value: params[:contactinfo] %>
+    </div>
+  </div>
+
+
+
+  <h3>Weitere Info zum Gig</h3>
+  <div class="form-group row">
+    <div class="col-md-6">
+      <%= f.label :status, "Status" %><br />
+      <%= f.select :status, options_for_select(@status_values.map { |e| e.text }, @status_values.order(:order).first.text), {}, class: "form-control" %>
+    </div>
+    <div class="col-md-6">
+      <%= f.label :user, "Verantwortlich" %><br />
+      <%= f.select :user, options_for_select(@members.map { |e| e.name }, @members.first), {}, class: "form-control" %>
+    </div>
+    <div class="col-md-6">
+      <%= f.label :link_forum, "Link" %><br />
+      <%= f.text_field :link_forum, placeholder: "zB zum Forum", class: "form-control" %>
+    </div>
+    <div class="col-md-6">
+      <%= f.label :stagesize, "Bühnengröße" %><br />
+      <%= f.text_field :stagesize, placeholder: "zB: 4 x 8m", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+      <%= f.label :vorhandenes_equipment, "Vorhandenes Equipment" %><br />
+      <%= f.text_area :vorhandenes_equipment, cols: "40", rows: "6", class: "form-control" %>
+  </div>
+
+
+  
 
   <div class="actions">
     <%= f.submit I18n.t("save"), class: "btn btn-primary" %>
