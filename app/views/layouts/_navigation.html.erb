@@ -16,11 +16,11 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><%= link_to 'Gigs', gigs_path if current_user %></li>
-        <li><%= link_to 'Kontakte', contacts_path if current_user %></li>
-        <li><%= link_to 'Locations', locations_path if current_user %></li>
-        <li><%= link_to 'Band', "/band/#{current_user.band.id}" if current_user %></li>
-        <li><%= link_to 'Einstellungen', "/settings" if current_user %></li>
+        <li<%= is_active?("gigs#index|new|edit") ? raw(" class='active'") : "" %>><%= link_to 'Gigs', gigs_path if current_user %></li>
+        <li<%= is_active?("gigs#locations") ? raw(" class='active'") : "" %>><%= link_to 'Locations', locations_path if current_user %></li>
+        <li<%= is_active?("gigs#contacts") ? raw(" class='active'") : "" %>><%= link_to 'Kontakte', contacts_path if current_user %></li>
+        <li<%= is_active?("gigs#band") ? raw(" class='active'") : "" %>><%= link_to 'Band', "/band/#{current_user.band.id}" if current_user %></li>
+        <li<%= is_active?("gigs#settings") ? raw(" class='active'") : "" %>><%= link_to 'Einstellungen', "/settings" if current_user %></li>
       </ul>
     </div>
   </div>
