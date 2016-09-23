@@ -5,6 +5,7 @@ class Gig < ActiveRecord::Base
 
 	validates :location_id, presence: true
 	validates :name, presence: true
+	validates :datetime, presence: true
 
 	def current_status
 		if status and not status.empty?
