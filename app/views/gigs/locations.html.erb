@@ -18,11 +18,18 @@
 <tbody>
   <% @locations.each do |location| %>
     <tr>
-      <td><%= location.name %></td>
-      <td><%= location.address %></td>
-      <td><%= location.website %></td>
-      <td><%= location.festival ? "ja" : "nein" %></td>
-      <td><%= location.contact_summary %></td>
+      <td id="name-<%= location.id %>"><%= location.name %></td>
+      <td id="address-<%= location.id %>"><%= location.address %></td>
+      <td id="website-<%= location.id %>"><%= location.website %></td>
+      <td id="festival-<%= location.id %>"><%= location.festival ? "ja" : "nein" %></td>
+      <td id="contact-<%= location.id %>"><%= location.contact_summary %></td>
+      <td align="center">
+        <%= link_to "#", "data-toggle" => "modal", "data-target" => "#locationBearbeitenPopup", id: "location-#{location.id}" do %>
+          <div style="height:100%;width:100%">
+            <i class="glyphicon glyphicon-edit"></i>
+          </div>
+        <% end %>
+      </td>
       <td></td>
     </tr>
   <% end %>
@@ -40,3 +47,6 @@
 </table>
 </div>
 <% end %>
+
+
+<%= render "location_bearbeiten_popup" %>

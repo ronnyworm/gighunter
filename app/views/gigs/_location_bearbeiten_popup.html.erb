@@ -1,0 +1,45 @@
+<!-- Modal -->
+<div id="locationBearbeitenPopup" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Location bearbeiten</h4>
+      </div>
+
+      <%= form_tag "/gigs/edit_location" do %>
+        <div class="modal-body">
+          <div class="form-group row">
+            <div class="col-md-6">
+              <%= label_tag :locationname, "Name" %><br />
+              <%= text_field_tag :locationname, nil, placeholder: "Bei einem Festival der Name", class: "form-control", value: params[:locationname] %>
+            </div>
+            <div class="col-md-6">
+              <%= label_tag :locationaddress, "Adresse" %><br />
+              <%= text_field_tag :locationaddress, nil, placeholder: "(lass das leer, wenn es die Location schon gibt)", class: "form-control", value: params[:locationaddress] %>
+            </div>
+            <div class="col-md-6">
+              <%= label_tag :locationwebsite, "Website" %><br />
+              <%= text_field_tag :locationwebsite, nil, placeholder: "(lass das leer, wenn es die Location schon gibt)", class: "form-control", value: params[:locationwebsite] %>
+            </div>
+
+            <div class="col-md-6">
+              <br />
+              <%= label_tag "Ist ein Festival?" %>
+              <%= check_box_tag :locationisfestival, nil, params[:locationisfestival]%>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <%= button_tag type: "submit", class: "btn btn-primary" do %>
+            Speichern
+          <% end %>
+        </div>
+      <% end %>
+     
+    </div>
+
+  </div>
+</div>
