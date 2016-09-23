@@ -10,9 +10,9 @@ class Gig < ActiveRecord::Base
 
 	def current_status
 		if status and not status.empty?
-			StatusValue.find(status.order(:created_at).first.status_value_id).text
+			StatusValue.find(status.order(:created_at).last.status_value_id).text
 		else
-			"(leer)"
+			nil
 		end
 	end
 

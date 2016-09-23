@@ -37,8 +37,6 @@ class GigsController < ApplicationController
 
     @gig = Gig.new(gig_params)
 
-    binding.pry
-
     respond_to do |format|
       if @gig.save
 
@@ -60,6 +58,11 @@ class GigsController < ApplicationController
 
     respond_to do |format|
       if @gig.update(gig_params)
+
+        if @gig.current_status != @status
+          Status.create(gig_id: @gig.id, status_value_id: StatusValue.find_by(text: @status).id)
+        end
+
         format.html { redirect_to edit_gig_path(@gig), notice: I18n.t('models.updated') }
         format.json { render :show, status: :ok, location: @gig }
       else
@@ -127,6 +130,8 @@ class GigsController < ApplicationController
     end
 
     def set_contact_and_location
+      @status = @gig.current_status
+
       if @gig.location
         params[:locationname] = @gig.location.name
         params[:locationisfestival] = @gig.location.festival

@@ -4,6 +4,7 @@ class Location < ActiveRecord::Base
 	belongs_to :band
 
 	validates :name, presence: true
+	validates :festival, presence: true
 	validates :name, uniqueness: true
 	validates :address, uniqueness: true
 	validates :website, uniqueness: true
