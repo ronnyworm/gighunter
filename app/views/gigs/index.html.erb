@@ -1,13 +1,12 @@
 <h1>Gigs</h1>
 
-
-<%= form_tag "/gigs" do %>
 <div class="table-responsive">
 <table class="table table-striped">
 <thead>
   <tr>
     <th>Location</th>
     <th>Name</th>
+    <th>Adresse</th>
     <th>Kontakt</th>
     <th>Stagetime</th>
     <th>Status</th>
@@ -21,12 +20,13 @@
     <tr>
       <td><%= gig.location ? gig.location.name : "(nicht zugeordnet)" %></td>
       <td><%= gig.name %></td>
-      <td><%= gig.contact ? gig.contact.name : "(leer)" %></td>
+      <td><%= gig.location ? gig.location.address : "(unklar)" %></td>
+      <td><%= gig.contact ? gig.contact_summary : "(leer)" %></td>
       <td><%= readable_datetime(gig.datetime) %></td>
       <td><%= gig.current_status %></td>
       <td><%= gig.user ? gig.user.name : "(noch niemand)" %></td>
       <td align="center">
-        <%= link_to gig do %>
+        <%= link_to edit_gig_path(gig) do %>
           <div style="height:100%;width:100%">
             <i class="glyphicon glyphicon-edit"></i>
           </div>
@@ -41,24 +41,8 @@
       </td>
     </tr>
   <% end %>
-  
-    <tr>
-      <td><%= select_tag :location_id, options_for_select(@locations.map { |e| e.name }, @locations.first.name), class: "form-control" %></td>
-      <td><%= text_field_tag :name, nil, class: "form-control", placeholder: "Name" %></td>
-      <td></td>
-      <td><%= text_field_tag :datetime, nil, class: "form-control", placeholder: "JJJJ-MM-TT SS:MM" %></td>
-      <td><%= select_tag :status_value, options_for_select(@status_values.map { |e| e.text }, @status_values.order(:order).first.text), class: "form-control" %></td>
-      <td><%= select_tag :responsible, options_for_select(@members.map { |e| e.name }, @members.first), class: "form-control" %></td>
-      <td>
-        <%= button_tag nil, type: "submit", class: "btn btn-default" do %>
-          <i class="glyphicon glyphicon-plus"></i>
-        <% end %>
-      </td>
-      <td></td>
-    </tr>
 </tbody>
 </table>
 </div>
-<% end %>
 
 <%= link_to "Anlegen", new_gig_path, class: "btn btn-primary" %>
