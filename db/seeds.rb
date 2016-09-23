@@ -5,3 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+# Jede neue Band sollte diese Werte zunächst zur Verfügung gestellt bekommen, damit sie direkt beginnen kann, die Anwendung zu nutzen
+StatusValue.create(band_id: 1, text: "unbearbeitet", order: 1)
+StatusValue.create(band_id: 1, text: "Kontakt aufgenommen", order: 2)
+StatusValue.create(band_id: 1, text: "erledigt", order: 3)

@@ -4,18 +4,3 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-
-a:
-  band_id: 1
-  text: unbearbeitet
-  order: 1
-
-b:
-  band_id: 1
-  text: Kontakt aufgenommen
-  order: 2
-
-c:
-  band_id: 1
-  text: erledigt
-  order: 3
