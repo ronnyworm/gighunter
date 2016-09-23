@@ -20,6 +20,12 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 de:
+  errors:
+    messages:
+      blank: "muss angegeben werden!"
+      could_not_be_saved:
+        one: "Ein Fehler ist leider aufgetreten ..."
+        other: "Es sind leider %{count} Fehler aufgetreten ..."
   date:
     order: [ !ruby/symbol day, !ruby/symbol month, !ruby/symbol year ]
     month_names:

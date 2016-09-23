@@ -1,7 +1,7 @@
 <h1>Gigs</h1>
 
 
-
+<%= form_tag "/gigs" do %>
 <div class="table-responsive">
 <table class="table table-striped">
 <thead>
@@ -41,7 +41,7 @@
       </td>
     </tr>
   <% end %>
-  <%= form_tag "/gigs" do %>
+  
     <tr>
       <td><%= select_tag :location_id, options_for_select(@locations.map { |e| e.name }, @locations.first.name), class: "form-control" %></td>
       <td><%= text_field_tag :name, nil, class: "form-control", placeholder: "Name" %></td>
@@ -56,9 +56,9 @@
       </td>
       <td></td>
     </tr>
-  <% end %>
 </tbody>
 </table>
 </div>
+<% end %>
 
 <%= link_to "Anlegen", new_gig_path, class: "btn btn-primary" %>
