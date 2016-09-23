@@ -2,6 +2,7 @@
 
 
 
+<%= form_tag "/contacts" do %>
 <div class="table-responsive">
 <table class="table table-striped">
 <thead>
@@ -24,16 +25,16 @@
       <td></td>
     </tr>
   <% end %>
-  <%= form_tag "/contacts" do %>
-    <tr>
-      <td><%= text_field_tag :name, nil, class: "form-control", placeholder: "Name" %></td>
-      <td><%= email_field_tag :email, nil, class: "form-control", placeholder: "E-Mail" %></td>
-      <td><%= text_field_tag :telephone, nil, class: "form-control", placeholder: "Telefon" %></td>
-      
-      <td><%= text_field_tag :info, nil, class: "form-control", placeholder: "weitere Info" %></td>
-      <td><%= button_tag "Hinzufügen", type: "submit", class: "btn btn-primary" %></td>
-    </tr>
-  <% end %>
+
+  <tr>
+    <td><%= text_field_tag :name, nil, class: "form-control", placeholder: "Name" %></td>
+    <td><%= email_field_tag :email, nil, class: "form-control", placeholder: "E-Mail" %></td>
+    <td><%= text_field_tag :telephone, nil, class: "form-control", placeholder: "Telefon" %></td>
+    
+    <td><%= text_field_tag :info, nil, class: "form-control", placeholder: "weitere Info" %></td>
+    <td><%= button_tag "Hinzufügen", type: "submit", class: "btn btn-primary" %></td>
+  </tr>
 </tbody>
 </table>
 </div>
+<% end %>

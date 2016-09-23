@@ -1,7 +1,6 @@
 class Location < ActiveRecord::Base
 	has_many :gig
 	has_many :contactlocation
-	belongs_to :band
 
 	validates :name, presence: true
 	validates :festival, presence: true

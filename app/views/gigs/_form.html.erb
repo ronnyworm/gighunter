@@ -1,5 +1,5 @@
 <% 
-    @status_values = current_user.band.status_value
+    @status_values = StatusValue.all
     @members = current_user.band.user
 %>
 

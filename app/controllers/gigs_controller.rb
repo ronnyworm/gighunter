@@ -8,9 +8,9 @@ class GigsController < ApplicationController
   def index
     # hier muss noch korrigiert werden, dass nur die Gigs der aktuellen Band angezeigt werden
     @gigs = Gig.all
-    @status_values = current_user.band.status_value
+    @status_values = StatusValue.all
     @members = current_user.band.user
-    @locations = current_user.band.location
+    @locations = Location.all
   end
 
   # GET /gigs/1
@@ -98,7 +98,7 @@ class GigsController < ApplicationController
   end
 
   def post_locations
-    Location.create(band_id: current_user.band.id, name: params[:name], address: params[:address], festival: params[:festival], website: params[:website])
+    Location.create(name: params[:name], address: params[:address], festival: params[:festival], website: params[:website])
 
     redirect_to locations_path, notice: "Die Location wurde gespeichert."
   end
@@ -108,17 +108,17 @@ class GigsController < ApplicationController
   end
 
   def post_contacts
-    Contact.create(band_id: current_user.band.id, name: params[:name], email: params[:email], telephone: params[:telephone], info: params[:info])
+    Contact.create(name: params[:name], email: params[:email], telephone: params[:telephone], info: params[:info])
 
     redirect_to contacts_path, notice: "Der Kontakt wurde gespeichert."
   end
 
   def settings
-    @status_values = current_user.band.status_value
+    @status_values = StatusValue.all
   end
 
   def post_settings
-    StatusValue.create(band_id: current_user.band.id, text: params[:text], order: params[:order])
+    StatusValue.create(text: params[:text], order: params[:order])
 
     redirect_to settings_path, notice: "Die Einstellungen wurden geändert."
   end

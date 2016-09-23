@@ -1,7 +1,7 @@
 <h1>Locations</h1>
 
 
-
+<%= form_tag "/locations" do %>
 <div class="table-responsive">
 <table class="table table-striped">
 <thead>
@@ -26,17 +26,17 @@
       <td></td>
     </tr>
   <% end %>
-  <%= form_tag "/locations" do %>
-    <tr>
-      <td><%= text_field_tag :name, nil, class: "form-control", placeholder: "Name" %></td>
-      <td><%= text_field_tag :address, nil, class: "form-control", placeholder: "Adresse" %></td>
-      <td><%= text_field_tag :website, nil, class: "form-control", placeholder: "Website" %></td>
-      
-      <td><%= check_box_tag :festival, class: "form-control" %></td>
-      <td></td>
-      <td><%= button_tag "Hinzufügen", type: "submit", class: "btn btn-primary" %></td>
-    </tr>
-  <% end %>
+  
+  <tr>
+    <td><%= text_field_tag :name, nil, class: "form-control", placeholder: "Name" %></td>
+    <td><%= text_field_tag :address, nil, class: "form-control", placeholder: "Adresse" %></td>
+    <td><%= text_field_tag :website, nil, class: "form-control", placeholder: "Website" %></td>
+    
+    <td><%= check_box_tag :festival, nil, false, class: "form-control" %></td>
+    <td></td>
+    <td><%= button_tag "Hinzufügen", type: "submit", class: "btn btn-primary" %></td>
+  </tr>
 </tbody>
 </table>
 </div>
+<% end %>
