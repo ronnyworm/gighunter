@@ -12,3 +12,5 @@ StatusValue.create(text: "Kontakt aufgenommen", order: 2)
 StatusValue.create(text: "erledigt", order: 3)
 
 Band.create(name: "Band")
+
+Email.create(is_template: true, subject: "Betreff", text: "E-Mail-Text")

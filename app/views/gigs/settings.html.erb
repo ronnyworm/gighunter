@@ -45,15 +45,15 @@
 
 <p>Folgende Variablen kannst du im Betreff und im Text nutzen (du musst aber nicht):</p>
 <ul>
-  <li><strong>contact-name:</strong> hier wird vor dem Versand der volle Name des Kontakts eingefügt.</li>
-  <li><strong>location-name:</strong> hier wird vor dem Versand der Name der Location eingefügt. Wenn es sich um ein Festival handelt (zB Bonebreaker), wird der Name und der Text <em>-<nobr>Festival</em> eingefügt (zB Bonebreaker-Festival).</li>
+  <li><strong>$contact-name$</strong> hier wird vor dem Versand der volle Name des Kontakts eingefügt.</li>
+  <li><strong>$location-name$</strong> hier wird vor dem Versand der Name der Location eingefügt. Wenn es sich um ein Festival handelt (zB Bonebreaker), wird der Name und der Text <em>-<nobr>Festival</em> eingefügt (zB Bonebreaker-Festival).</li>
 </ul>
 <p>Du kannst dir vor dem Versand jede E-Mail noch einmal ansehen.</p>
 
-<%= label_tag :subject, "Betreff:" %><br />
-<%= text_field_tag :subject, nil, class: "form-control", value: @template_subject %>
-<%= text_area_tag :text, nil, placeholder: "E-Mail-Text", cols: "40", rows: "30", class: "form-control", value: @template_text %>
+<%= text_field_tag :subject, @template_subject, class: "form-control", placeholder: "Betreff" %>
+<%= text_area_tag :text, @template_text, placeholder: "E-Mail-Text", cols: "40", rows: "30", class: "form-control" %>
 
+<%= button_tag "Vorlage speichern", type: "submit", class: "btn btn-primary" %>
 
 
 <% end %>

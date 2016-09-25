@@ -169,6 +169,10 @@ class GigsController < ApplicationController
 
   def settings
     @status_values = StatusValue.all
+    t = Email.get_template
+
+    @template_subject = t.subject
+    @template_text = t.text
   end
 
   def edit_status
@@ -195,10 +199,15 @@ class GigsController < ApplicationController
   end
 
   def edit_template
-    if email.save
+    template = Email.get_template
+
+    template[:subject] = params[:subject]
+    template[:text] = params[:text]
+
+    if template.save
       redirect_to settings_path, notice: "Die E-Mail-Vorlage wurde geändert."
     else
-      redirect_to settings_path, alert: "Die E-Mail-Vorlage konnte nicht geändert werden: #{email.errors.full_messages.join("; ")}"
+      redirect_to settings_path, alert: "Die E-Mail-Vorlage konnte nicht geändert werden: #{template.errors.full_messages.join("; ")}"
     end
   end
 
