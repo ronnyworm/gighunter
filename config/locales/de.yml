@@ -24,6 +24,7 @@ de:
     messages:
       blank: "muss angegeben werden ..."
       invalid: "hat ein ungültiges Format ..."
+      taken: "gibt es schon einmal, muss aber einzigartig sein."
       could_not_be_saved:
         one: "Ein Fehler ist leider aufgetreten ..."
         other: "Es sind leider %{count} Fehler aufgetreten ..."

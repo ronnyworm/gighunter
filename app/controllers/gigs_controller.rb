@@ -114,9 +114,14 @@ class GigsController < ApplicationController
   end
 
   def post_locations
-    Location.create(name: params[:name], address: params[:address], festival: params[:festival], website: params[:website])
+    l = Location.create(name: params[:name], address: params[:address], festival: params[:festival], website: params[:website])
 
-    redirect_to locations_path, notice: "Die Location wurde gespeichert."
+    if l.errors.empty?
+      redirect_to locations_path, notice: "Die Location wurde gespeichert."
+    else
+      redirect_to locations_path, notice: "Die Location konnte nicht gespeichert werden: #{l.errors.full_messages.join(";")}"
+    end
+
   end
 
   def contacts

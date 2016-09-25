@@ -4,8 +4,6 @@ class Location < ActiveRecord::Base
 
 	validates :name, presence: true
 	validates :name, uniqueness: true
-	validates :address, uniqueness: true
-	validates :website, uniqueness: true
 
 	def contact
 		if contactlocation
