@@ -25,5 +25,7 @@ $(document).ready(function(){
 		$("#currentaddress").val($("#address-" + currentLocation).html());
 		$("#currentwebsite").val($("#website-" + currentLocation).html());
 		$("#currentfestival").prop("checked", $("#festival-" + currentLocation).html() == "ja");
+
+		$("#currentcontact").val($("#contact-" + currentLocation).html());
     });
 });

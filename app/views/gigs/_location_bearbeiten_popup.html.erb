@@ -32,6 +32,12 @@
               <%= label_tag "Ist ein Festival?" %>
               <%= check_box_tag :locationisfestival, nil, params[:locationisfestival], id: "currentfestival" %>
             </div>
+
+            <div class="col-md-6">
+              <br />
+              <%= label_tag "Kontakt" %>
+              <%= select_tag :locationcontact, options_for_select(@contacts), class: "form-control", id: "currentcontact" %>
+            </div>
           </div>
         </div>
         <div class="modal-footer">

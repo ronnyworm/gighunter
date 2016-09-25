@@ -95,6 +95,7 @@ class GigsController < ApplicationController
 
   def locations
     @locations = Location.all
+    @contacts = Contact.all.map { |e| e.summary }
   end
 
   def edit_location
@@ -105,10 +106,24 @@ class GigsController < ApplicationController
     l[:address] = params[:locationaddress]
     l[:festival] = params[:locationisfestival] == "on"
 
+    cl = Contactlocation.find_by(location_id: l.id)
+    
+    /(?<name>.*) \((?<email>.*)\)/ =~ params[:locationcontact]
+    c = Contact.find_by(name: name, email: email)
+
+    raise "Kontakt nicht über die E-Mail '#{email}' gefunden!" unless c
+    
+    if cl
+      cl[:contact_id] = c.id
+      cl.save
+    else
+      Contactlocation.create(location_id: l.id, contact_id: c.id)
+    end
+
     if l.save
       redirect_to locations_path, notice: "Die Location wurde geändert."
     else
-      redirect_to locations_path, notice: "Die Location konnte nicht gespeichert werden: #{l.errors.full_messages.join(";")}"
+      redirect_to locations_path, notice: "Die Location konnte nicht gespeichert werden: #{l.errors.full_messages.join("; ")}"
     end
 
   end
@@ -119,7 +134,7 @@ class GigsController < ApplicationController
     if l.errors.empty?
       redirect_to locations_path, notice: "Die Location wurde gespeichert."
     else
-      redirect_to locations_path, notice: "Die Location konnte nicht gespeichert werden: #{l.errors.full_messages.join(";")}"
+      redirect_to locations_path, notice: "Die Location konnte nicht gespeichert werden: #{l.errors.full_messages.join("; ")}"
     end
 
   end
@@ -129,9 +144,13 @@ class GigsController < ApplicationController
   end
 
   def post_contacts
-    Contact.create(name: params[:name], email: params[:email], telephone: params[:telephone], info: params[:info])
+    c = Contact.create(name: params[:name], email: params[:email], telephone: params[:telephone], info: params[:info])
 
-    redirect_to contacts_path, notice: "Der Kontakt wurde gespeichert."
+    if c.errors.empty?
+      redirect_to contacts_path, notice: "Der Kontakt wurde gespeichert."
+    else
+      redirect_to contacts_path, notice: "Der Kontakt konnte nicht gespeichert werden: #{c.errors.full_messages.join("; ")}"
+    end
   end
 
   def settings
