@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   post 'settings/edit_status' => 'gigs#edit_status'
   post 'settings/edit_template' => 'gigs#edit_template'
 
+  get 'apply' => 'gigs#apply'
+  post 'apply' => 'gigs#post_apply'
+
   get 'locations' => 'gigs#locations'
   post 'locations' => 'gigs#post_locations'
   post 'gigs/edit_location' => 'gigs#edit_location'

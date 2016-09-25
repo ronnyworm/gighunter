@@ -211,6 +211,37 @@ class GigsController < ApplicationController
     end
   end
 
+  def apply
+    gigs = Gig.all
+    @relevant_gigs = []
+
+    gigs.each do |g|
+      c = g.contact
+      if c and not c.email.empty?
+        @relevant_gigs.push({ name: "#{g.location.name} #{g.name}", datetime: g.datetime, email: c.email })
+      end
+    end
+  end
+
+  def post_apply
+    # magic
+
+    redirect_to gigs_path, notice: "Die E-Mails wurden versendet."
+  end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_gig
