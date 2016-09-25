@@ -37,4 +37,12 @@ $(document).ready(function(){
 		$("#currentphone").val($("#phone-" + currentContact).html());
 		$("#currentinfo").val($("#info-" + currentContact).html());
     });
+
+    $("[id^=status-]").click(function(){
+	    currentStatus = $(this).attr('id').substring("status-".length);
+
+		$(".currentid").val(currentStatus);
+		$("#currenttext").val($("#text-" + currentStatus).html());
+		$("#currentorder").val($("#order-" + currentStatus).html());
+    });
 });

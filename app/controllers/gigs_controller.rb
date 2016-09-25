@@ -124,7 +124,7 @@ class GigsController < ApplicationController
     if l.save
       redirect_to locations_path, notice: "Die Location wurde geändert."
     else
-      redirect_to locations_path, notice: "Die Location konnte nicht gespeichert werden: #{l.errors.full_messages.join("; ")}"
+      redirect_to locations_path, alert: "Die Location konnte nicht gespeichert werden: #{l.errors.full_messages.join("; ")}"
     end
   end
 
@@ -134,7 +134,7 @@ class GigsController < ApplicationController
     if l.errors.empty?
       redirect_to locations_path, notice: "Die Location wurde gespeichert."
     else
-      redirect_to locations_path, notice: "Die Location konnte nicht gespeichert werden: #{l.errors.full_messages.join("; ")}"
+      redirect_to locations_path, alert: "Die Location konnte nicht gespeichert werden: #{l.errors.full_messages.join("; ")}"
     end
   end
 
@@ -153,7 +153,7 @@ class GigsController < ApplicationController
     if c.save
       redirect_to contacts_path, notice: "Der Kontakt wurde gespeichert."
     else
-      redirect_to contacts_path, notice: "Der Kontakt konnte nicht gespeichert werden: #{c.errors.full_messages.join("; ")}"
+      redirect_to contacts_path, alert: "Der Kontakt konnte nicht gespeichert werden: #{c.errors.full_messages.join("; ")}"
     end
   end
 
@@ -163,7 +163,7 @@ class GigsController < ApplicationController
     if c.errors.empty?
       redirect_to contacts_path, notice: "Der Kontakt wurde gespeichert."
     else
-      redirect_to contacts_path, notice: "Der Kontakt konnte nicht gespeichert werden: #{c.errors.full_messages.join("; ")}"
+      redirect_to contacts_path, alert: "Der Kontakt konnte nicht gespeichert werden: #{c.errors.full_messages.join("; ")}"
     end
   end
 
@@ -171,10 +171,27 @@ class GigsController < ApplicationController
     @status_values = StatusValue.all
   end
 
-  def post_settings
-    StatusValue.create(text: params[:text], order: params[:order])
+  def edit_status
+    sv = StatusValue.find(params[:status_id])
 
-    redirect_to settings_path, notice: "Die Einstellungen wurden geändert."
+    sv[:text] = params[:statustext]
+    sv[:order] = params[:statusorder]
+
+    if sv.save
+      redirect_to settings_path, notice: "Der Statuswert wurde gespeichert."
+    else
+      redirect_to settings_path, alert: "Der Statuswert konnte nicht gespeichert werden: #{sv.errors.full_messages.join("; ")}"
+    end
+  end
+
+  def post_settings
+    sv = StatusValue.create(text: params[:text], order: params[:order])
+
+    if sv.errors.empty?
+      redirect_to settings_path, notice: "Der Statuswert wurde hinzugefügt."
+    else
+      redirect_to settings_path, alert: "Der Statuswert konnte nicht gespeichert werden: #{sv.errors.full_messages.join("; ")}"
+    end
   end
 
   private

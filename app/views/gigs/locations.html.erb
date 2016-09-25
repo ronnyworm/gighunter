@@ -40,7 +40,7 @@
     
     <td><%= check_box_tag :festival, nil, false, class: "form-control" %></td>
     <td><%= select_tag :locationcontact, options_for_select(@contacts, @contacts.first), class: "form-control", id: "currentcontact" %></td>
-    <td><%= button_tag "Hinzufügen", type: "submit", class: "btn btn-primary" %></td>
+    <td align="center"><%= button_tag "Hinzufügen", type: "submit", class: "btn btn-primary" %></td>
   </tr>
 </tbody>
 </table>

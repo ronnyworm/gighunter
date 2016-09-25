@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   get 'settings' => 'gigs#settings'
   post 'settings' => 'gigs#post_settings'
+  post 'gigs/edit_status' => 'gigs#edit_status'
 
   get 'locations' => 'gigs#locations'
   post 'locations' => 'gigs#post_locations'

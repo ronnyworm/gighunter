@@ -1,0 +1,38 @@
+<!-- Modal -->
+<div id="statusBearbeitenPopup" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Statuswert bearbeiten</h4>
+      </div>
+
+      <%= form_tag "/gigs/edit_status" do %>
+        <div class="modal-body">
+          <div class="form-group row">
+            <%= hidden_field_tag :status_id, "", class: "currentid" %>
+
+            <div class="col-md-6">
+              <%= label_tag :statustext, "Name" %><br />
+              <%= text_field_tag :statustext, nil, class: "form-control", value: params[:statustext], id: "currenttext" %>
+            </div>
+
+            <div class="col-md-6">
+              <%= label_tag :statusorder, "Reihenfolge" %><br />
+              <%= text_field_tag :statusorder, nil, class: "form-control", value: params[:statusorder], id: "currentorder" %>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <%= button_tag type: "submit", class: "btn btn-primary" do %>
+            Speichern
+          <% end %>
+        </div>
+      <% end %>
+     
+    </div>
+
+  </div>
+</div>
