@@ -3,7 +3,6 @@ class Location < ActiveRecord::Base
 	has_many :contactlocation
 
 	validates :name, presence: true
-	validates :festival, presence: true
 	validates :name, uniqueness: true
 	validates :address, uniqueness: true
 	validates :website, uniqueness: true

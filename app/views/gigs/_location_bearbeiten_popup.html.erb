@@ -12,23 +12,25 @@
       <%= form_tag "/gigs/edit_location" do %>
         <div class="modal-body">
           <div class="form-group row">
+            <%= hidden_field_tag :location_id, "", id: "currentid" %>
+
             <div class="col-md-6">
               <%= label_tag :locationname, "Name" %><br />
-              <%= text_field_tag :locationname, nil, placeholder: "Bei einem Festival der Name", class: "form-control", value: params[:locationname] %>
+              <%= text_field_tag :locationname, nil, placeholder: "Bei einem Festival der Name", class: "form-control", value: params[:locationname], id: "currentname" %>
             </div>
             <div class="col-md-6">
               <%= label_tag :locationaddress, "Adresse" %><br />
-              <%= text_field_tag :locationaddress, nil, placeholder: "(lass das leer, wenn es die Location schon gibt)", class: "form-control", value: params[:locationaddress] %>
+              <%= text_field_tag :locationaddress, nil, placeholder: "(lass das leer, wenn es die Location schon gibt)", class: "form-control", value: params[:locationaddress], id: "currentaddress" %>
             </div>
             <div class="col-md-6">
               <%= label_tag :locationwebsite, "Website" %><br />
-              <%= text_field_tag :locationwebsite, nil, placeholder: "(lass das leer, wenn es die Location schon gibt)", class: "form-control", value: params[:locationwebsite] %>
+              <%= text_field_tag :locationwebsite, nil, placeholder: "(lass das leer, wenn es die Location schon gibt)", class: "form-control", value: params[:locationwebsite], id: "currentwebsite" %>
             </div>
 
             <div class="col-md-6">
               <br />
               <%= label_tag "Ist ein Festival?" %>
-              <%= check_box_tag :locationisfestival, nil, params[:locationisfestival]%>
+              <%= check_box_tag :locationisfestival, nil, params[:locationisfestival], id: "currentfestival" %>
             </div>
           </div>
         </div>

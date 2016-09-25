@@ -97,6 +97,22 @@ class GigsController < ApplicationController
     @locations = Location.all
   end
 
+  def edit_location
+    l = Location.find(params[:location_id])
+
+    l[:name] = params[:locationname]
+    l[:website] = params[:locationwebsite]
+    l[:address] = params[:locationaddress]
+    l[:festival] = params[:locationisfestival] == "on"
+
+    if l.save
+      redirect_to locations_path, notice: "Die Location wurde geändert."
+    else
+      redirect_to locations_path, notice: "Die Location konnte nicht gespeichert werden: #{l.errors.full_messages.join(";")}"
+    end
+
+  end
+
   def post_locations
     Location.create(name: params[:name], address: params[:address], festival: params[:festival], website: params[:website])
 

@@ -15,3 +15,15 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
+
+$(document).ready(function(){
+    $("[id^=location-]").click(function(){
+	    currentLocation = $(this).attr('id').substring("location-".length);
+
+		$("#currentid").val(currentLocation);
+		$("#currentname").val($("#name-" + currentLocation).html());
+		$("#currentaddress").val($("#address-" + currentLocation).html());
+		$("#currentwebsite").val($("#website-" + currentLocation).html());
+		$("#currentfestival").prop("checked", $("#festival-" + currentLocation).html() == "ja");
+    });
+});
