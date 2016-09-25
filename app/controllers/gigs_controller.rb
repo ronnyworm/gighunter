@@ -120,8 +120,6 @@ class GigsController < ApplicationController
         Contactlocation.create(location_id: l.id, contact_id: c.id)
       end
     end
-    
-    
 
     if l.save
       redirect_to locations_path, notice: "Die Location wurde geändert."
@@ -138,7 +136,6 @@ class GigsController < ApplicationController
     else
       redirect_to locations_path, notice: "Die Location konnte nicht gespeichert werden: #{l.errors.full_messages.join("; ")}"
     end
-
   end
 
   def contacts
