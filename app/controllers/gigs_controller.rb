@@ -111,21 +111,23 @@ class GigsController < ApplicationController
     /(?<name>.*) \((?<email>.*)\)/ =~ params[:locationcontact]
     c = Contact.find_by(name: name, email: email)
 
-    raise "Kontakt nicht über die E-Mail '#{email}' gefunden!" unless c
-    
-    if cl
-      cl[:contact_id] = c.id
-      cl.save
-    else
-      Contactlocation.create(location_id: l.id, contact_id: c.id)
+    if c
+      # das kann nur passieren, wenn noch kein Kontakt eingetragen ist und jetzt immer noch nicht
+      if cl
+        cl[:contact_id] = c.id
+        cl.save
+      else
+        Contactlocation.create(location_id: l.id, contact_id: c.id)
+      end
     end
+    
+    
 
     if l.save
       redirect_to locations_path, notice: "Die Location wurde geändert."
     else
       redirect_to locations_path, notice: "Die Location konnte nicht gespeichert werden: #{l.errors.full_messages.join("; ")}"
     end
-
   end
 
   def post_locations
@@ -141,6 +143,21 @@ class GigsController < ApplicationController
 
   def contacts
     @contacts = Contact.all
+  end
+
+  def edit_contact
+    c = Contact.find(params[:contact_id])
+
+    c[:name] = params[:contactname]
+    c[:email] = params[:contactemail]
+    c[:telephone] = params[:contactphone]
+    c[:info] = params[:contactinfo]
+
+    if c.save
+      redirect_to contacts_path, notice: "Der Kontakt wurde gespeichert."
+    else
+      redirect_to contacts_path, notice: "Der Kontakt konnte nicht gespeichert werden: #{c.errors.full_messages.join("; ")}"
+    end
   end
 
   def post_contacts

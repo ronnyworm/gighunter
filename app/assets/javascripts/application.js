@@ -28,4 +28,14 @@ $(document).ready(function(){
 
 		$("#currentcontact").val($("#contact-" + currentLocation).html());
     });
+
+    $("[id^=contact-]").click(function(){
+	    currentContact = $(this).attr('id').substring("contact-".length);
+
+		$("#currentid").val(currentContact);
+		$("#currentname").val($("#name-" + currentContact).html());
+		$("#currentemail").val($("#email-" + currentContact).html());
+		$("#currentphone").val($("#phone-" + currentContact).html());
+		$("#currentinfo").val($("#info-" + currentContact).html());
+    });
 });

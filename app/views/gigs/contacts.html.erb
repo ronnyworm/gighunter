@@ -18,11 +18,17 @@
 <tbody>
   <% @contacts.each do |contact| %>
     <tr>
-      <td><%= contact.name %></td>
-      <td><%= contact.email %></td>
-      <td><%= contact.telephone %></td>
-      <td><%= contact.info %></td>
-      <td></td>
+      <td id="name-<%= contact.id %>"><%= contact.name %></td>
+      <td id="email-<%= contact.id %>"><%= contact.email %></td>
+      <td id="phone-<%= contact.id %>"><%= contact.telephone %></td>
+      <td id="info-<%= contact.id %>"><%= contact.info %></td>
+      <td align="center">
+        <%= link_to "#", "data-toggle" => "modal", "data-target" => "#contactBearbeitenPopup", id: "contact-#{contact.id}" do %>
+          <div style="height:100%;width:100%">
+            <i class="glyphicon glyphicon-edit"></i>
+          </div>
+        <% end %>
+      </td>
     </tr>
   <% end %>
 
@@ -38,3 +44,6 @@
 </table>
 </div>
 <% end %>
+
+
+<%= render "contact_bearbeiten_popup" %>

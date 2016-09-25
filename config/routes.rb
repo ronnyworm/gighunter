@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   post 'gigs/edit_location' => 'gigs#edit_location'
   get 'contacts' => 'gigs#contacts'
   post 'contacts' => 'gigs#post_contacts'
+  post 'gigs/edit_contact' => 'gigs#edit_contact'
 
   root 'gigs#index'
   # The priority is based upon order of creation: first created -> highest priority.
