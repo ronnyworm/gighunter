@@ -194,6 +194,14 @@ class GigsController < ApplicationController
     end
   end
 
+  def edit_template
+    if email.save
+      redirect_to settings_path, notice: "Die E-Mail-Vorlage wurde geändert."
+    else
+      redirect_to settings_path, alert: "Die E-Mail-Vorlage konnte nicht geändert werden: #{email.errors.full_messages.join("; ")}"
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_gig
