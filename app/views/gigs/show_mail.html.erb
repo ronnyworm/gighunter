@@ -1,0 +1,8 @@
+<h1>Bewerbungsmail an <%= @contact.summary %></h1>
+
+<%= link_to "Zurück zur Liste", :back, class: "btn btn-default" %>
+
+<p><strong>Betreff:</strong> <%= @mail.subject %></p>
+<p><%= @mail.text %></p>
+
+<strong>Löschen-Link einbauen</strong>

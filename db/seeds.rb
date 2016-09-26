@@ -13,4 +13,9 @@ StatusValue.create(text: "erledigt", order: 3)
 
 Band.create(name: "Band")
 
-Email.create(is_template: true, subject: "Betreff", text: "E-Mail-Text")
+EmailType.create(text: "manually_entered")
+EmailType.create(text: "apply_created")
+EmailType.create(text: "apply_sent")
+EmailType.create(text: "is_template")
+
+Email.create(email_type_id: EmailType.find_by(text: "is_template").id, subject: "Betreff", text: "E-Mail-Text")

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160925160402) do
+ActiveRecord::Schema.define(version: 20160926173133) do
 
   create_table "bands", force: :cascade do |t|
     t.text     "tech_rider"
@@ -36,15 +36,22 @@ ActiveRecord::Schema.define(version: 20160925160402) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "email_types", force: :cascade do |t|
+    t.string   "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "emails", force: :cascade do |t|
     t.string   "subject"
     t.text     "text"
-    t.boolean  "is_template"
     t.integer  "gig_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "email_type_id"
   end
 
+  add_index "emails", ["email_type_id"], name: "index_emails_on_email_type_id"
   add_index "emails", ["gig_id"], name: "index_emails_on_gig_id"
 
   create_table "gigs", force: :cascade do |t|

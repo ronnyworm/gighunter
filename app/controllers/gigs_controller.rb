@@ -216,9 +216,11 @@ class GigsController < ApplicationController
     @relevant_gigs = []
 
     gigs.each do |g|
-      c = g.contact
-      if c and not c.email.empty?
-        @relevant_gigs.push({ name: "#{g.location.name} #{g.name}", datetime: g.datetime, email: c.email })
+      if g.create_apply_email
+        c = g.contact
+        if c and not c.email.empty?
+          @relevant_gigs.push({ id: g.id, name: "#{g.location.name} #{g.name}", datetime: g.datetime, email: c.email })
+        end
       end
     end
   end
@@ -229,6 +231,10 @@ class GigsController < ApplicationController
     redirect_to gigs_path, notice: "Die E-Mails wurden versendet."
   end
 
+  def show_mail
+    @mail = Email.find_by(gig_id: params[:id], email_type_id: EmailType.find_by(text: "apply_created").id)
+    @contact = Gig.find(params[:id]).contact
+  end
 
 
 
