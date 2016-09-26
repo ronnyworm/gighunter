@@ -1,5 +1,5 @@
 class GigMailer < ApplicationMailer
-  default from: ENV["GIG_HUNTER_MAIL_SENDER"]]
+  default from: ENV["GIG_HUNTER_MAIL_SENDER"]
 
   def self.apply_all_contacts
   	#each
