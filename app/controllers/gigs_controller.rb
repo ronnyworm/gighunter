@@ -243,6 +243,12 @@ class GigsController < ApplicationController
     @contact = Gig.find(params[:id]).contact
   end
 
+  def remove_mail
+    @mail = Email.find(params[:id])
+    @mail.destroy
+
+    redirect_to apply_path, notice: "Die E-Mail-Vorlage wurde neu erstellt."
+  end
 
 
 

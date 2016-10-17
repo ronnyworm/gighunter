@@ -22,4 +22,8 @@ module ApplicationHelper
 
 		return false
 	end
+
+	def nl2br(s)
+		s.gsub(/\n/, '<br>')
+	end
 end

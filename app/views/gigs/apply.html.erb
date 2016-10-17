@@ -22,7 +22,7 @@
       <td><%= g[:name] %></td>
       <td><%= g[:datetime] %></td>
       <td><%= g[:email] %></td>
-      <td><%= link_to "ansehen", "/show_mail/#{g[:id]}" %></td>
+      <td><%= link_to "ansehen", show_mail_url(g[:id]) %></td>
     </tr>
   <% end %>
 </tbody>
@@ -30,11 +30,3 @@
 </div>
 
 <% end %>
-
-
-
-
-
-
-<%# später ... %>
-<%# render "email_bearbeiten_popup" %>

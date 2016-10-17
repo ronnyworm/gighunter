@@ -7,6 +7,8 @@ class GigMailer < ApplicationMailer
   end
 
   def apply_contact(email)
+    # Denke an die Zeilenumbrüche!
+
   	#t = Email.get_template
   	#@text = 
 

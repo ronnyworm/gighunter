@@ -3,6 +3,13 @@
 <%= link_to "Zurück zur Liste", :back, class: "btn btn-default" %>
 
 <p><strong>Betreff:</strong> <%= @mail.subject %></p>
-<p><%= @mail.text %></p>
+<p><%= raw(nl2br(@mail.text)) %></p>
 
-<strong>Löschen-Link einbauen</strong>
+<%= link_to "Diese Vorlage neu erstellen", remove_mail_url(@mail.id), class: "btn btn-danger" %>
+
+
+
+
+
+<%# später ... %>
+<%# render "email_bearbeiten_popup" %>
