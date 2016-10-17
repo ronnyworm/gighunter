@@ -75,7 +75,14 @@ class GigsController < ApplicationController
   # DELETE /gigs/1
   # DELETE /gigs/1.json
   def destroy
+    # in Zukunft lieber archivieren!
+
+    Email.where(gig_id: @gig.id).destroy_all
+    Status.where(gig_id: @gig.id).destroy_all
+
     @gig.destroy
+
+
     respond_to do |format|
       format.html { redirect_to gigs_url, notice: I18n.t('models.destroyed') }
       format.json { head :no_content }
