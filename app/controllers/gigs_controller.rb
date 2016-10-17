@@ -296,7 +296,11 @@ class GigsController < ApplicationController
         datetime = nil
       end
 
-      datetime = ActiveSupport::TimeZone[Rails.application.config.time_zone].parse(datetime)    
+      if datetime
+        datetime = ActiveSupport::TimeZone[Rails.application.config.time_zone].parse(datetime)    
+      else
+        
+      end
       vorhandenes_equipment = params[:gig][:vorhandenes_equipment]
       stagesize = params[:gig][:stagesize]
       link_forum = params[:gig][:link_forum]
