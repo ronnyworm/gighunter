@@ -83,8 +83,8 @@ class Gig < ActiveRecord::Base
 	end
 
 	def replace_variables(text)
-		text = text.gsub(/contact-name/, contact.name)
-		text = text.gsub(/location-name/, location.festival ? location.name + "-Festival" : location.name)
+		text = text.gsub(/$contact-name$/, contact.name)
+		text = text.gsub(/$location-name$/, location.festival ? location.name + "-Festival" : location.name)
 		text
 	end
 end
