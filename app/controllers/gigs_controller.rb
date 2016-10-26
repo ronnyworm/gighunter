@@ -103,6 +103,8 @@ class GigsController < ApplicationController
   def locations
     @locations = Location.all
     @contacts = Contact.all.map { |e| e.summary }
+
+    @contacts = [@contacts, ""].flatten!
   end
 
   def edit_location
@@ -125,6 +127,12 @@ class GigsController < ApplicationController
         cl.save
       else
         Contactlocation.create(location_id: l.id, contact_id: c.id)
+      end
+    else
+      # Wenn kein Kontakt gefunden wird, aber schon eine contact-location existiert, dann lösche sie
+      if cl
+        cl.destroy
+        logger.debug "destroyed contactlocation"
       end
     end
 
