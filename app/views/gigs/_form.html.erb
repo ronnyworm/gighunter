@@ -41,21 +41,25 @@
   <div class="form-group row">
     <div class="col-md-6">
       <%= label_tag :locationname, "Name" %><br />
-      <%= text_field_tag :locationname, nil, placeholder: "Bei einem Festival der Name", class: "form-control", value: params[:locationname] %>
+      <% if @no_edit_for_contact_and_location %>
+        <%= select_tag :locationname, options_for_select(@locations, params[:locationname]), class: "form-control" %>
+      <% else %>
+        <%= text_field_tag :locationname, nil, placeholder: "Bei einem Festival der Name", class: "form-control", value: params[:locationname] %>
+      <% end %>
     </div>
     <div class="col-md-6">
       <%= label_tag :locationaddress, "Adresse" %><br />
-      <%= text_field_tag :locationaddress, nil, placeholder: "(lass das leer, wenn es die Location schon im System gibt)", class: "form-control", value: params[:locationaddress] %>
+      <%= text_field_tag :locationaddress, nil, placeholder: @no_edit_for_contact_and_location ? "" : "(lass das leer, wenn es die Location schon im System gibt)", class: "form-control", value: params[:locationaddress], disabled: @no_edit_for_contact_and_location %>
     </div>
     <div class="col-md-6">
       <%= label_tag :locationwebsite, "Website" %><br />
-      <%= text_field_tag :locationwebsite, nil, placeholder: "(lass das leer, wenn es die Location schon im System gibt)", class: "form-control", value: params[:locationwebsite] %>
+      <%= text_field_tag :locationwebsite, nil, placeholder: @no_edit_for_contact_and_location ? "" : "(lass das leer, wenn es die Location schon im System gibt)", class: "form-control", value: params[:locationwebsite], disabled: @no_edit_for_contact_and_location %>
     </div>
 
     <div class="col-md-6">
       <br />
       <%= label_tag "Ist ein Festival?" %>
-      <%= check_box_tag :locationisfestival, nil, params[:locationisfestival]%>
+      <%= check_box_tag :locationisfestival, nil, params[:locationisfestival], disabled: @no_edit_for_contact_and_location %>
     </div>
   </div>
 
@@ -70,22 +74,22 @@
   <div class="form-group row">
     <div class="col-md-6">
       <%= label_tag :contactname, "Name" %><br />
-      <%= text_field_tag :contactname, nil, class: "form-control", value: params[:contactname] %>
+      <%= text_field_tag :contactname, nil, class: "form-control", value: params[:contactname], disabled: @no_edit_for_contact_and_location %>
     </div>
 
     <div class="col-md-6">
       <%= label_tag :contactemail, "E-Mail" %><br />
-      <%= email_field_tag :contactemail, nil, placeholder: "(lass das leer, wenn es den Kontakt schon im System gibt)", class: "form-control", value: params[:contactemail] %>
+      <%= email_field_tag :contactemail, nil, placeholder: @no_edit_for_contact_and_location ? "" : "(lass das leer, wenn es den Kontakt schon im System gibt)", class: "form-control", value: params[:contactemail], disabled: @no_edit_for_contact_and_location %>
     </div>
 
     <div class="col-md-6">
       <%= label_tag :contactphone, "Telefon" %><br />
-      <%= text_field_tag :contactphone, nil, placeholder: "(lass das leer, wenn es den Kontakt schon im System gibt)", class: "form-control", value: params[:contactphone] %>
+      <%= text_field_tag :contactphone, nil, placeholder: @no_edit_for_contact_and_location ? "" : "(lass das leer, wenn es den Kontakt schon im System gibt)", class: "form-control", value: params[:contactphone], disabled: @no_edit_for_contact_and_location %>
     </div>
 
     <div class="col-md-6">
       <%= label_tag :contactinfo, "weitere Info" %><br />
-      <%= text_field_tag :contactinfo, nil, placeholder: "(lass das leer, wenn es den Kontakt schon im System gibt)", class: "form-control", value: params[:contactinfo] %>
+      <%= text_field_tag :contactinfo, nil, placeholder: @no_edit_for_contact_and_location ? "" : "(lass das leer, wenn es den Kontakt schon im System gibt)", class: "form-control", value: params[:contactinfo], disabled: @no_edit_for_contact_and_location %>
     </div>
   </div>
 

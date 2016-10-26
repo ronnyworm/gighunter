@@ -28,6 +28,9 @@ class GigsController < ApplicationController
   # GET /gigs/1/edit
   def edit
     set_contact_and_location
+
+    @locations = Location.all.map { |e| e.name }
+    @no_edit_for_contact_and_location = true
   end
 
   # POST /gigs
@@ -318,7 +321,26 @@ class GigsController < ApplicationController
       # contact
       contactname = params[:contactname]
       contact = Contact.find_by(name: contactname)
-      unless contact
+
+      if not contact
+        create_new_contact = true
+      else
+        if params[:contactemail] and not params[:contactemail].empty?
+          if contact.email != params[:contactemail]
+            create_new_contact = true
+          end
+        end
+
+        if params[:contactphone] and not params[:contactphone].empty?
+          if contact.telephone != params[:contactphone]
+            create_new_contact = true
+          end
+        end
+
+        # contactinfo prüfe ich jetzt nicht mehr ...
+      end
+
+      if create_new_contact
         contact = Contact.create(name: contactname, email: params[:contactemail], telephone: params[:contactphone], info: params[:contactinfo])
       end
 
