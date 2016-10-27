@@ -3,3 +3,31 @@
 <%= render 'form' %>
 
 <%= link_to I18n.t("back"), gigs_path, class: "btn btn-default" %>
+
+
+
+<%= render "location_bearbeiten_popup" %>
+<%= render "contact_bearbeiten_popup" %>
+
+<script>
+$(document).ready(function(){
+	<% l = @gig.location %>
+
+	$("#l_currentid").val(<%= l.id %>);
+	$("#l_currentname").val("<%= l.name %>");
+	$("#l_currentaddress").val("<%= l.address %>");
+	$("#l_currentwebsite").val("<%= l.website %>");
+	$("#l_currentfestival").prop("checked", <%= l.festival %>);
+
+	$("#l_currentcontact").val("<%= l.contact_summary %>");
+
+    <% c = l.contact %>
+    <% if c %>
+		$("#c_currentid").val("<%= c.id %>");
+		$("#c_currentname").val("<%= c.name %>");
+		$("#c_currentemail").val("<%= c.email %>");
+		$("#c_currentphone").val("<%= c.telephone %>");
+		$("#c_currentinfo").val("<%= c.info %>");
+	<% end %>
+});
+</script>

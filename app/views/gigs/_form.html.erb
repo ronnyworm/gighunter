@@ -16,6 +16,10 @@
     </div>
   <% end %>
 
+  <% if is_active? "gigs#edit" %>
+    <p>⚠️&nbsp;&nbsp;Wichtig: bevor du einen der <span style="color:orange">orangenen</span> Buttons drückst, solltest du die Änderungen mit dem <span style="color:blue">blauen</span> Button ganz unten speichern.</p>
+  <% end %>
+
   <div class="form-group row">
     <div class="col-md-6">
       <%= f.label :name, "Name" %><br />
@@ -35,9 +39,6 @@
 
 
   <h3>Location</h3>
-  <% if is_active? "gigs#edit" %>
-    <p>ℹ️&nbsp;&nbsp;um etwas an der Location selbst zu ändern, gehe bitte in die Ansicht für Locations.</p>
-  <% end %>
   <div class="form-group row">
     <div class="col-md-6">
       <%= label_tag :locationname, "Name" %><br />
@@ -54,6 +55,8 @@
     <div class="col-md-6">
       <%= label_tag :locationwebsite, "Website" %><br />
       <%= text_field_tag :locationwebsite, nil, placeholder: @no_edit_for_contact_and_location ? "" : "(lass das leer, wenn es die Location schon im System gibt)", class: "form-control", value: params[:locationwebsite], disabled: @no_edit_for_contact_and_location %>
+
+      <br>
     </div>
 
     <div class="col-md-6">
@@ -61,15 +64,24 @@
       <%= label_tag "Ist ein Festival?" %>
       <%= check_box_tag :locationisfestival, nil, params[:locationisfestival], disabled: @no_edit_for_contact_and_location %>
     </div>
+
+    <% if is_active? "gigs#edit" %>
+      <div class="col-md-12">
+        <%= link_to "#", "data-toggle" => "modal", "data-target" => "#locationBearbeitenPopup", class: "btn btn-warning" do %>
+          <div style="height:100%;width:100%">
+            <%= params[:locationname] %> <strong>bearbeiten</strong> <i class="glyphicon glyphicon-edit"></i>
+          </div>
+        <% end %>
+        <p>ℹ️&nbsp;&nbsp;Wenn du zu einer neuen Location wechselt (bei Name), musst du erst ganz unten speichern, um die neu ausgewählte Location zu bearbeiten.</p>
+      </div>
+    <% end %>
   </div>
 
 
 
-  <h3>Kontakt</h3>
-  <% if is_active? "gigs#edit" %>
-    <p>ℹ️&nbsp;&nbsp;um etwas am Kontakt selbst zu ändern, gehe bitte in die Ansicht für Kontakte.</p>
-  <% else %>
-    <p>⚠️&nbsp;&nbsp;Wenn du eine E-Mail-Adresse eintragen möchtest, musst du trotzdem einen Namen eingeben (im Zweifelsfall einfach <em>Crew</em>).</p>
+  <h3>Kontakt (für die Location)</h3>
+  <% unless is_active? "gigs#edit" %>
+    <p>⚠️&nbsp;&nbsp;Falls du nur eine E-Mail-Adresse eintragen möchtest, musst du trotzdem einen Namen eingeben (im Zweifelsfall einfach <em>Crew</em>).</p>
   <% end %>
   <div class="form-group row">
     <div class="col-md-6">
@@ -85,12 +97,25 @@
     <div class="col-md-6">
       <%= label_tag :contactphone, "Telefon" %><br />
       <%= text_field_tag :contactphone, nil, placeholder: @no_edit_for_contact_and_location ? "" : "(lass das leer, wenn es den Kontakt schon im System gibt)", class: "form-control", value: params[:contactphone], disabled: @no_edit_for_contact_and_location %>
+
+      <br>
     </div>
 
     <div class="col-md-6">
       <%= label_tag :contactinfo, "weitere Info" %><br />
       <%= text_field_tag :contactinfo, nil, placeholder: @no_edit_for_contact_and_location ? "" : "(lass das leer, wenn es den Kontakt schon im System gibt)", class: "form-control", value: params[:contactinfo], disabled: @no_edit_for_contact_and_location %>
     </div>
+
+    <% if is_active? "gigs#edit" and @gig.location.contact %>
+      <div class="col-md-12">
+        <%= link_to "#", "data-toggle" => "modal", "data-target" => "#contactBearbeitenPopup", class: "btn btn-warning" do %>
+          <div style="height:100%;width:100%">
+            <%= "#{params[:contactname]} (#{params[:contactemail]})" %> <strong>bearbeiten</strong> <i class="glyphicon glyphicon-edit"></i>
+          </div>
+        <% end %>
+        <p>ℹ️&nbsp;&nbsp;Wenn du den Kontakt der Location wechselt (bei Name), musst du erst ganz unten speichern, um den neuen Kontakt zu bearbeiten.</p>
+      </div>
+    <% end %>
   </div>
 
 

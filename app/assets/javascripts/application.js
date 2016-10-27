@@ -19,23 +19,23 @@ $(document).ready(function(){
     $("[id^=location-]").click(function(){
 	    currentLocation = $(this).attr('id').substring("location-".length);
 
-		$("#currentid").val(currentLocation);
-		$("#currentname").val($("#name-" + currentLocation).html());
-		$("#currentaddress").val($("#address-" + currentLocation).html());
-		$("#currentwebsite").val($("#website-" + currentLocation).html());
-		$("#currentfestival").prop("checked", $("#festival-" + currentLocation).html() == "ja");
+		$("#l_currentid").val(currentLocation);
+		$("#l_currentname").val($("#name-" + currentLocation).html());
+		$("#l_currentaddress").val($("#address-" + currentLocation).html());
+		$("#l_currentwebsite").val($("#website-" + currentLocation).html());
+		$("#l_currentfestival").prop("checked", $("#festival-" + currentLocation).html() == "ja");
 
-		$("#currentcontact").val($("#contact-" + currentLocation).html());
+		$("#l_currentcontact").val($("#contact-" + currentLocation).html());
     });
 
     $("[id^=contact-]").click(function(){
 	    currentContact = $(this).attr('id').substring("contact-".length);
 
-		$("#currentid").val(currentContact);
-		$("#currentname").val($("#name-" + currentContact).html());
-		$("#currentemail").val($("#email-" + currentContact).html());
-		$("#currentphone").val($("#phone-" + currentContact).html());
-		$("#currentinfo").val($("#info-" + currentContact).html());
+		$("#c_currentid").val(currentContact);
+		$("#c_currentname").val($("#name-" + currentContact).html());
+		$("#c_currentemail").val($("#email-" + currentContact).html());
+		$("#c_currentphone").val($("#phone-" + currentContact).html());
+		$("#c_currentinfo").val($("#info-" + currentContact).html());
     });
 
     $("[id^=status-]").click(function(){

@@ -29,6 +29,9 @@ class GigsController < ApplicationController
   def edit
     set_contact_and_location
 
+    @contacts = Contact.all.map { |e| e.summary }
+    @contacts = [@contacts, ""].flatten!
+
     @locations = Location.all.map { |e| e.name }
     @no_edit_for_contact_and_location = true
   end
@@ -139,10 +142,11 @@ class GigsController < ApplicationController
       end
     end
 
+
     if l.save
-      redirect_to locations_path, notice: "Die Location wurde geändert."
+      redirect_to request.referer, notice: "Die Location wurde geändert."
     else
-      redirect_to locations_path, alert: "Die Location konnte nicht gespeichert werden: #{l.errors.full_messages.join("; ")}"
+      redirect_to request.referer, alert: "Die Location konnte nicht gespeichert werden: #{l.errors.full_messages.join("; ")}"
     end
   end
 
@@ -169,9 +173,9 @@ class GigsController < ApplicationController
     c[:info] = params[:contactinfo]
 
     if c.save
-      redirect_to contacts_path, notice: "Der Kontakt wurde gespeichert."
+      redirect_to request.referer, notice: "Der Kontakt wurde gespeichert."
     else
-      redirect_to contacts_path, alert: "Der Kontakt konnte nicht gespeichert werden: #{c.errors.full_messages.join("; ")}"
+      redirect_to request.referer, alert: "Der Kontakt konnte nicht gespeichert werden: #{c.errors.full_messages.join("; ")}"
     end
   end
 
@@ -282,6 +286,7 @@ class GigsController < ApplicationController
       @status = @gig.current_status
 
       if @gig.location
+        params[:locationid] = @gig.location.id
         params[:locationname] = @gig.location.name
         params[:locationisfestival] = @gig.location.festival
         params[:locationaddress] = @gig.location.address
@@ -289,6 +294,7 @@ class GigsController < ApplicationController
       end
 
       if @gig.contact
+        params[:contactid] = @gig.contact.id
         params[:contactname] = @gig.contact.name
         params[:contactemail] = @gig.contact.email
         params[:contactphone] = @gig.contact.telephone

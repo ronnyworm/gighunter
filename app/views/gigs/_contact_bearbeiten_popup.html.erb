@@ -12,26 +12,26 @@
       <%= form_tag "/gigs/edit_contact" do %>
         <div class="modal-body">
           <div class="form-group row">
-            <%= hidden_field_tag :contact_id, "", id: "currentid" %>
+            <%= hidden_field_tag :contact_id, "", value: params[:contactid], id: "c_currentid" %>
 
             <div class="col-md-6">
               <%= label_tag :contactname, "Name" %><br />
-              <%= text_field_tag :contactname, nil, class: "form-control", value: params[:contactname], id: "currentname" %>
+              <%= text_field_tag :contactname, nil, class: "form-control", value: params[:contactname], id: "c_currentname" %>
             </div>
 
             <div class="col-md-6">
               <%= label_tag :contactemail, "E-Mail" %><br />
-              <%= email_field_tag :contactemail, nil, class: "form-control", value: params[:contactemail], id: "currentemail" %>
+              <%= email_field_tag :contactemail, nil, class: "form-control", value: params[:contactemail], id: "c_currentemail" %>
             </div>
 
             <div class="col-md-6">
               <%= label_tag :contactphone, "Telefon" %><br />
-              <%= text_field_tag :contactphone, nil, class: "form-control", value: params[:contactphone], id: "currentphone" %>
+              <%= text_field_tag :contactphone, nil, class: "form-control", value: params[:contactphone], id: "c_currentphone" %>
             </div>
 
             <div class="col-md-6">
               <%= label_tag :contactinfo, "weitere Info" %><br />
-              <%= text_field_tag :contactinfo, nil, class: "form-control", value: params[:contactinfo], id: "currentinfo" %>
+              <%= text_field_tag :contactinfo, nil, class: "form-control", value: params[:contactinfo], id: "c_currentinfo" %>
             </div>
           </div>
         </div>
