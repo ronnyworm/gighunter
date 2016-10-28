@@ -36,6 +36,7 @@ class GigsController < ApplicationController
     @no_edit_for_contact_and_location = true
 
     @mails = @gig.email
+    @reminders = @gig.reminder
   end
 
   # POST /gigs
@@ -188,6 +189,16 @@ class GigsController < ApplicationController
       redirect_to contacts_path, notice: "Der Kontakt wurde gespeichert."
     else
       redirect_to contacts_path, alert: "Der Kontakt konnte nicht gespeichert werden: #{c.errors.full_messages.join("; ")}"
+    end
+  end
+
+  def create_reminder
+    r = Reminder.create(text: params[:text], due: params[:due], done: false, gig_id: params[:gig_id])
+
+    if r.errors.empty?
+      redirect_to request.referer, notice: "Die Erinnerung wurde gespeichert."
+    else
+      redirect_to request.referer, alert: "Die Erinnerung konnte nicht gespeichert werden: #{r.errors.full_messages.join("; ")}"
     end
   end
 

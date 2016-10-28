@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   get 'locations' => 'gigs#locations'
   post 'locations' => 'gigs#post_locations'
+  post 'gigs/create_reminder'
   post 'gigs/edit_location' => 'gigs#edit_location'
   get 'contacts' => 'gigs#contacts'
   post 'contacts' => 'gigs#post_contacts'

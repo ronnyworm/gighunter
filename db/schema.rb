@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161028175226) do
+ActiveRecord::Schema.define(version: 20161028190644) do
 
   create_table "bands", force: :cascade do |t|
     t.text     "tech_rider"
@@ -75,6 +75,17 @@ ActiveRecord::Schema.define(version: 20161028175226) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "reminders", force: :cascade do |t|
+    t.boolean  "done"
+    t.date     "due"
+    t.text     "text"
+    t.integer  "gig_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "reminders", ["gig_id"], name: "index_reminders_on_gig_id"
 
   create_table "status_values", force: :cascade do |t|
     t.string   "text"

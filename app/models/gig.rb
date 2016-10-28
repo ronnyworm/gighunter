@@ -2,6 +2,7 @@ class Gig < ActiveRecord::Base
 	belongs_to :user
 	has_many :status
 	has_many :email
+	has_many :reminder
 	belongs_to :location
 
 	validates :location_id, presence: true
