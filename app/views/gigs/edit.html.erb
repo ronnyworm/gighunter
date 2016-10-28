@@ -2,6 +2,21 @@
 
 <%= render 'form' %>
 
+<br>
+<br>
+
+<h3>Zugehörige E-Mails</h3>
+<% unless @mails.empty? %>
+	<% @mails.each do |m| %>
+		<p><strong>Betreff:</strong> <%= m.subject %></p>
+	<p><%= raw(nl2br(m.text)) %></p>
+	<hr>
+	<% end %>
+<% else %>
+	<em>noch keine ...</em>
+<% end %>
+
+
 <%= link_to I18n.t("back"), gigs_path, class: "btn btn-default" %>
 
 

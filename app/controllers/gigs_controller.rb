@@ -34,6 +34,8 @@ class GigsController < ApplicationController
 
     @locations = Location.all.map { |e| e.name }
     @no_edit_for_contact_and_location = true
+
+    @mails = @gig.email
   end
 
   # POST /gigs
