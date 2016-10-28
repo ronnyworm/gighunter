@@ -8,6 +8,7 @@
 <h3>Zugehörige E-Mails</h3>
 <% unless @mails.empty? %>
 	<% @mails.each do |m| %>
+		<p><strong>Übertragen:</strong> <%= m.transferred_at.blank? ? raw("<em>noch nicht übertragen</em>") : m.transferred_at %></p>
 		<p><strong>Betreff:</strong> <%= m.subject %></p>
 	<p><%= raw(nl2br(m.text)) %></p>
 	<hr>
