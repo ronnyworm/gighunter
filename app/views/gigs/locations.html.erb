@@ -20,7 +20,7 @@
     <tr>
       <td id="name-<%= location.id %>"><%= location.name %></td>
       <td id="address-<%= location.id %>"><%= location.address %></td>
-      <td id="website-<%= location.id %>"><%= link_to location.website_without_http, "http://#{location.website_without_http}" %></td>
+      <td id="website-<%= location.id %>"><%= link_to location.website_without_http, "http://#{location.website_without_http}", target: "_blank" %></td>
       <td id="festival-<%= location.id %>"><%= location.festival ? "ja" : "nein" %></td>
       <td id="contact-<%= location.id %>"><%= location.contact_summary %></td>
       <td align="center">

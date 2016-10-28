@@ -57,7 +57,7 @@
 
       <% if @no_edit_for_contact_and_location %>
         <% if params[:locationwebsite] and not params[:locationwebsite].empty? %>
-          <%= link_to "http://#{without_http(params[:locationwebsite])}", class: "btn btn-default" do %>
+          <%= link_to "http://#{without_http(params[:locationwebsite])}", class: "btn btn-default", target: "_blank" do %>
             <div style="height:100%;width:100%">
               <%= without_http(params[:locationwebsite]) %> <i class="glyphicon glyphicon-globe"></i>
             </div>
