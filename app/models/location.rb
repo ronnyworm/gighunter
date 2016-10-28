@@ -28,4 +28,9 @@ class Location < ActiveRecord::Base
 			"(nicht zugeordnet)"
 		end
 	end
+
+	def website_without_http
+		var = website.gsub(/http:\/\//, "")
+		var.gsub(/https:\/\//, "")
+	end
 end

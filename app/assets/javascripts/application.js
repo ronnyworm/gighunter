@@ -22,7 +22,7 @@ $(document).ready(function(){
 		$("#l_currentid").val(currentLocation);
 		$("#l_currentname").val($("#name-" + currentLocation).html());
 		$("#l_currentaddress").val($("#address-" + currentLocation).html());
-		$("#l_currentwebsite").val($("#website-" + currentLocation).html());
+		$("#l_currentwebsite").val($("#website-" + currentLocation).children().html());
 		$("#l_currentfestival").prop("checked", $("#festival-" + currentLocation).html() == "ja");
 
 		$("#l_currentcontact").val($("#contact-" + currentLocation).html());

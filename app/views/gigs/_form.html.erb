@@ -54,7 +54,19 @@
     </div>
     <div class="col-md-6">
       <%= label_tag :locationwebsite, "Website" %><br />
-      <%= text_field_tag :locationwebsite, nil, placeholder: @no_edit_for_contact_and_location ? "" : "(lass das leer, wenn es die Location schon im System gibt)", class: "form-control", value: params[:locationwebsite], disabled: @no_edit_for_contact_and_location %>
+
+      <% if @no_edit_for_contact_and_location %>
+        <% if params[:locationwebsite] and not params[:locationwebsite].empty? %>
+          <%= link_to "http://#{without_http(params[:locationwebsite])}", class: "btn btn-default" do %>
+            <div style="height:100%;width:100%">
+              <%= without_http(params[:locationwebsite]) %> <i class="glyphicon glyphicon-globe"></i>
+            </div>
+          <% end %>
+        <% end %>
+        <br>
+      <% else %>
+        <%= text_field_tag :locationwebsite, nil, placeholder: @no_edit_for_contact_and_location ? "" : "(lass das leer, wenn es die Location schon im System gibt)", class: "form-control", value: params[:locationwebsite] %>
+      <% end %>
 
       <br>
     </div>
