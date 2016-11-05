@@ -253,7 +253,7 @@ class GigsController < ApplicationController
     gigs.each do |g|
       if g.create_apply_email
         c = g.contact
-        if c and not c.email.empty?
+        if c and not c.email.empty? and c.email.include? "@"
           @relevant_gigs.push({ id: g.id, name: "#{g.location.name} #{g.name}", datetime: g.datetime, email: c.email })
         end
       end

@@ -97,7 +97,7 @@
   <% end %>
   <div class="form-group row">
     <div class="col-md-6">
-      <%= label_tag :contactname, "Name" %><br />
+      <%= label_tag :contactname, "Name (für die Anrede)" %><br />
       <%= text_field_tag :contactname, nil, class: "form-control", value: params[:contactname], disabled: @no_edit_for_contact_and_location %>
     </div>
 
@@ -114,7 +114,7 @@
     </div>
 
     <div class="col-md-6">
-      <%= label_tag :contactinfo, "weitere Info" %><br />
+      <%= label_tag :contactinfo, "weitere Info (Nachname, Adresse, etc.)" %><br />
       <%= text_field_tag :contactinfo, nil, placeholder: @no_edit_for_contact_and_location ? "" : "(lass das leer, wenn es den Kontakt schon im System gibt)", class: "form-control", value: params[:contactinfo], disabled: @no_edit_for_contact_and_location %>
     </div>
 

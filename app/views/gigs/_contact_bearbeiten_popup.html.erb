@@ -15,7 +15,7 @@
             <%= hidden_field_tag :contact_id, "", value: params[:contactid], id: "c_currentid" %>
 
             <div class="col-md-6">
-              <%= label_tag :contactname, "Name" %><br />
+              <%= label_tag :contactname, "Name (für die Anrede)" %><br />
               <%= text_field_tag :contactname, nil, class: "form-control", value: params[:contactname], id: "c_currentname" %>
             </div>
 
@@ -30,7 +30,7 @@
             </div>
 
             <div class="col-md-6">
-              <%= label_tag :contactinfo, "weitere Info" %><br />
+              <%= label_tag :contactinfo, "weitere Info (Nachname, Adresse, etc.)" %><br />
               <%= text_field_tag :contactinfo, nil, class: "form-control", value: params[:contactinfo], id: "c_currentinfo" %>
             </div>
           </div>
