@@ -249,11 +249,15 @@ class GigsController < ApplicationController
   def apply
     gigs = Gig.all
     @relevant_gigs = []
+    @mails = []
 
     gigs.each do |g|
-      if g.create_apply_email
+      mail = g.create_apply_email
+      if mail
+
         c = g.contact
         if c and not c.email.empty? and c.email.include? "@"
+          @mails.push(mail)
           @relevant_gigs.push({ id: g.id, name: "#{g.location.name} #{g.name}", datetime: g.datetime, email: c.email })
         end
       end
@@ -261,9 +265,24 @@ class GigsController < ApplicationController
   end
 
   def post_apply
-    # magic
+    gigs = Gig.all
+    count = 0
 
-    redirect_to gigs_path, notice: "Die E-Mails wurden versendet."
+    gigs.each do |g|
+      mail = g.create_apply_email
+      if mail
+        c = g.contact
+        if c and not c.email.empty? and c.email.include? "@"
+          GigMailer.apply_contact(mail, c.email).deliver
+          mail.email_type_id = EmailType.find_by(text: "apply_sent").id
+          mail.transferred_at = DateTime.now
+          mail.save
+          count += 1
+        end
+      end
+    end
+
+    redirect_to gigs_path, notice: "Die #{count} E-Mails wurden versendet."
   end
 
   def show_mail

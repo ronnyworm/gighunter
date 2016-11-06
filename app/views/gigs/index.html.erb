@@ -25,8 +25,8 @@
 <tbody>
   <% @gigs.each do |gig| %>
     <tr>
-      <td><%= gig.location ? gig.location.name : "(nicht zugeordnet)" %></td>
-      <td><%= gig.name %></td>
+      <td class="<%= gig.class_by_status %>"><%= gig.location ? gig.location.name : "(nicht zugeordnet)" %></td>
+      <td class="<%= gig.class_by_status %>"><%= gig.name %></td>
       <td><%= gig.location ? gig.location.address : "(unklar)" %></td>
       <td><%= gig.contact ? gig.contact_summary : "(leer)" %></td>
       <td><%= readable_datetime(gig.datetime) %></td>

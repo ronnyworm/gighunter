@@ -53,34 +53,35 @@ class Gig < ActiveRecord::Base
 	def create_apply_email
 		apply_created_email_type = EmailType.find_by(text: "apply_created")
 		apply_sent_email_type = EmailType.find_by(text: "apply_sent")
-  		raise "rake db:seed!" unless apply_created_email_type
+		raise "rake db:seed!" unless apply_created_email_type
 
 
 		if location and contact
-			return false if Email.where(gig_id: id, email_type_id: apply_sent_email_type.id).count > 0
+			return nil if Email.where(gig_id: id, email_type_id: apply_sent_email_type.id).count > 0
 
 			template = Email.get_template
 			apply_created_mails = Email.where(gig_id: id, email_type_id: apply_created_email_type.id)
 
 			if apply_created_mails.count == 0
 				# E-Mail erzeugen
-				unless Email.create(
+				mail = Email.create(
 					subject: replace_variables(template.subject), 
 					text: replace_variables(template.text),
 					email_type_id: apply_created_email_type.id,
 					gig_id: id)
 
+				unless mail
 					raise "E-Mail konnte nicht erzeugt werden ... subject: #{replace_variables(template.subject)}; text: #{replace_variables(template.text)}; email_type_id: #{apply_created_email_type.id}"
 				end
 
-				return true
+				return mail
 			elsif apply_created_mails.count == 1
 				# E-Mail wurde schon erzeugt, aber noch nicht abgesendet
-				return true
+				return apply_created_mails.first
 			end
 		end
 
-		return false
+		return nil
 	end
 
 	def replace_variables(text)
@@ -88,5 +89,13 @@ class Gig < ActiveRecord::Base
 		text = text.gsub(/\$location-name\$/, location.festival ? location.name + "-Festival" : location.name)
 		text = text.gsub(/\$responsible\$/, User.find_by(id: user_id).name)
 		text
+	end
+
+	def class_by_status
+		if current_status == "Kontakt aufgenommen"
+			"kontaktaufgenommen"
+		else
+			""
+		end
 	end
 end
