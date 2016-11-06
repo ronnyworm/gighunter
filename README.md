@@ -14,6 +14,7 @@ The following constants should be set up in your environment.
 for mailing
 
 - GIG_HUNTER_MAIL_SENDER
+- GIG_HUNTER_MAIL_BCC
 - GIG_HUNTER_MAIL_HOST
 - GIG_HUNTER_GMAIL_USERNAME
 - GIG_HUNTER_GMAIL_PASSWORD
