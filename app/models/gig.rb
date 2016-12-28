@@ -88,6 +88,7 @@ class Gig < ActiveRecord::Base
 		text = text.gsub(/\$contact-name\$/, contact.name)
 		text = text.gsub(/\$location-name\$/, location.festival ? location.name + "-Festival" : location.name)
 		text = text.gsub(/\$responsible\$/, User.find_by(id: user_id).name)
+		text = text.gsub(/\$year\$/, datetime.year.to_s)
 		text
 	end
 
