@@ -35,7 +35,7 @@ class GigsController < ApplicationController
     @locations = Location.all.map { |e| e.name }
     @no_edit_for_contact_and_location = true
 
-    @mails = @gig.email
+    @mails = @gig.email.order(:transferred_at).reverse
     @reminders = @gig.reminder
   end
 
@@ -300,6 +300,27 @@ class GigsController < ApplicationController
     mail.save
 
     redirect_to gigs_path, notice: "Die E-Mail an #{contact.email} wurde versendet."
+  end
+
+  def create_email
+    transferred = nil
+    email = Email.new
+
+    begin
+      transferred = DateTime.parse(params[:transferred_at])
+    rescue Exception => e
+      email.errors.add(:transferred_at, "Das Datum muss im Format JJJJ-MM-TT angegeben werden!")
+      redirect_to request.referer, alert: "Die E-Mail / Nachricht konnte nicht gespeichert werden: #{email.errors.full_messages.join("; ")}"
+      return
+    end
+
+    email = Email.create(text: params[:text], subject: params[:subject], gig_id: params[:gig_id], email_type_id: params[:email_type_id], transferred_at: transferred)
+
+    if email.errors.empty?
+      redirect_to request.referer, notice: "Die E-Mail / Nachricht wurde gespeichert."
+    else
+      redirect_to request.referer, alert: "Die E-Mail / Nachricht konnte nicht gespeichert werden: #{email.errors.full_messages.join("; ")}"
+    end
   end
 
   def remove_mail

@@ -36,10 +36,10 @@ Gehe direkt zu:
 <br>
 <br>
 
-<h3 id="mails">Zugehörige E-Mails</h3>
+<h3 id="mails">Zugehörige E-Mails / Nachrichten</h3>
 <% unless @mails.empty? %>
 	<% @mails.each do |m| %>
-		<p><strong>Übertragen:</strong> <%= m.transferred_at.blank? ? raw("<em>noch nicht übertragen</em>") : m.transferred_at %></p>
+		<p><strong>Übertragen:</strong> <%= m.transferred_at.blank? ? raw("<em>noch nicht übertragen</em>") : Rails.date_relative(m.transferred_at.to_date) %></p>
 		<p><strong>Betreff:</strong> <%= m.subject %></p>
 		<p><%= raw(nl2br(m.text)) %></p>
 		<hr>
@@ -48,6 +48,14 @@ Gehe direkt zu:
 	<em>noch keine ...</em>
 <% end %>
 
+<%= link_to "#", "data-toggle" => "modal", "data-target" => "#emailEintragenPopup", class: "btn btn-default" do %>
+  <div style="height:100%;width:100%">
+    E-Mail / Nachricht eintragen <i class="glyphicon glyphicon-plus"></i>
+  </div>
+<% end %>
+
+<br>
+<br>
 <br>
 
 <%= link_to I18n.t("back"), gigs_path, class: "btn btn-default" %>
@@ -55,6 +63,7 @@ Gehe direkt zu:
 
 
 <%= render "reminder_erstellen_popup" %>
+<%= render "email_eintragen_popup" %>
 <%= render "location_bearbeiten_popup" %>
 <%= render "contact_bearbeiten_popup" %>
 

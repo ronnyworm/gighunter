@@ -1,0 +1,44 @@
+<!-- Modal -->
+<div id="emailEintragenPopup" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">E-Mail / Nachricht eintragen</h4>
+      </div>
+
+      <%= form_tag "/gigs/create_email" do %>
+        <div class="modal-body">
+          <div class="form-group row">
+            <%= hidden_field_tag :gig_id, "", value: @gig.id %>
+            <%= hidden_field_tag :email_type_id, "", value: EmailType.find_by(text: "manually_entered").id %>
+
+            <div class="col-md-6">
+              <%= label_tag :subject, "Betreff (inkl. Kanal, wenn nicht E-Mail)" %><br />
+              <%= text_field_tag :subject, nil, class: "form-control" %>
+            </div>
+
+            <div class="col-md-6">
+              <%= label_tag :transferred_at, "Übertragen am" %><br />
+              <%= text_field_tag :transferred_at, nil, placeholder: "JJJJ-MM-TT", class: "form-control" %>
+            </div>
+            
+            <div class="col-md-12">
+              <%= label_tag :text, "Text" %><br />
+              <%= text_area_tag :text, nil, cols: "30", rows: "10", class: "form-control" %>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <%= button_tag type: "submit", class: "btn btn-primary" do %>
+            Speichern
+          <% end %>
+        </div>
+      <% end %>
+     
+    </div>
+
+  </div>
+</div>
