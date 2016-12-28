@@ -14,10 +14,8 @@
     <th>Location</th>
     <th></th>
     <th>Adresse</th>
-    <th>Kontakt</th>
     <th>Stagetime</th>
     <th>Status</th>
-    <th>Verantwortlich</th>
     <th colspan="2"></th>
   </tr>
 </thead>
@@ -27,11 +25,9 @@
     <tr>
       <td class="<%= gig.class_by_status %>"><%= gig.location ? gig.location.name : "(nicht zugeordnet)" %></td>
       <td class="<%= gig.class_by_status %>"><%= gig.name %></td>
-      <td><%= gig.location ? gig.location.address : "(unklar)" %></td>
-      <td><%= gig.contact ? gig.contact_summary : "(leer)" %></td>
+      <td><%= gig.location ? raw(gig.location.address + (gig.contact ? "" : "<strong style='color:red'> (Kontakt fehlt)</strong>")) : "(unklar)" %></td>
       <td><%= readable_datetime(gig.datetime) %></td>
       <td><%= gig.current_status %></td>
-      <td><%= gig.user ? gig.user.name : "(noch niemand)" %></td>
       <td align="center">
         <%= link_to edit_gig_path(gig) do %>
           <div style="height:100%;width:100%">
