@@ -290,6 +290,18 @@ class GigsController < ApplicationController
     @contact = Gig.find(params[:id]).contact
   end
 
+  def send_single_mail
+    mail = Email.find(params[:mail_id].to_i)
+    contact = Contact.find(params[:contact_id].to_i)
+
+    GigMailer.apply_contact(mail, contact.email).deliver
+    mail.email_type_id = EmailType.find_by(text: "apply_sent").id
+    mail.transferred_at = DateTime.now
+    mail.save
+
+    redirect_to gigs_path, notice: "Die E-Mail an #{contact.email} wurde versendet."
+  end
+
   def remove_mail
     @mail = Email.find(params[:id])
     @mail.destroy

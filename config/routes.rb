@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   post 'apply' => 'gigs#post_apply'
   get 'show_mail/:id' => 'gigs#show_mail', as: "show_mail"
   get 'remove_mail/:id' => 'gigs#remove_mail', as: "remove_mail"
+  get 'send_single_mail' => 'gigs#send_single_mail', as: "send_single_mail"
 
   get 'locations' => 'gigs#locations'
   post 'locations' => 'gigs#post_locations'
