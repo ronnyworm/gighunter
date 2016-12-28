@@ -42,6 +42,7 @@ Gehe direkt zu:
 		<p><strong>Übertragen:</strong> <%= m.transferred_at.blank? ? raw("<em>noch nicht übertragen</em>") : Rails.date_relative(m.transferred_at.to_date) %></p>
 		<p><strong>Betreff:</strong> <%= m.subject %></p>
 		<p><%= raw(nl2br(m.text)) %></p>
+		<%= link_to "löschen", remove_mail_url(m.id), data: { confirm: 'Sicher? Das Löschen kann nicht rückgängig gemacht werden.' } %>
 		<hr>
 	<% end %>
 <% else %>

@@ -8,7 +8,7 @@
 <%= link_to "So versenden", send_single_mail_url(mail_id: @mail.id, contact_id: @contact.id), class: "btn btn-primary" %>
 <br>
 <br>
-<%= link_to "Diese Vorlage neu erstellen", remove_mail_url(@mail.id), class: "btn btn-danger" %>
+<%= link_to "Diese Vorlage neu erstellen", recreate_mail_url(@mail.id), class: "btn btn-danger" %>
 
 
 
