@@ -22,7 +22,12 @@
 
   <div class="form-group row">
     <div class="col-md-6">
-      <%= f.label :name, "Name" %><br />
+      <% name_label = "Name" %>
+      <% if is_active? "gigs#edit" %>
+        <% name_label += " (ID: #{@gig.id})"%>
+      <% end %>
+
+      <%= f.label :name, name_label %><br />
       <%= f.text_field :name, placeholder: "Bei einem Festival nur das Jahr", autofocus: true, class: "form-control" %>
     </div>
 
