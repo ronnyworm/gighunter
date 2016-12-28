@@ -395,6 +395,7 @@ class GigsController < ApplicationController
 
       # contact
       contactname = params[:contactname]
+
       contact = Contact.find_by(name: contactname)
 
       if not contact
@@ -412,7 +413,11 @@ class GigsController < ApplicationController
           end
         end
 
-        # contactinfo prüfe ich jetzt nicht mehr ...
+        if params[:contactinfo] and not params[:contactinfo].empty?
+          if contact.info != params[:contactinfo]
+            create_new_contact = true
+          end
+        end
       end
 
       if create_new_contact
