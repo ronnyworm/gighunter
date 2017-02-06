@@ -337,6 +337,38 @@ class GigsController < ApplicationController
     end
   end
 
+  def edit_mail
+    email = Email.find(params[:email_id])
+
+    if not email
+      email.errors.add(:id, "Die Nachricht konnte nicht gefunden werden!")
+      redirect_to request.referer, alert: "Die E-Mail / Nachricht konnte nicht gespeichert werden: #{email.errors.full_messages.join("; ")}"
+      return
+    end
+
+    transferred = nil
+
+    begin
+      transferred = DateTime.parse(params[:transferred_at])
+    rescue Exception => e
+      email.errors.add(:transferred_at, "Das Datum muss im Format JJJJ-MM-TT angegeben werden!")
+      redirect_to request.referer, alert: "Die E-Mail / Nachricht konnte nicht gespeichert werden: #{email.errors.full_messages.join("; ")}"
+      return
+    end
+
+    email[:transferred_at] = params[:transferred_at]
+    email[:subject] = params[:subject]
+    email[:text] = params[:text]
+
+    email.save
+
+    if email.errors.empty?
+      redirect_to request.referer, notice: "Die E-Mail / Nachricht wurde gespeichert."
+    else
+      redirect_to request.referer, alert: "Die E-Mail / Nachricht konnte nicht gespeichert werden: #{email.errors.full_messages.join("; ")}"
+    end
+  end
+
   def recreate_mail
     @mail = Email.find(params[:id])
     gig = Gig.find(@mail.gig_id)

@@ -40,9 +40,13 @@ Gehe direkt zu:
 <% unless @mails.empty? %>
 	<% @mails.each do |m| %>
 		<p><strong>Übertragen:</strong> <%= m.transferred_at.blank? ? raw("<em>noch nicht übertragen</em>") : Rails.date_relative(m.transferred_at.to_date) %></p>
-		<p><strong>Betreff:</strong> <%= m.subject %></p>
+		<span style="display: none" id="transferred_at-<%= m.id %>"><%= readable_datetime(m.transferred_at) %></span>
+		<p><strong>Betreff:</strong> <span id="subject-<%= m.id %>"><%= m.subject %></span></p>
 		<p><%= raw(nl2br(m.text)) %></p>
+		<p style="display:none" id="text-<%= m.id %>"><%= raw(m.text) %></p>
 		<%= link_to "löschen", remove_mail_url(m.id), data: { confirm: 'Sicher? Das Löschen kann nicht rückgängig gemacht werden.' } %>
+		&nbsp;
+		<%= link_to "bearbeiten", "#", id: "email-#{m.id}", "data-toggle" => "modal", "data-target" => "#emailBearbeitenPopup" %>
 		<hr>
 	<% end %>
 <% else %>
@@ -65,6 +69,7 @@ Gehe direkt zu:
 
 <%= render "reminder_erstellen_popup" %>
 <%= render "email_eintragen_popup" %>
+<%= render "email_bearbeiten_popup" %>
 <%= render "location_bearbeiten_popup" %>
 <%= render "contact_bearbeiten_popup" %>
 

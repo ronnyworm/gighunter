@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   helper_method :readable_datetime
 
   def readable_datetime(dt)
-    dt.strftime("%Y-%m-%d %H:%M")
+    dt.strftime("%Y-%m-%d %H:%M") if dt
   end
 
 

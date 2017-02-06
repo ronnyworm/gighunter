@@ -45,4 +45,13 @@ $(document).ready(function(){
 		$("#currenttext").val($("#text-" + currentStatus).html());
 		$("#currentorder").val($("#order-" + currentStatus).html());
     });
+
+    $("[id^=email-]").click(function(){
+	    currentEmail = $(this).attr('id').substring("email-".length);
+
+		$("#e_id").val(currentEmail);
+		$("#e_subject").val($("#subject-" + currentEmail).html());
+		$("#e_transferred_at").val($("#transferred_at-" + currentEmail).html());
+		$("#e_text").val($("#text-" + currentEmail).html());
+    });
 });
