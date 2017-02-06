@@ -5,6 +5,12 @@
 
 <br />
 <br />
+<% if params[:archived] %>
+  <%= link_to "archivierte Gigs verstecken", gigs_path, class: "btn btn-default" %>
+<% else %>
+  <%= link_to "archivierte Gigs anzeigen", gigs_path(archived: true), class: "btn btn-default" %>
+<% end %>
+<br />
 <br />
 
 <div class="table-responsive">
@@ -12,7 +18,6 @@
 <thead>
   <tr>
     <th>Location</th>
-    <th></th>
     <th>Adresse</th>
     <th>Stagetime</th>
     <th>Status</th>
@@ -23,10 +28,9 @@
 <tbody>
   <% @gigs.each do |gig| %>
     <tr>
-      <td class="<%= gig.class_by_status %>"><%= gig.location ? gig.location.name : "(nicht zugeordnet)" %></td>
-      <td class="<%= gig.class_by_status %>"><%= gig.name %></td>
+      <td class="<%= gig.class_by_status %>"><%= gig.location ? "#{gig.location.name} #{gig.name}" : "(nicht zugeordnet)" %></td>
       <td><%= gig.location ? raw(gig.location.address + (gig.contact ? "" : "<strong style='color:red'> (Kontakt fehlt)</strong>")) : "(unklar)" %></td>
-      <td><%= readable_datetime(gig.datetime) %></td>
+      <td><%= Rails.date_relative(gig.datetime.to_date) %></td>
       <td><%= gig.current_status %></td>
       <td align="center">
         <%= link_to edit_gig_path(gig) do %>

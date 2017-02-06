@@ -6,8 +6,18 @@ class GigsController < ApplicationController
   # GET /gigs
   # GET /gigs.json
   def index
-    # hier muss noch korrigiert werden, dass nur die Gigs der aktuellen Band angezeigt werden
-    @gigs = Gig.all.order(:datetime)
+    if params[:archived]
+      @gigs = Gig.all.order(:datetime)
+    else
+      @gigs = []
+
+      Gig.all.order(:datetime).each do |g|
+        if g.current_status != "archiviert"
+          @gigs << g
+        end
+      end
+    end
+
     @status_values = StatusValue.all
     @members = current_user.band.user
     @locations = Location.all
