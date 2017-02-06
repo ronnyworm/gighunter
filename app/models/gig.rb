@@ -50,6 +50,14 @@ class Gig < ActiveRecord::Base
 		end
 	end
 
+	def last_message
+		if email and not email.empty?
+			Rails.datetime_relative(email.order(:transferred_at).reverse.first.transferred_at)
+		else
+			nil
+		end
+	end
+
 	def create_apply_email
 		apply_created_email_type = EmailType.find_by(text: "apply_created")
 		apply_sent_email_type = EmailType.find_by(text: "apply_sent")
