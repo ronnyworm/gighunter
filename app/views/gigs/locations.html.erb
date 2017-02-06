@@ -1,7 +1,8 @@
 <h1>Locations</h1>
 
+<%= link_to "Festivals mit anzeigen", locations_path(festivals: true), class: "btn btn-default" %>
 
-<%= form_tag "/locations" do %>
+
 <div class="table-responsive">
 <table class="table table-striped">
 <thead>
@@ -9,7 +10,9 @@
     <th>Name</th>
     <th>Adresse</th>
     <th>Website</th>
-    <th>Festival?</th>
+    <% if params[:festivals] %>
+      <th>Festival?</th>
+    <% end %>
     <th>Kontakt</th>
     <th></th>
   </tr>
@@ -21,7 +24,11 @@
       <td id="name-<%= location.id %>"><%= location.name %></td>
       <td id="address-<%= location.id %>"><%= location.address %></td>
       <td id="website-<%= location.id %>"><%= link_to location.website_without_http, "http://#{location.website_without_http}", target: "_blank" %></td>
-      <td id="festival-<%= location.id %>"><%= location.festival ? "ja" : "nein" %></td>
+
+      <% if params[:festivals] %>
+        <td id="festival-<%= location.id %>"><%= location.festival ? "ja" : "nein" %></td>
+      <% end %>
+
       <td id="contact-<%= location.id %>"><%= location.contact_summary %></td>
       <td align="center">
         <%= link_to "#", "data-toggle" => "modal", "data-target" => "#locationBearbeitenPopup", id: "location-#{location.id}" do %>
@@ -33,6 +40,24 @@
     </tr>
   <% end %>
   
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>neue Location</strong></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  
+  <%= form_tag "/locations" do %>
   <tr>
     <td><%= text_field_tag :name, nil, class: "form-control", placeholder: "Name" %></td>
     <td><%= text_field_tag :address, nil, class: "form-control", placeholder: "Adresse" %></td>

@@ -2,7 +2,6 @@
 
 
 
-<%= form_tag "/contacts" do %>
 <div class="table-responsive">
 <table class="table table-striped">
 <thead>
@@ -32,6 +31,22 @@
     </tr>
   <% end %>
 
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>neuer Kontakt</strong></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+
+  <%= form_tag "/contacts" do %>
   <tr>
     <td><%= text_field_tag :name, nil, class: "form-control", placeholder: "Name" %></td>
     <td><%= email_field_tag :email, nil, class: "form-control", placeholder: "E-Mail" %></td>

@@ -110,7 +110,11 @@ class GigsController < ApplicationController
   end
 
   def locations
-    @locations = Location.all
+    if params[:festivals]
+      @locations = Location.all
+    else
+      @locations = Location.where(festival: false)
+    end
     @contacts = Contact.all.map { |e| e.summary }
 
     @contacts = [@contacts, ""].flatten!
