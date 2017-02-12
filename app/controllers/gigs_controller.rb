@@ -144,7 +144,11 @@ class GigsController < ApplicationController
     u[params[:attribute]] = params[:text]
     u.save
 
-    redirect_to "/band/1"
+    if u.errors.empty?
+      redirect_to "/band/1"
+    else
+      redirect_to "/band/1", alert: "Beim Speichern hat es Fehler gegeben: #{u.errors.full_messages.join("; ")}"
+    end
   end
 
   def locations
