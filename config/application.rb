@@ -25,5 +25,7 @@ module GigHunter
     config.i18n.default_locale = :de
 
     config.colorize_logging = false
+
+    config.months_until_application = 11
   end
 end

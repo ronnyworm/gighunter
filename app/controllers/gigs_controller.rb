@@ -295,19 +295,24 @@ class GigsController < ApplicationController
   def apply
     gigs = Gig.all
     @relevant_gigs = []
-    @mails = []
+    @next_relevant_gigs = []
 
     gigs.each do |g|
       mail = g.create_apply_email
       if mail
-
         c = g.contact
         if c and not c.email.empty? and c.email.include? "@"
-          @mails.push(mail)
-          @relevant_gigs.push({ id: g.id, name: "#{g.location.name} #{g.name}", datetime: g.datetime, email: c.email })
+          if g.datetime < DateTime.now + Rails.configuration.months_until_application.month
+            @relevant_gigs.push({ id: g.id, name: "#{g.location.name} #{g.name}", datetime: Rails.date_relative(g.datetime.to_date), raw_datetime: g.datetime, email: c.email })
+          else
+            @next_relevant_gigs.push({ id: g.id, name: "#{g.location.name} #{g.name}", datetime: Rails.date_relative(g.datetime.to_date), raw_datetime: g.datetime, email: c.email })
+          end
         end
       end
     end
+
+    @relevant_gigs = @relevant_gigs.sort_by { |x| x[:raw_datetime] }
+    @next_relevant_gigs = @next_relevant_gigs.sort_by { |x| x[:raw_datetime] }
   end
 
   def post_apply
