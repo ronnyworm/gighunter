@@ -26,4 +26,8 @@ module ApplicationHelper
 	def nl2br(s)
 		s.gsub(/\n/, '<br>')
 	end
+
+	def title(page_title)
+	  content_for(:title) { page_title }
+	end
 end
