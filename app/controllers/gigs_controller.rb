@@ -348,15 +348,18 @@ class GigsController < ApplicationController
 
     transferred = nil
 
-    begin
-      transferred = DateTime.parse(params[:transferred_at])
-    rescue Exception => e
-      email.errors.add(:transferred_at, "Das Datum muss im Format JJJJ-MM-TT angegeben werden!")
-      redirect_to request.referer, alert: "Die E-Mail / Nachricht konnte nicht gespeichert werden: #{email.errors.full_messages.join("; ")}"
-      return
-    end
+    if params[:transferred_at] and not params[:transferred_at].empty?
+      begin
+        transferred = DateTime.parse(params[:transferred_at])
+      rescue Exception => e
+        email.errors.add(:transferred_at, "Das Datum muss im Format JJJJ-MM-TT angegeben werden!")
+        redirect_to request.referer, alert: "Die E-Mail / Nachricht konnte nicht gespeichert werden: #{email.errors.full_messages.join("; ")}"
+        return
+      end
 
-    email[:transferred_at] = params[:transferred_at]
+      email[:transferred_at] = params[:transferred_at]
+    end
+    
     email[:subject] = params[:subject]
     email[:text] = params[:text]
 
