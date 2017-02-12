@@ -59,30 +59,49 @@ class Gig < ActiveRecord::Base
 	end
 
 	def create_apply_email
+		# es wird nil zurückgegeben, wenn für diesen Gig keine Bewerbung mehr abgeschickt werden muss
+
 		apply_created_email_type = EmailType.find_by(text: "apply_created")
 		apply_sent_email_type = EmailType.find_by(text: "apply_sent")
+		manually_entered_type = EmailType.find_by(text: "manually_entered")
 		raise "rake db:seed!" unless apply_created_email_type
 
 
 		if location and contact
-			return nil if Email.where(gig_id: id, email_type_id: apply_sent_email_type.id).count > 0
+			return nil if gibt_es_schon_eine_abgesendete_bewerbungs_mail?
 
 			template = Email.get_template
 			apply_created_mails = Email.where(gig_id: id, email_type_id: apply_created_email_type.id)
+			manually_entered_mails = Email.where(gig_id: id, email_type_id: manually_entered_type.id).order(:transferred_at)
 
 			if apply_created_mails.count == 0
-				# E-Mail erzeugen
-				mail = Email.create(
-					subject: replace_variables(template.subject), 
-					text: replace_variables(template.text),
-					email_type_id: apply_created_email_type.id,
-					gig_id: id)
+				if manually_entered_mails.count == 0
 
-				unless mail
-					raise "E-Mail konnte nicht erzeugt werden ... subject: #{replace_variables(template.subject)}; text: #{replace_variables(template.text)}; email_type_id: #{apply_created_email_type.id}"
+					# E-Mail erzeugen
+					mail = Email.create(
+						subject: replace_variables(template.subject), 
+						text: replace_variables(template.text),
+						email_type_id: apply_created_email_type.id,
+						gig_id: id)
+
+					unless mail
+						raise "E-Mail konnte nicht erzeugt werden ... subject: #{replace_variables(template.subject)}; text: #{replace_variables(template.text)}; email_type_id: #{apply_created_email_type.id}"
+					end
+
+					return mail
+				else
+					# wenn es nur eine manuelle E-Mail gibt und sie schon übertragen wurde, passt alles
+					if manually_entered_mails.count == 1
+						if manually_entered_mails.first.transferred_at
+							return nil
+						else
+							return manually_entered_mails.first
+						end
+					else
+						# keine Unterscheidung an dieser Stelle. Wird schon passen, wenn mehr als eine manuelle E-Mail da ist
+						return nil
+					end
 				end
-
-				return mail
 			elsif apply_created_mails.count == 1
 				# E-Mail wurde schon erzeugt, aber noch nicht abgesendet
 				return apply_created_mails.first
@@ -90,6 +109,12 @@ class Gig < ActiveRecord::Base
 		end
 
 		return nil
+	end
+
+	def gibt_es_schon_eine_abgesendete_bewerbungs_mail?
+		apply_sent_email_type = EmailType.find_by(text: "apply_sent")
+
+		return Email.where(gig_id: id, email_type_id: apply_sent_email_type.id).count > 0
 	end
 
 	def replace_variables(text)
