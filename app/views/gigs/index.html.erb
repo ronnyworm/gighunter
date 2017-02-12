@@ -23,7 +23,7 @@
     <th>Adresse</th>
     <th>Stagetime</th>
     <th>Status</th>
-    <th>Letzte Nachricht</th>
+    <th>(Anzahl) Letzte Nachricht</th>
     <th colspan="2"></th>
   </tr>
 </thead>
@@ -44,7 +44,7 @@
 
       <td><%= Rails.date_relative(gig.datetime.to_date) %></td>
       <td><%= gig.current_status %></td>
-      <td><%= gig.last_message %></td>
+      <td><%= "(#{gig.email.count}) #{gig.last_message}" %></td>
 
       <td align="center" title="bearbeiten">
         <%= link_to edit_gig_path(gig) do %>

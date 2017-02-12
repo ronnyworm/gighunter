@@ -475,7 +475,6 @@ class GigsController < ApplicationController
         
       end
       vorhandenes_equipment = params[:gig][:vorhandenes_equipment]
-      stagesize = params[:gig][:stagesize]
       link_forum = params[:gig][:link_forum]
       user_id = User.find_by(name: params[:gig][:user]).id
       @status = params[:gig][:status]
@@ -526,7 +525,6 @@ class GigsController < ApplicationController
         name: name,
         datetime: datetime,
         vorhandenes_equipment: vorhandenes_equipment,
-        stagesize: stagesize,
         link_forum: link_forum,
         user_id: user_id,
         location_id: location.id
