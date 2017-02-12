@@ -54,4 +54,14 @@ $(document).ready(function(){
 		$("#e_transferred_at").val($("#transferred_at-" + currentEmail).html());
 		$("#e_text").val($("#text-" + currentEmail).html());
     });
+
+
+
+	$("#gig_datetimereadable").click(function() {
+		$("#date_notice").show();
+	});
+
+	$("#gig_datetimereadable").focusout(function() {
+		$("#date_notice").hide();
+	});
 });

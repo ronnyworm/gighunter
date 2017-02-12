@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161028190644) do
+ActiveRecord::Schema.define(version: 20170212133153) do
 
   create_table "bands", force: :cascade do |t|
     t.text     "tech_rider"
@@ -63,7 +63,6 @@ ActiveRecord::Schema.define(version: 20161028190644) do
     t.string   "link_forum"
     t.text     "vorhandenes_equipment"
     t.integer  "user_id"
-    t.string   "stagesize"
     t.integer  "location_id"
   end
 

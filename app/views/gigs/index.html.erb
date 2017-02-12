@@ -1,4 +1,4 @@
-<h1>Gigs</h1>
+<h1>Gigs / Festivals</h1>
 
 <%= link_to "Anlegen", new_gig_path, class: "btn btn-primary" %>
 <%= link_to "E-Mail an Veranstalter versenden", apply_path, class: "btn btn-primary" %>
@@ -13,11 +13,13 @@
 <br />
 <br />
 
+<p><i class="glyphicon glyphicon-tent"></i> bedeutet Festival.</p>
+
 <div class="table-responsive">
 <table class="table table-striped">
 <thead>
   <tr>
-    <th>Location</th>
+    <th>Name / Location</th>
     <th>Adresse</th>
     <th>Stagetime</th>
     <th>Status</th>
@@ -29,8 +31,17 @@
 <tbody>
   <% @gigs.each do |gig| %>
     <tr>
-      <td class="<%= gig.class_by_status %>"><%= gig.location ? "#{gig.location.name} #{gig.name}" : "(nicht zugeordnet)" %></td>
-      <td><%= gig.location ? raw(gig.location.address + (gig.contact ? "" : "<strong style='color:red'> (Kontakt fehlt)</strong>")) : "(unklar)" %></td>
+      <td class="<%= gig.class_by_status %>">
+        <%= gig.location ? "#{gig.location.name} #{gig.name}" : "(nicht zugeordnet)" %>    
+        <% if gig.location.festival %>
+          <i class="glyphicon glyphicon-tent"></i>
+        <% end %>
+      </td>
+
+      <td>
+        <%= gig.location ? raw(gig.location.address + (gig.contact ? "" : "<strong style='color:red'> (Kontakt fehlt)</strong>")) : "(unklar)" %>
+      </td>
+
       <td><%= Rails.date_relative(gig.datetime.to_date) %></td>
       <td><%= gig.current_status %></td>
       <td><%= gig.last_message %></td>

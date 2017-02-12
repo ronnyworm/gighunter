@@ -22,19 +22,14 @@
 
   <div class="form-group row">
     <div class="col-md-6">
-      <% name_label = "Name" %>
-      <% if is_active? "gigs#edit" %>
-        <% name_label += " (ID: #{@gig.id})"%>
-      <% end %>
-
-      <%= f.label :name, name_label %><br />
+      <%= f.label :name, "Name" %><br />
       <%= f.text_field :name, placeholder: "Bei einem Festival nur das Jahr", autofocus: true, class: "form-control" %>
     </div>
 
     <div class="col-md-6">
       <%= f.label :datetimereadable, "Stagetime" %><br />
       <%= f.text_field :datetimereadable, placeholder: "JJJJ-MM-TT (SS:MM)", class: "form-control" %><br />
-      <span>Wenn du die Uhrzeit noch nicht weißt, lass sie einfach weg ;)<br />
+      <span id="date_notice" style="display:none">Wenn du die Uhrzeit noch nicht weißt, lass sie einfach weg ;)<br />
       (Ein Datum solltest du trotzdem schon angeben)<br />
       Wenn du den Tag noch nicht weißt, gib für ihn einfach 01 ein.</span>
 
@@ -43,6 +38,8 @@
 
 
 
+
+  <div class="edit-block">
   <h3>Location</h3>
   <div class="form-group row">
     <div class="col-md-6">
@@ -93,9 +90,17 @@
       </div>
     <% end %>
   </div>
+  </div>
 
 
 
+
+
+
+
+
+
+  <div class="edit-block">
   <h3>Kontakt (für die Location)</h3>
   <% unless is_active? "gigs#edit" %>
     <p>⚠️&nbsp;&nbsp;Falls du nur eine E-Mail-Adresse eintragen möchtest, musst du trotzdem einen Namen eingeben (im Zweifelsfall einfach <em>Crew</em>).</p>
@@ -134,9 +139,12 @@
       </div>
     <% end %>
   </div>
+  </div>
 
 
 
+
+  <div class="edit-block">
   <h3>Weitere Info zum Gig</h3>
   <div class="form-group row">
     <div class="col-md-6">
@@ -151,18 +159,18 @@
       <%= f.label :link_forum, "Link" %><br />
       <%= f.text_field :link_forum, placeholder: "zB zum Forum", class: "form-control" %>
     </div>
-    <div class="col-md-6">
-      <%= f.label :stagesize, "Bühnengröße" %><br />
-      <%= f.text_field :stagesize, placeholder: "zB: 4 x 8m", class: "form-control" %>
-    </div>
   </div>
 
   <div class="form-group">
-      <%= f.label :vorhandenes_equipment, "Vorhandenes Equipment" %><br />
+      <%= f.label :vorhandenes_equipment, "Vorhandenes Equipment / Notizen zu diesem Gig" %><br />
       <%= f.text_area :vorhandenes_equipment, cols: "40", rows: "6", class: "form-control" %>
+  </div>
   </div>
 
 
+  <% if is_active? "gigs#new" %>
+    <p>Wenn es schon Nachrichtenaustausch zu diesem Gig gegeben hat, vergiss bitte nicht, diesen unten in der Bearbeiten-Maske einzutragen.</p>
+  <% end %>
   
 
   <div class="actions">
