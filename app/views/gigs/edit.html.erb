@@ -63,6 +63,13 @@ Gehe direkt zu:
 <br>
 <br>
 
+
+<%= link_to "Gig löschen", @gig, method: :delete, data: { confirm: I18n.t('models.confirm_to_destroy') }, class: "btn btn-danger" %>
+
+<br>
+<br>
+<br>
+
 <%= link_to I18n.t("back"), gigs_path, class: "btn btn-default" %>
 
 

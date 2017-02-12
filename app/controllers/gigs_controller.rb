@@ -1,5 +1,5 @@
 class GigsController < ApplicationController
-  before_action :set_gig, only: [:show, :edit, :update, :destroy]
+  before_action :set_gig, only: [:show, :edit, :update, :destroy, :duplicate]
 
   before_action :authenticate_user!
 
@@ -47,6 +47,25 @@ class GigsController < ApplicationController
 
     @mails = @gig.email.order(:transferred_at).reverse
     @reminders = @gig.reminder
+  end
+
+  def duplicate
+    result = "Der Gig wurde kopiert!"
+
+    copy = @gig.dup
+    if copy.location.festival
+      copy[:name] = (copy.name.to_i + 1).to_s
+      copy[:datetime] = copy.datetime + 1.year
+
+      result += " Weil es sich um ein Festival handelt, ist er bei #{copy.location.name} #{copy[:name]} zu finden."
+    end
+
+
+    copy.save
+
+    Status.create(gig_id: copy.id, status_value_id: StatusValue.find_by(text: "unbearbeitet").id)
+
+    redirect_to gigs_path, notice: result
   end
 
   # POST /gigs

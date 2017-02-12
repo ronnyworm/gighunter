@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :gigs, except: [:show]
+  resources :gigs, except: [:show] do
+    member do
+      get 'duplicate'
+    end
+  end
 
   get 'band/:id' => 'gigs#band'
 
