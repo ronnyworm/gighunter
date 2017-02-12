@@ -103,8 +103,17 @@ class Gig < ActiveRecord::Base
 					end
 				end
 			elsif apply_created_mails.count == 1
-				# E-Mail wurde schon erzeugt, aber noch nicht abgesendet
-				return apply_created_mails.first
+				# E-Mail wurde schon erzeugt
+				m = apply_created_mails.first
+				if m.transferred_at
+					# falsch gekennzeichnet - wurde ja schon versendet
+					m[:email_type_id] = apply_sent_email_type.id
+					m.save
+					
+					return nil
+				else
+					return m
+				end
 			end
 		end
 
