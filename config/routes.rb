@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, :skip => :registrations
   resources :gigs, except: [:show] do
     member do
       get 'duplicate'
