@@ -295,6 +295,7 @@ class GigsController < ApplicationController
   def apply
     @relevant_gigs = []
     @next_relevant_gigs = []
+    @relevant_gigs_no_email = []
 
     Gig.all_that_need_to_be_sent.each do |g|
       if g.datetime < DateTime.now + Rails.configuration.months_until_application.month
@@ -304,8 +305,17 @@ class GigsController < ApplicationController
       end
     end
 
+    Gig.all_that_need_action_but_not_via_email.each do |g|
+      if g.datetime < DateTime.now + Rails.configuration.months_until_application.month
+        @relevant_gigs_no_email.push({ id: g.id, name: "#{g.location.name} #{g.name}", datetime: Rails.date_relative(g.datetime.to_date), raw_datetime: g.datetime, info: g.contact.info })
+      else
+        @next_relevant_gigs.push({ id: g.id, name: "#{g.location.name} #{g.name}", datetime: Rails.date_relative(g.datetime.to_date), raw_datetime: g.datetime, info: g.contact.info })
+      end
+    end
+
     @relevant_gigs = @relevant_gigs.sort_by { |x| x[:raw_datetime] }
     @next_relevant_gigs = @next_relevant_gigs.sort_by { |x| x[:raw_datetime] }
+    @relevant_gigs_no_email = @relevant_gigs_no_email.sort_by { |x| x[:raw_datetime] }
   end
 
   def post_apply

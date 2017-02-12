@@ -1,11 +1,12 @@
+<% title "aktuelle Bewerbungen" %>
+
+<%= link_to "Zurück", gigs_path, class: "btn btn-default" %>
+<br>
+<br>
+
+<div class="div-block">
 <h1>E-Mails an Veranstalter versenden</h1>
 
-<%= form_tag "/apply" do %>
-  <%= button_tag "Versenden", type: "submit", class: "btn btn-primary" %>
-  <%= link_to "Zurück", gigs_path, class: "btn btn-default" %>
-<% end %>
-
-<br>
 <br>
 <p>Es werden nur die Gigs der nächsten <%= Rails.configuration.months_until_application %> Monate betrachtet, bei denen sich noch nicht beworben wurde.</p>
 
@@ -25,31 +26,80 @@
     <tr>
       <td><%= g[:name] %></td>
       <td><%= g[:datetime] %></td>
-      <td><%= g[:email] %></td>
-      <td><%= link_to "ansehen", show_mail_url(g[:id]) %></td>
-    </tr>
-  <% end %>
-
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td><strong>bald relevant (wird jetzt noch nicht versendet):</strong></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <% @next_relevant_gigs.each do |g| %>
-    <tr>
-      <td><%= g[:name] %></td>
-      <td><%= g[:datetime] %></td>
-      <td><%= g[:email] %></td>
+      <td><%= "✉️ #{g[:email]}" %></td>
       <td><%= link_to "ansehen", show_mail_url(g[:id]) %></td>
     </tr>
   <% end %>
 </tbody>
 </table>
 </div>
+
+
+<%= form_tag "/apply" do %>
+  <%= button_tag "alle versenden", type: "submit", class: "btn btn-primary" %>
+<% end %>
+</div>
+
+
+<div class="div-block">
+<h2>Bewerbung über andere Kanäle nötig</h2>
+
+<p>Es werden nur die Gigs der nächsten <%= Rails.configuration.months_until_application %> Monate betrachtet, bei denen sich noch nicht beworben wurde.</p>
+
+<div class="table-responsive">
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>(voraussichtliche) Stagetime</th>
+    <th>Info</th>
+    <th></th>
+  </tr>
+</thead>
+
+<tbody>
+  <% @relevant_gigs_no_email.each do |g| %>
+    <tr>
+      <td><%= g[:name] %></td>
+      <td><%= g[:datetime] %></td>
+      <td><%= g[:info] %></td>
+      <td><%= link_to "ansehen", show_mail_url(g[:id]) %></td>
+    </tr>
+  <% end %>
+</tbody>
+</table>
+</div>
+</div>
+
+
+<div class="div-block">
+<h2>Im Moment noch nicht relevant</h2>
+
+<p>Diese Gigs liegen mehr als <%= Rails.configuration.months_until_application %> Monate in der Zukunft.</p>
+
+<div class="table-responsive">
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>(voraussichtliche) Stagetime</th>
+    <th>E-Mail-Adresse / Info</th>
+    <th></th>
+  </tr>
+</thead>
+
+<tbody>
+  <% @next_relevant_gigs.each do |g| %>
+    <tr>
+      <td><%= g[:name] %></td>
+      <td><%= g[:datetime] %></td>
+      <td><%= g[:email] ? "✉️ #{g[:email]}" : g[:info] %></td>
+      <td><%= link_to "ansehen", show_mail_url(g[:id]) %></td>
+    </tr>
+  <% end %>
+</tbody>
+ </table>
+</div>
+</div>
+
+<%= link_to "Zurück", gigs_path, class: "btn btn-default" %>

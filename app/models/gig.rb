@@ -166,4 +166,20 @@ class Gig < ActiveRecord::Base
 
 		result
 	end
+
+	def self.all_that_need_action_but_not_via_email
+		result = []
+
+		all.each do |g|
+			mail = g.create_apply_email
+			if mail
+				c = g.contact
+				if c.email.empty? or not c.email.include? "@"
+					result << g
+				end
+			end
+		end
+
+		result
+	end
 end

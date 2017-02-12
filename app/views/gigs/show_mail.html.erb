@@ -1,12 +1,18 @@
+<% title "Nachricht anzeigen" %>
+
 <h1>Bewerbungsmail an <%= @contact.summary %></h1>
 
-<%= link_to "Zurück zur Liste", :back, class: "btn btn-default" %>
+<%= link_to "Zurück zur Liste", apply_path, class: "btn btn-default" %>
+<br>
+<br>
 
 <p><strong>Betreff:</strong> <%= @mail.subject %></p>
 <p class="email_type"><strong>Typ:</strong> <%= EmailType.find(@mail.email_type_id).text %></p>
 <p><%= raw(nl2br(@mail.text)) %></p>
 
-<%= link_to "So versenden", send_single_mail_url(mail_id: @mail.id, contact_id: @contact.id), class: "btn btn-primary" %>
+<% if @contact.email and not @contact.email.empty? %>
+	<%= link_to "So versenden", send_single_mail_url(mail_id: @mail.id, contact_id: @contact.id), class: "btn btn-primary" %>
+<% end %>
 <br>
 <br>
 <%= link_to "Diese Vorlage neu erstellen", recreate_mail_url(@mail.id), class: "btn btn-danger" %>
