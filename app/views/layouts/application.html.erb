@@ -15,16 +15,33 @@
 
 <div class="container">
 
-<% if notice %>
-  <p class="alert alert-success"><%= notice %></p>
-<% end %>
-<% if alert %>
-  <p class="alert alert-danger"><%= alert %></p>
-<% end %>
+	<% if notice %>
+	  <p class="alert alert-success"><%= notice %></p>
+	<% end %>
+	<% if alert %>
+	  <p class="alert alert-danger"><%= alert %></p>
+	<% end %>
 
-<%= yield %>
+	<%= yield %>
+
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 
 </div>
+
+<div class="footer">
+	<p><em>GigHunter ist ein Werkzeug für Bands, mit dem sie sich einen Überblick über ihre Kontakte zu Veranstaltern und den aktuellen Stand der Organisation von Auftritten verschaffen können.</em></p>
+
+	<p><em>Der besondere Mehrwert ist die enthaltene <strong>Workflow-Engine</strong>: GigHunter pflegt Kontakte soweit möglich selbst und erinnert die Nutzer selbstständig daran, wenn sie Aktionen durchführen müssen, damit die Organisation immer weiterläuft.</em></p>
+</div>
+
+
+
 
 </body>
 </html>

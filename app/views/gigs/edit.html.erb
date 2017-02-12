@@ -11,6 +11,7 @@ Gehe direkt zu:
 <br>
 <br>
 
+<div class="div-block">
 <h3 id="reminders">Erinnerungen</h3>
 
 <%= link_to "#", "data-toggle" => "modal", "data-target" => "#reminderErstellenPopup", class: "btn btn-default" do %>
@@ -32,22 +33,25 @@ Gehe direkt zu:
 <% else %>
 	<em>noch keine ...</em>
 <% end %>
+</div>
 
 <br>
 <br>
 
+<div class="div-block">
 <h3 id="mails">Zugehörige E-Mails / Nachrichten</h3>
 <% unless @mails.empty? %>
 	<% @mails.each do |m| %>
+		<div class="div-inner">
 		<p><strong>Übertragen:</strong> <%= m.transferred_at.blank? ? raw("<em>noch nicht übertragen</em>") : Rails.date_relative(m.transferred_at.to_date) %></p>
 		<span style="display: none" id="transferred_at-<%= m.id %>"><%= readable_datetime(m.transferred_at) %></span>
 		<p><strong>Betreff:</strong> <span id="subject-<%= m.id %>"><%= m.subject %></span></p>
 		<p><%= raw(nl2br(m.text)) %></p>
 		<p style="display:none" id="text-<%= m.id %>"><%= raw(m.text) %></p>
-		<%= link_to "löschen", remove_mail_url(m.id), data: { confirm: 'Sicher? Das Löschen kann nicht rückgängig gemacht werden.' } %>
+		<%= link_to "löschen", remove_mail_url(m.id), data: { confirm: 'Sicher? Das Löschen kann nicht rückgängig gemacht werden.' }, class: "btn btn-danger btn-xs" %>
 		&nbsp;
-		<%= link_to "bearbeiten", "#", id: "email-#{m.id}", "data-toggle" => "modal", "data-target" => "#emailBearbeitenPopup" %>
-		<hr>
+		<%= link_to "bearbeiten", "#", id: "email-#{m.id}", "data-toggle" => "modal", "data-target" => "#emailBearbeitenPopup", class: "btn btn-default btn-xs" %>
+		</div>
 	<% end %>
 <% else %>
 	<em>noch keine ...</em>
@@ -58,6 +62,7 @@ Gehe direkt zu:
     E-Mail / Nachricht eintragen <i class="glyphicon glyphicon-plus"></i>
   </div>
 <% end %>
+</div>
 
 <br>
 <br>
@@ -71,8 +76,6 @@ Gehe direkt zu:
 <br>
 
 <%= link_to I18n.t("back"), gigs_path, class: "btn btn-default" %>
-
-
 
 <%= render "reminder_erstellen_popup" %>
 <%= render "email_eintragen_popup" %>

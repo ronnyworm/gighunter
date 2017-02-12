@@ -22,11 +22,28 @@
 	background-color:rgb(0,255,200) !important;
 }
 
-.edit-block{
+.div-block{
 	border: 1px solid black;
 	padding: 1em;
 	margin-bottom: 1em;
 	-webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px; 
+}
+
+.div-inner{
+	background-color: rgb(220,220,255);
+	padding: 1em;
+	margin-bottom: 1em;
+	-webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px; 
+}
+
+.footer{
+	background-color: rgb(220,220,255);
+	min-height: 10em;
+	text-align: center;
+	padding: 2em;
+
 }

@@ -5839,3 +5839,15 @@ button.close {
   padding: 1em;
   margin-bottom: 1em;
   border-radius: 5px; }
+
+.div-inner {
+  background-color: #dcdcff;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-radius: 5px; }
+
+.footer {
+  background-color: #dcdcff;
+  min-height: 10em;
+  text-align: center;
+  padding: 2em; }

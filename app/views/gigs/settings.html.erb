@@ -1,7 +1,7 @@
 <h1>Einstellungen</h1>
 
-
-<h2>Statuswerte</h2>
+<div class="div-block">
+<h2>Statuswerte von Gigs</h2>
 <%= form_tag "/settings" do %>
 <div class="table-responsive">
 <table class="table table-striped">
@@ -37,9 +37,10 @@
 </table>
 </div>
 <% end %>
+</div>
 
 
-
+<div class="div-block">
 <h2>E-Mail Vorlage</h2>
 <%= form_tag "/settings/edit_template" do %>
 
@@ -55,11 +56,14 @@
 <%= text_field_tag :subject, @template_subject, class: "form-control", placeholder: "Betreff" %>
 <%= text_area_tag :text, @template_text, placeholder: "E-Mail-Text", cols: "40", rows: "30", class: "form-control" %>
 
+<br>
+<br>
+
 <%= button_tag "Vorlage speichern", type: "submit", class: "btn btn-primary" %>
 
 
 <% end %>
-
+</div>
 
 
 
