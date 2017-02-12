@@ -138,6 +138,15 @@ class GigsController < ApplicationController
     @members = current_user.band.user
   end
 
+  def edit_band
+    u = User.find(params[:id])
+
+    u[params[:attribute]] = params[:text]
+    u.save
+
+    redirect_to "/band/1"
+  end
+
   def locations
     if params[:festivals]
       @locations = Location.all

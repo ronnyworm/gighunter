@@ -1,6 +1,6 @@
 <h1><%= current_user.band.name %></h1>
 
-
+<p>Klicke ein Feld an, um es zu bearbeiten.</p>
 
 <div class="table-responsive">
 <table class="table table-striped">
@@ -8,23 +8,56 @@
   <tr>
     <th>Mitglied</th>
     <th>Instrumente</th>
+    <th>E-Mail</th>
   </tr>
 </thead>
 
 <tbody>
   <% @members.each do |member| %>
     <tr>
-      <td><%= member.name %></td>
-      <td><%= member.instruments %></td>
+      <td class="click-to-edit" id="member-<%= member.id %>-name"><%= member.name %></td>
+      <td class="click-to-edit" id="member-<%= member.id %>-instruments"><%= member.instruments %></td>
+      <td class="click-to-edit" id="member-<%= member.id %>-email"><%= member.email %></td>
     </tr>
   <% end %>
 </tbody>
 </table>
 </div>
 
-<%#
-Mitglieder müssen hinzugefügt werden können, Instrumente und Namen geändert werden können
--> Route erstellen
-<br>
-Einfach die User erzeugen - es reicht ein Account pro Band
-%>
+<script>
+  $(document).ready(function(){
+    click_func = function(event){
+      // access ID: event.target.id
+
+      var text = $(event.target).html();
+      var elemArr = event.target.id.split("-");
+
+      $("#" + event.target.id).html('<div class="form-inline">' +
+        '<form action="/band/edit" accept-charset="UTF-8" method="post">' +
+        '<input name="utf8" type="hidden" value="&#x2713;" />' +
+        '<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">' +
+        '<input name="id" type="hidden" value="' + elemArr[1] + '" />' +
+        '<input name="attribute" type="hidden" value="' + elemArr[2] + '" />' +
+        '<input name="original" type="hidden" value="' + text + '" id="original" />' +
+        '<input type="text" name="text" id="text" value="' + text + '" class="form-control input-sm" />' +
+        '<button name="button" type="submit" class="btn btn-primary btn-sm">Speichern</button>' +
+        '</form>' +
+        '</div>');
+
+      $(this).unbind( "click" );
+    }
+
+    $(".click-to-edit").click(click_func);
+
+    $(".click-to-edit").mouseleave(function(event){
+      if($("#" + event.target.id).html() && $("#" + event.target.id).html().includes("form-inline")){
+        $("#" + event.target.id).html('<td class="click-to-edit" id="' + event.target.id + '">' +
+          $("#original").attr("value") +
+          '</td'
+        );
+
+        $("#" + event.target.id).bind("click", click_func);
+      }
+    });
+  });
+</script>

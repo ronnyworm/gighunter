@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   end
 
   get 'band/:id' => 'gigs#band'
+  post 'band/edit' => 'gigs#edit_band'
 
   get 'settings' => 'gigs#settings'
   post 'settings' => 'gigs#post_settings'
