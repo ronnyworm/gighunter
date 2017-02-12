@@ -109,7 +109,7 @@ class Gig < ActiveRecord::Base
 					# falsch gekennzeichnet - wurde ja schon versendet
 					m[:email_type_id] = apply_sent_email_type.id
 					m.save
-					
+
 					return nil
 				else
 					return m
@@ -140,5 +140,30 @@ class Gig < ActiveRecord::Base
 		else
 			""
 		end
+	end
+
+
+
+
+
+
+
+
+
+	# class methods
+	def self.all_that_need_to_be_sent
+		result = []
+
+		all.each do |g|
+			mail = g.create_apply_email
+			if mail
+				c = g.contact
+				if c and not c.email.empty? and c.email.include? "@"
+					result << g
+				end
+			end
+		end
+
+		result
 	end
 end

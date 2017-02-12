@@ -293,21 +293,14 @@ class GigsController < ApplicationController
   end
 
   def apply
-    gigs = Gig.all
     @relevant_gigs = []
     @next_relevant_gigs = []
 
-    gigs.each do |g|
-      mail = g.create_apply_email
-      if mail
-        c = g.contact
-        if c and not c.email.empty? and c.email.include? "@"
-          if g.datetime < DateTime.now + Rails.configuration.months_until_application.month
-            @relevant_gigs.push({ id: g.id, name: "#{g.location.name} #{g.name}", datetime: Rails.date_relative(g.datetime.to_date), raw_datetime: g.datetime, email: c.email })
-          else
-            @next_relevant_gigs.push({ id: g.id, name: "#{g.location.name} #{g.name}", datetime: Rails.date_relative(g.datetime.to_date), raw_datetime: g.datetime, email: c.email })
-          end
-        end
+    Gig.all_that_need_to_be_sent.each do |g|
+      if g.datetime < DateTime.now + Rails.configuration.months_until_application.month
+        @relevant_gigs.push({ id: g.id, name: "#{g.location.name} #{g.name}", datetime: Rails.date_relative(g.datetime.to_date), raw_datetime: g.datetime, email: g.contact.email })
+      else
+        @next_relevant_gigs.push({ id: g.id, name: "#{g.location.name} #{g.name}", datetime: Rails.date_relative(g.datetime.to_date), raw_datetime: g.datetime, email: g.contact.email })
       end
     end
 
@@ -316,24 +309,19 @@ class GigsController < ApplicationController
   end
 
   def post_apply
-    gigs = Gig.all
     count = 0
 
-    gigs.each do |g|
+    Gig.all_that_need_to_be_sent.each do |g|
       mail = g.create_apply_email
-      if mail
-        c = g.contact
-        if c and not c.email.empty? and c.email.include? "@"
-          GigMailer.apply_contact(mail, c.email).deliver
-          mail.email_type_id = EmailType.find_by(text: "apply_sent").id
-          mail.transferred_at = DateTime.now
-          mail.save
-          count += 1
-        end
-      end
+
+      GigMailer.apply_contact(mail, g.contact.email).deliver
+      mail.email_type_id = EmailType.find_by(text: "apply_sent").id
+      mail.transferred_at = DateTime.now
+      mail.save
+      count += 1
     end
 
-    redirect_to gigs_path, notice: "Die #{count} E-Mails wurden versendet."
+    redirect_to gigs_path, notice: "#{count} E-Mails wurden versendet."
   end
 
   def show_mail
