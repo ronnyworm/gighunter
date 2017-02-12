@@ -155,6 +155,8 @@ class Gig < ActiveRecord::Base
 		result = []
 
 		all.each do |g|
+			next if g.current_status == "archiviert"
+
 			mail = g.create_apply_email
 			if mail
 				c = g.contact
@@ -171,6 +173,8 @@ class Gig < ActiveRecord::Base
 		result = []
 
 		all.each do |g|
+			next if g.current_status == "archiviert"
+
 			mail = g.create_apply_email
 			if mail
 				c = g.contact
