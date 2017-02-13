@@ -322,7 +322,7 @@ class GigsController < ApplicationController
     count = 0
 
     Gig.all_that_need_to_be_sent.each do |g|
-      mail = g.create_apply_email
+      mail = g.get_apply_email
 
       GigMailer.apply_contact(mail, g.contact.email).deliver
       mail.email_type_id = EmailType.find_by(text: "apply_sent").id
@@ -412,7 +412,7 @@ class GigsController < ApplicationController
     gig = Gig.find(@mail.gig_id)
     @mail.destroy
 
-    gig.create_apply_email
+    gig.get_apply_email
 
     redirect_to request.referer, notice: "Die E-Mail-Vorlage wurde neu erstellt."
   end

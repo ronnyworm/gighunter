@@ -8,7 +8,7 @@
 
 # Jede neue Band sollte diese Werte zunächst zur Verfügung gestellt bekommen, damit sie direkt beginnen kann, die Anwendung zu nutzen
 StatusValue.create(text: "unbearbeitet", order: 1)
-StatusValue.create(text: "Kontakt aufgenommen", order: 2)
+StatusValue.create(text: "kontaktiert", order: 2)
 StatusValue.create(text: "erledigt", order: 3)
 
 Band.create(name: "Band")

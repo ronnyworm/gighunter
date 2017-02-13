@@ -58,7 +58,7 @@ class Gig < ActiveRecord::Base
 		end
 	end
 
-	def create_apply_email
+	def get_apply_email
 		# es wird nil zurückgegeben, wenn für diesen Gig keine Bewerbung mehr abgeschickt werden muss
 
 		apply_created_email_type = EmailType.find_by(text: "apply_created")
@@ -135,7 +135,7 @@ class Gig < ActiveRecord::Base
 	end
 
 	def class_by_status
-		if current_status == "Kontakt aufgenommen"
+		if current_status == "kontaktiert"
 			"kontaktaufgenommen"
 		else
 			""
@@ -157,7 +157,7 @@ class Gig < ActiveRecord::Base
 		all.each do |g|
 			next if g.current_status == "archiviert"
 
-			mail = g.create_apply_email
+			mail = g.get_apply_email
 			if mail
 				c = g.contact
 				if c and not c.email.empty? and c.email.include? "@"
@@ -175,7 +175,7 @@ class Gig < ActiveRecord::Base
 		all.each do |g|
 			next if g.current_status == "archiviert"
 
-			mail = g.create_apply_email
+			mail = g.get_apply_email
 			if mail
 				c = g.contact
 				if c.email.empty? or not c.email.include? "@"
