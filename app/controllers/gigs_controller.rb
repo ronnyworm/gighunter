@@ -82,6 +82,10 @@ class GigsController < ApplicationController
 
         format.html { redirect_to edit_gig_path(@gig), notice: I18n.t('models.created') }
         format.json { render :show, status: :created, location: @gig }
+
+        Activity.create(what: "Gig " + (@gig.location ? "#{@gig.location.name} #{@gig.name}" : "#{@gig.name}") + " wurde erstellt",
+          url: "/gigs/#{@gig.id}/edit",
+          manual: false)
       else
         format.html { render :new }
         format.json { render json: @gig.errors, status: :unprocessable_entity }
@@ -93,6 +97,10 @@ class GigsController < ApplicationController
   # PATCH/PUT /gigs/1.json
   def update
     gig_params = set_attributes
+
+    Activity.create(what: "Gig " + (@gig.location ? "#{@gig.location.name} #{@gig.name}" : "#{@gig.name}") + " wurde bearbeitet",
+      url: "/gigs/#{@gig.id}/edit",
+      manual: false)
 
     respond_to do |format|
       if @gig.update(gig_params)
@@ -331,6 +339,9 @@ class GigsController < ApplicationController
       count += 1
     end
 
+    Activity.create(what: "#{count} E-Mails wurden versendet.",
+          manual: false)
+
     redirect_to gigs_path, notice: "#{count} E-Mails wurden versendet."
   end
 
@@ -347,6 +358,12 @@ class GigsController < ApplicationController
     mail.email_type_id = EmailType.find_by(text: "apply_sent").id
     mail.transferred_at = DateTime.now
     mail.save
+
+    the_gig = Gig.find(mail.gig_id)
+    name_text = the_gig.location ? "#{the_gig.location.name} #{the_gig.name}" : "#{the_gig.name}"
+
+    Activity.create(what: "Die E-Mail an #{contact.email} zum Gig #{name_text} wurde versendet.",
+          manual: false)
 
     redirect_to gigs_path, notice: "Die E-Mail an #{contact.email} wurde versendet."
   end
@@ -367,6 +384,13 @@ class GigsController < ApplicationController
 
     if email.errors.empty?
       redirect_to request.referer, notice: "Die E-Mail / Nachricht wurde gespeichert."
+
+      the_gig = Gig.find(params[:gig_id])
+      name_text = the_gig.location ? "#{the_gig.location.name} #{the_gig.name}" : "#{the_gig.name}"
+
+      Activity.create(what: "Eine E-Mail / Nachricht zum Gig #{name_text} wurde gespeichert.",
+          url: "/gigs/#{the_gig.id}/edit",
+          manual: false)
     else
       redirect_to request.referer, alert: "Die E-Mail / Nachricht konnte nicht gespeichert werden: #{email.errors.full_messages.join("; ")}"
     end
@@ -424,9 +448,19 @@ class GigsController < ApplicationController
     redirect_to request.referer, notice: "Die E-Mail / Nachricht wurde gelöscht."
   end
 
+  def activities
+    @activities = Activity.order(:created_at).reverse
+  end
 
+  def post_activities
+    a = Activity.create(what: params[:what], url: params[:url], manual: true)
 
-
+    if a.errors.empty?
+      redirect_to activities_path, notice: "Die Aktivität wurde gespeichert."
+    else
+      redirect_to activities_path, alert: "Die Aktivität konnte nicht gespeichert werden: #{a.errors.full_messages.join("; ")}"
+    end
+  end
 
 
 

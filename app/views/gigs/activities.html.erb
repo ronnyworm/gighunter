@@ -1,0 +1,63 @@
+<% title "Aktivitäten" %>
+
+
+<h1><i class="glyphicon glyphicon-flash"></i> Aktivitaeten</h1>
+
+<%= form_tag "/activities" do %>
+<div class="form-inline">
+    <%= text_field_tag :what, nil, class: "form-control", placeholder: "Was", size: 80 %>
+    <%= text_field_tag :url, nil, class: "form-control", placeholder: "URL (optional)" %>
+    <%= button_tag "Hinzufügen", type: "submit", class: "btn btn-primary" %>
+</div>
+<% end %>
+
+<br>
+<br>
+
+<p>Die Einträge werden für gewöhnlich automatisch erstellt. <span style="background-color:rgb(200,200,255);">Manuelle Einträge sind so gekennzeichnet.</span></p>
+<p>Bisher wird erfasst ob:</p>
+<ul>
+  <li>Gigs erstellt / geändert wurden</li>
+  <li>E-Mails versendet wurden (mehrere oder einzeln)</li>
+  <li>Nachrichten zu Gigs gespeichert wurden</li>
+</ul>
+
+
+<div class="table-responsive">
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th>Erstellt</th>
+    <th>Was</th>
+    <th>Link</th>
+    <th colspan="2"></th>
+  </tr>
+</thead>
+
+<tbody>
+  <% @activities.each do |a| %>
+    <tr class="<%= a.manual ? "manual" : "" %>">
+      <td><%= "#{readable_datetime(a.created_at)} (#{Rails.datetime_relative(a.created_at)})" %></td>
+      <td><%= a.what %></td>
+      <td><%= link_to "(hier)", a.url if a.url and not a.url.blank? %></td>
+<!--
+      <td align="center" title="bearbeiten">
+        <%# link_to edit_gig_path(gig) do %>
+          <div style="height:100%;width:100%">
+            <i class="glyphicon glyphicon-edit"></i>
+          </div>
+        <%# end %>
+      </td>
+      <td align="center" title="kopieren">
+        <%# link_to duplicate_gig_path(gig) do %>
+          <div style="height:100%;width:100%">
+            <i class="glyphicon glyphicon-duplicate"></i>
+          </div>
+        <%# end %>
+      </td>
+      -->
+    </tr>
+  <% end %>
+</tbody>
+</table>
+</div>

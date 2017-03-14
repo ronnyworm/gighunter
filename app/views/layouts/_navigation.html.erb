@@ -42,7 +42,11 @@
             <%= link_to "/band/#{current_user.band.id}" do %>    
               <i class="glyphicon glyphicon-heart"></i> Band
             <% end %>
-              
+          </li>
+          <li<%= is_active?("gigs#activities") ? raw(" class='active'") : "" %>>
+            <%= link_to activities_path do %>
+              <i class="glyphicon glyphicon-flash"></i> Aktivitäten
+            <% end %>
           </li>
           <li<%= is_active?("gigs#settings") ? raw(" class='active'") : "" %>>
             <%= link_to "/settings" do %>

@@ -31,6 +31,9 @@ Rails.application.routes.draw do
   post 'contacts' => 'gigs#post_contacts'
   post 'gigs/edit_contact' => 'gigs#edit_contact'
 
+  get 'activities' => 'gigs#activities'
+  post 'activities' => 'gigs#post_activities'
+
   root 'gigs#apply'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

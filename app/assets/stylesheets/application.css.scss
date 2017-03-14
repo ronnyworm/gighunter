@@ -88,3 +88,7 @@ h3{
 .table-striped > tbody > tr.archived > td{
   background-color: rgb(200,200,200);
 }
+
+.table-striped > tbody > tr.manual > td{
+  background-color: rgb(200,200,255);
+}
