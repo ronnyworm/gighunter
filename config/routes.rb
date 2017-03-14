@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   post 'settings/edit_status' => 'gigs#edit_status'
   post 'settings/edit_template' => 'gigs#edit_template'
 
-  get 'apply' => 'gigs#apply'
+  match 'dringende_massnahmen' => 'gigs#apply', :as => :dringende_massnahmen, :via => :get
   post 'apply' => 'gigs#post_apply'
   get 'show_mail/:id' => 'gigs#show_mail', as: "show_mail"
   get 'recreate_mail/:id' => 'gigs#recreate_mail', as: "recreate_mail"
@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   post 'contacts' => 'gigs#post_contacts'
   post 'gigs/edit_contact' => 'gigs#edit_contact'
 
-  root 'gigs#index'
+  root 'gigs#apply'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

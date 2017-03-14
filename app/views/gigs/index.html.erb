@@ -1,10 +1,5 @@
-<h1>Gigs / Festivals</h1>
-
-<%= link_to "Anlegen", new_gig_path, class: "btn btn-primary" %>
-<%= link_to "E-Mail an Veranstalter versenden", apply_path, class: "btn btn-primary" %>
-
-<br />
-<br />
+<h1><i class="glyphicon glyphicon-star"></i> Gigs / Festivals</h1>
+<%= link_to "Gig / Festival anlegen", new_gig_path, class: "btn btn-default" %>
 <% if params[:archived] %>
   <%= link_to "archivierte Gigs verstecken", gigs_path, class: "btn btn-default" %>
 <% else %>
@@ -30,7 +25,7 @@
 
 <tbody>
   <% @gigs.each do |gig| %>
-    <tr>
+    <tr class="<%= gig.archived ? "archived" : "" %>">
       <td class="<%= gig.class_by_status %>">
         <%= gig.location ? "#{gig.location.name} #{gig.name}" : "(nicht zugeordnet)" %>    
         <% if gig.location.festival %>

@@ -84,3 +84,7 @@ h3{
 .navbar-nav li{
 	text-transform:uppercase;
 }
+
+.table-striped > tbody > tr.archived > td{
+  background-color: rgb(200,200,200);
+}

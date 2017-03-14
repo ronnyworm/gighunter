@@ -18,6 +18,10 @@ class Gig < ActiveRecord::Base
 		end
 	end
 
+	def archived
+		current_status == "archiviert"
+	end
+
 	def contact
 		if location
 			if location.contactlocation
