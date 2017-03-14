@@ -18,3 +18,4 @@
 
 restart.sh
 *.orig
+config/initializers/custom_gighunter.rb

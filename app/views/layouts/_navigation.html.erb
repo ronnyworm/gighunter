@@ -9,7 +9,7 @@
         <span class="icon-bar"></span>
       </button>
       <%= link_to "/", class: "navbar-brand page-scroll" do %>
-        GigHunter
+        <span class="anda"><%= Rails.configuration.bandname %> - GigHunter</span>
       <% end %>
     </div>
 
@@ -20,7 +20,13 @@
         <li<%= is_active?("gigs#locations") ? raw(" class='active'") : "" %>><%= link_to 'Locations', locations_path if current_user %></li>
         <li<%= is_active?("gigs#contacts") ? raw(" class='active'") : "" %>><%= link_to 'Kontakte', contacts_path if current_user %></li>
         <li<%= is_active?("gigs#band") ? raw(" class='active'") : "" %>><%= link_to 'Band', "/band/#{current_user.band.id}" if current_user %></li>
-        <li<%= is_active?("gigs#settings") ? raw(" class='active'") : "" %>><%= link_to 'Einstellungen', "/settings" if current_user %></li>
+        <% if current_user %>
+          <li<%= is_active?("gigs#settings") ? raw(" class='active'") : "" %>>
+            <%= link_to "/settings" do %>
+              <i class="glyphicon glyphicon-cog"></i>
+            <% end %>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>
