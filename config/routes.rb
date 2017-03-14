@@ -5,8 +5,7 @@ Rails.application.routes.draw do
       get 'duplicate'
     end
   end
-
-  get 'band/:id' => 'gigs#band'
+  
   post 'band/edit' => 'gigs#edit_band'
 
   get 'settings' => 'gigs#settings'

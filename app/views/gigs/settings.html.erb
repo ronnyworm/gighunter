@@ -2,6 +2,86 @@
 
 <h1><i class="glyphicon glyphicon-cog"></i> Einstellungen</h1>
 
+
+
+
+
+<div class="div-block">
+<h2><%= current_user.band.name %></h2>
+
+<p>Klicke ein Feld an, um es zu bearbeiten.</p>
+
+<div class="table-responsive">
+<table class="table table-striped">
+<thead>
+<tr>
+  <th>Mitglied</th>
+  <th>Instrumente</th>
+  <th>E-Mail</th>
+</tr>
+</thead>
+
+<tbody>
+<% @members.each do |member| %>
+  <tr>
+    <td class="click-to-edit" id="member-<%= member.id %>-name"><%= member.name %></td>
+    <td class="click-to-edit" id="member-<%= member.id %>-instruments"><%= member.instruments %></td>
+    <td class="click-to-edit" id="member-<%= member.id %>-email"><%= member.email %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+</div>
+
+<script>
+$(document).ready(function(){
+  click_func = function(event){
+    // access ID: event.target.id
+
+    var text = $(event.target).html();
+    var elemArr = event.target.id.split("-");
+
+    $("#" + event.target.id).html('<div class="form-inline">' +
+      '<form action="/band/edit" accept-charset="UTF-8" method="post">' +
+      '<input name="utf8" type="hidden" value="&#x2713;" />' +
+      '<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">' +
+      '<input name="id" type="hidden" value="' + elemArr[1] + '" />' +
+      '<input name="attribute" type="hidden" value="' + elemArr[2] + '" />' +
+      '<input name="original" type="hidden" value="' + text + '" id="original" />' +
+      '<input type="text" name="text" id="text" value="' + text + '" class="form-control input-sm" />' +
+      '<button name="button" type="submit" class="btn btn-primary btn-sm">Speichern</button>' +
+      '</form>' +
+      '</div>');
+
+    $(this).unbind( "click" );
+  }
+
+  $(".click-to-edit").click(click_func);
+
+  $(".click-to-edit").mouseleave(function(event){
+    if($("#" + event.target.id).html() && $("#" + event.target.id).html().includes("form-inline")){
+      $("#" + event.target.id).html('<td class="click-to-edit" id="' + event.target.id + '">' +
+        $("#original").attr("value") +
+        '</td'
+      );
+
+      $("#" + event.target.id).bind("click", click_func);
+    }
+  });
+});
+</script>
+</div>
+
+
+
+
+
+
+
+
+
+
+
 <div class="div-block">
 <h2>Statuswerte von Gigs</h2>
 <%= form_tag "/settings" do %>
@@ -66,6 +146,7 @@
 
 <% end %>
 </div>
+
 
 
 

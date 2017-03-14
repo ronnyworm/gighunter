@@ -142,10 +142,6 @@ class GigsController < ApplicationController
 
 
 
-  def band
-    @members = current_user.band.user
-  end
-
   def edit_band
     u = User.find(params[:id])
 
@@ -153,9 +149,9 @@ class GigsController < ApplicationController
     u.save
 
     if u.errors.empty?
-      redirect_to "/band/1"
+      redirect_to "/settings"
     else
-      redirect_to "/band/1", alert: "Beim Speichern hat es Fehler gegeben: #{u.errors.full_messages.join("; ")}"
+      redirect_to "settings", alert: "Beim Speichern der Band hat es Fehler gegeben: #{u.errors.full_messages.join("; ")}"
     end
   end
 
@@ -262,6 +258,8 @@ class GigsController < ApplicationController
 
     @template_subject = t.subject
     @template_text = t.text
+
+    @members = current_user.band.user
   end
 
   def edit_status
