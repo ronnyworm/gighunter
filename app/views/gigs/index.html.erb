@@ -9,6 +9,8 @@
 <br />
 
 <p><i class="glyphicon glyphicon-tent"></i> bedeutet Festival.</p>
+<p>Klicke auf den Namen, um einen Gig zu bearbeiten.</p>
+<p>Ganz rechts in jeder Zeile kann ein Gig kopiert werden. Er wird dann automatisch ins nächste Jahr kopiert. Ein Gig von 2017 würde dann also zu 2018 kopiert werden.</p>
 
 <div class="table-responsive">
 <table class="table table-striped">
@@ -19,7 +21,7 @@
     <th>Stagetime</th>
     <th>Status</th>
     <th>(Anzahl) Letzte Nachricht</th>
-    <th colspan="2"></th>
+    <th colspan="1"></th>
   </tr>
 </thead>
 
@@ -27,9 +29,11 @@
   <% @gigs.each do |gig| %>
     <tr class="<%= gig.archived ? "archived" : "" %>">
       <td class="<%= gig.class_by_status %>">
-        <%= gig.location ? "#{gig.location.name} #{gig.name}" : "(nicht zugeordnet)" %>    
-        <% if gig.location.festival %>
-          <i class="glyphicon glyphicon-tent"></i>
+        <%= link_to edit_gig_path(gig) do %>
+          <%= gig.location ? "#{gig.location.name} #{gig.name}" : "(nicht zugeordnet)" %>    
+          <% if gig.location.festival %>
+            <i class="glyphicon glyphicon-tent"></i>
+          <% end %>
         <% end %>
       </td>
 
@@ -41,13 +45,6 @@
       <td><%= gig.current_status %></td>
       <td><%= "(#{gig.email.count}) #{gig.last_message}" %></td>
 
-      <td align="center" title="bearbeiten">
-        <%= link_to edit_gig_path(gig) do %>
-          <div style="height:100%;width:100%">
-            <i class="glyphicon glyphicon-edit"></i>
-          </div>
-        <% end %>
-      </td>
       <td align="center" title="kopieren">
         <%= link_to duplicate_gig_path(gig) do %>
           <div style="height:100%;width:100%">
