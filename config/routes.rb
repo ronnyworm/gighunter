@@ -30,6 +30,9 @@ Rails.application.routes.draw do
   post 'contacts' => 'gigs#post_contacts'
   post 'gigs/edit_contact' => 'gigs#edit_contact'
 
+  get 'fans' => 'gigs#fans'
+  # post 'contacts' => 'gigs#post_contacts'
+
   get 'activities' => 'gigs#activities'
   post 'activities' => 'gigs#post_activities'
 

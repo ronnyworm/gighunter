@@ -1,0 +1,3 @@
+class Fan < ActiveRecord::Base
+  belongs_to :user
+end

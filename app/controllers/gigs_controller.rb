@@ -464,7 +464,9 @@ class GigsController < ApplicationController
     end
   end
 
-
+  def fans
+    @fans = Fan.all
+  end
 
 
 

@@ -1,0 +1,38 @@
+<% title "Fans" %>
+
+<h1><i class="glyphicon glyphicon-heart"></i> Fans</h1>
+
+
+
+<div class="table-responsive">
+<table class="table table-striped">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>E-Mail</th>
+    <th></th>
+  </tr>
+</thead>
+
+<tbody>
+  <% @fans.each do |fan| %>
+    <tr>
+      <td id="name-<%= fan.id %>"><%= fan.name %></td>
+      <td id="email-<%= fan.id %>"><%= fan.email %></td>
+      <!--
+      <td align="center">
+        <%# link_to "#", "data-toggle" => "modal", "data-target" => "#contactBearbeitenPopup", id: "contact-#{contact.id}" do %>
+          <div style="height:100%;width:100%">
+            <i class="glyphicon glyphicon-edit"></i>
+          </div>
+        <%# end %>
+      </td>
+      -->
+    </tr>
+  <% end %>
+</tbody>
+</table>
+</div>
+
+
+<%# render "contact_bearbeiten_popup" %>
