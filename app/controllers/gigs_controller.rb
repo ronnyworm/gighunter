@@ -476,6 +476,68 @@ class GigsController < ApplicationController
     @fans = Fan.all
   end
 
+  def post_fans
+    error_messages = ""
+    rows = params[:data].split "\n"
+    count = 0
+
+    rows.each do |row|
+      cols = row.split ";"
+
+      if cols.length != 3
+        error_messages += "Zeile: #{row}: jede Zeile muss zwei Strichpunkte haben."
+        next
+      end
+
+      name = cols[0]
+      email = cols[1]
+      responsible = User.find_by(name: cols[2])
+
+      unless responsible
+        error_messages += "Zeile: #{row}: das befreundete Bandmitglied #{cols[2]} gibt es nicht."
+        next
+      end
+
+      f = Fan.create(email: email, name: name, responsible_id: responsible.id)
+
+      unless f.errors.empty?
+        error_messages += "Zeile: #{row}: #{f.errors.full_messages.join("; ")}"
+      else
+        count += 1
+      end
+    end
+
+    if error_messages.blank?
+      redirect_to fans_path, notice: "#{count} Fans wurden gespeichert."
+    else
+      redirect_to fans_path, alert: "#{count} Fans wurden gespeichert. Diese Fans konnten nicht gespeichert werden: #{error_messages}."
+    end
+  end
+
+  def send_to_fans
+    if params[:location].blank? or params[:date].blank?
+      redirect_to fans_path, alert: "Es muss eine Datum und ein Ort angegeben werden. Es wurde nichts versendet."
+      return
+    end
+
+    count = 0
+
+    template = Email.get_template_fan_news
+
+    Fan.all.each do |f|
+      subject = f.replace_variables(template.subject, params[:location], params[:date])
+      text = f.replace_variables(template.text, params[:location], params[:date])
+
+      GigMailer.inform_fan(subject, text, f.email).deliver
+      count += 1
+    end
+
+    Activity.create(what: "#{count} Fans wurden benachrichtigt.",
+          manual: false)
+
+    redirect_to fans_path, notice: "#{count} Fans wurden benachrichtigt."
+  end
+
 
 
 

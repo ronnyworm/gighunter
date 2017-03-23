@@ -2,8 +2,27 @@
 
 <h1><i class="glyphicon glyphicon-heart"></i> Fans</h1>
 
+<div class="div-block">
+<h3>Fans Bescheid geben</h3>
+<%= form_tag "/fans/send" do %>
+<div class="form-inline">
+    <%= text_field_tag :date, nil, class: "form-control", placeholder: "Datum"%>
+    <%= text_field_tag :location, nil, class: "form-control", placeholder: "Ort" %>
+    <br>
+    <br>
+    <p>⚠️ Sieh dir vorher nochmal die <a class="btn btn-default btn-sm" href="/settings#fans">E-Mail-Vorlage Fan-News</a> in den Einstellungen an. Wenn du auf Absenden gehst, werden die E-Mails sofort an alle rausgeschickt.</p>
+    <br>
+    <%= button_tag "Absenden", type: "submit", class: "btn btn-primary" %>
+</div>
+<% end %>
+</div>
 
+<br>
+<br>
 
+<% if @fans.empty? %>
+  <h3>Bisher sind keine Fans eingetragen!</h3>
+<% else %>
 <div class="table-responsive">
 <table class="table table-striped">
 <thead>
@@ -33,6 +52,20 @@
 </tbody>
 </table>
 </div>
+<% end %>
 
+<br>
+<br>
+<div class="div-block">
+<h3>Mehr Fans eintragen</h3>
+<p>Bandmitglieder: <%= User.all.map { |e| e.name }.join(", ") %></p>
+
+<%= form_tag "/fans" do %>
+<div>
+    <%= text_area_tag :data, nil, class: "form-control", placeholder: "Vorname;E-Mail-Adresse;befreundetes Bandmitglied", rows: 10, cols: 30 %>
+    <%= button_tag "Speichern", type: "submit", class: "btn btn-primary" %>
+</div>
+<% end %>
+</div>
 
 <%# render "contact_bearbeiten_popup" %>

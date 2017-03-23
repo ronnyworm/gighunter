@@ -6,4 +6,10 @@ class GigMailer < ApplicationMailer
 
   	mail(to: recipient, bcc: ENV["GIG_HUNTER_MAIL_BCC"], subject: mail_object.subject)
   end
+
+  def inform_fan(subject, text, recipient)
+  	@text = text
+
+  	mail(to: recipient, bcc: ENV["GIG_HUNTER_MAIL_BCC"], subject: subject)
+  end
 end
