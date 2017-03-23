@@ -259,6 +259,10 @@ class GigsController < ApplicationController
     @template_subject = t.subject
     @template_text = t.text
 
+    fnt = Email.get_template_fan_news
+    @fan_news_subject = fnt.subject
+    @fan_news_text = fnt.text
+
     @members = current_user.band.user
   end
 
@@ -286,15 +290,19 @@ class GigsController < ApplicationController
   end
 
   def edit_template
-    template = Email.get_template
+    if params[:template] == "template"
+      mail = Email.get_template
+    elsif params[:template] == "template_fan_news"
+      mail = Email.get_template_fan_news
+    end
 
-    template[:subject] = params[:subject]
-    template[:text] = params[:text]
+    mail[:subject] = params[:subject]
+    mail[:text] = params[:text]
 
-    if template.save
+    if mail.save
       redirect_to settings_path, notice: "Die E-Mail-Vorlage wurde geändert."
     else
-      redirect_to settings_path, alert: "Die E-Mail-Vorlage konnte nicht geändert werden: #{template.errors.full_messages.join("; ")}"
+      redirect_to settings_path, alert: "Die E-Mail-Vorlage konnte nicht geändert werden: #{mail.errors.full_messages.join("; ")}"
     end
   end
 

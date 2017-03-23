@@ -17,4 +17,12 @@ class Email < ActiveRecord::Base
 
   	Email.where(email_type_id: template_type.id).last
   end
+
+  def self.get_template_fan_news
+    template_type = EmailType.find_by(text: "is_template_fan_news")
+
+    raise "rake db:seed!" unless template_type
+
+    Email.where(email_type_id: template_type.id).last
+  end
 end

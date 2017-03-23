@@ -123,7 +123,7 @@ $(document).ready(function(){
 
 
 <div class="div-block">
-<h2>E-Mail Vorlage</h2>
+<h2>E-Mail Vorlage Gigbewerbung</h2>
 <%= form_tag "/settings/edit_template" do %>
 
 <p>Folgende Variablen kannst du im Betreff und im Text nutzen (du musst aber nicht):</p>
@@ -135,8 +135,45 @@ $(document).ready(function(){
 </ul>
 <p>Du kannst dir vor dem Versand jede E-Mail noch einmal ansehen.</p>
 
+<%= hidden_field_tag :template, "template" %>
 <%= text_field_tag :subject, @template_subject, class: "form-control", placeholder: "Betreff" %>
 <%= text_area_tag :text, @template_text, placeholder: "E-Mail-Text", cols: "40", rows: "30", class: "form-control" %>
+
+<br>
+<br>
+
+<%= button_tag "Vorlage speichern", type: "submit", class: "btn btn-primary" %>
+
+
+<% end %>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="div-block">
+<h2>E-Mail Vorlage Fan-News</h2>
+<%= form_tag "/settings/edit_template" do %>
+
+<p>Folgende Variablen kannst du im Betreff und im Text nutzen (du musst aber nicht):</p>
+<ul>
+  <li><strong>$fan-name$</strong> hier wird vor dem Versand der Name des Fans eingefügt.</li>
+  <li><strong>$location-name$</strong> hier wird vor dem Versand der Name der Location eingefügt.</li>
+  <li><strong>$responsible$</strong> hier wird vor dem Versand der Name des verantwortlichen Bandmitglieds eingefügt.</li>
+  <li><strong>$date$</strong> hier wird vor dem Versand das Datum des Gigs eingefügt.</li>
+</ul>
+
+<%= hidden_field_tag :template, "template_fan_news" %>
+<%= text_field_tag :subject, @fan_news_subject, class: "form-control", placeholder: "Betreff" %>
+<%= text_area_tag :text, @fan_news_text, placeholder: "E-Mail-Text", cols: "40", rows: "15", class: "form-control" %>
 
 <br>
 <br>
