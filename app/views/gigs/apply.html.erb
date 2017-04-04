@@ -23,7 +23,7 @@
 <tbody>
   <% @relevant_gigs.each do |g| %>
     <tr>
-      <td><%= g[:name] %></td>
+      <td><%= link_to g[:name], edit_gig_path(g[:id]) %></td>
       <td><%= g[:datetime] %></td>
       <td><%= "✉️ #{g[:email]}" %></td>
       <td><%= link_to "ansehen", show_mail_url(g[:id]) %></td>
@@ -59,7 +59,7 @@
 <tbody>
   <% @relevant_gigs_no_email.each do |g| %>
     <tr>
-      <td><%= g[:name] %></td>
+      <td><%= link_to g[:name], edit_gig_path(g[:id]) %></td>
       <td><%= g[:datetime] %></td>
       <td><%= g[:info] %></td>
       <td><%= link_to "ansehen", show_mail_url(g[:id]) %></td>
@@ -90,7 +90,7 @@
 <tbody>
   <% @next_relevant_gigs.each do |g| %>
     <tr>
-      <td><%= g[:name] %></td>
+      <td><%= link_to g[:name], edit_gig_path(g[:id]) %></td>
       <td><%= g[:datetime] %></td>
       <td><%= g[:email] ? "✉️ #{g[:email]}" : g[:info] %></td>
       <td><%= link_to "ansehen", show_mail_url(g[:id]) %></td>
