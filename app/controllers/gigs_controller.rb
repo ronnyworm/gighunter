@@ -332,6 +332,16 @@ class GigsController < ApplicationController
     @relevant_gigs_no_email = @relevant_gigs_no_email.sort_by { |x| x[:raw_datetime] }
   end
 
+  def post_jump
+    found = Gig.joins(:location).where("locations.name LIKE ?", "%#{params[:name]}%").first
+
+    if found
+      redirect_to edit_gig_path(found), notice: "#{found.location.name} gefunden!"
+    else
+      redirect_to dringende_massnahmen_path, alert: "Unter diesem Namen konnte nichts gefunden werden ..."
+    end
+  end
+
   def post_apply
     count = 0
 

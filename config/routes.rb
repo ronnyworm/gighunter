@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   match 'dringende_massnahmen' => 'gigs#apply', :as => :dringende_massnahmen, :via => :get
   post 'apply' => 'gigs#post_apply'
+  post 'jump' => 'gigs#post_jump'
   get 'show_mail/:id' => 'gigs#show_mail', as: "show_mail"
   get 'recreate_mail/:id' => 'gigs#recreate_mail', as: "recreate_mail"
   get 'remove_mail/:id' => 'gigs#remove_mail', as: "remove_mail"
