@@ -17,9 +17,20 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+.angenommen{
+	background-color:rgb(0,255,0) !important;
+}
 
-.kontaktaufgenommen{
-	background-color:rgb(0,255,200) !important;
+.kontaktiert{
+	background-color:rgb(200,255,200) !important;
+}
+
+.unbearbeitet{
+	background-color:rgb(255,200,200) !important;
+}
+
+.abgelehnt{
+	background-color:rgb(255,0,0) !important;
 }
 
 .div-block{

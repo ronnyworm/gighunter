@@ -51,7 +51,7 @@
       <% end %>
     </div>
     <div class="col-md-6">
-      <%= label_tag :locationaddress, "Adresse" %><br />
+      <%= label_tag :locationaddress, "Adresse" %> <%= link_to("(Google Maps)", "https://www.google.de/maps?q=from:+w%C3%BCrzburg+to:+#{params[:locationaddress]}", target: "_blank") %><br />
       <%= text_field_tag :locationaddress, nil, placeholder: @no_edit_for_contact_and_location ? "" : "(lass das leer, wenn es die Location schon im System gibt)", class: "form-control", value: params[:locationaddress], disabled: @no_edit_for_contact_and_location %>
     </div>
     <div class="col-md-6">

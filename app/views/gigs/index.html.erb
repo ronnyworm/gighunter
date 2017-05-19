@@ -30,7 +30,7 @@
 <tbody>
   <% @gigs.each do |gig| %>
     <tr class="<%= gig.archived ? "archived" : "" %>">
-      <td class="<%= gig.class_by_status %>">
+      <td>
         <%= link_to edit_gig_path(gig) do %>
           <%= gig.location ? "#{gig.location.name} #{gig.name}" : "(nicht zugeordnet)" %>    
           <% if gig.location.festival %>
@@ -44,7 +44,7 @@
       </td>
 
       <td><%= Rails.date_relative(gig.datetime.to_date) %></td>
-      <td><%= gig.current_status %></td>
+      <td class="<%= gig.current_status %>"><%= gig.current_status %></td>
       <td><%= "(#{gig.email.count}) #{gig.last_message}" %></td>
 
       <td align="center" title="kopieren">

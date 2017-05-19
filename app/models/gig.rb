@@ -138,14 +138,6 @@ class Gig < ActiveRecord::Base
 		text
 	end
 
-	def class_by_status
-		if current_status == "kontaktiert"
-			"kontaktaufgenommen"
-		else
-			""
-		end
-	end
-
 
 
 
