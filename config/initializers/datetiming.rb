@@ -17,7 +17,7 @@ module Rails
 		diff = (now - other_date) * 1.days
 
 		if diff < 0
-			return "bad_date (< 0)"
+			return "0 Min."
 		end
 
 		case diff
