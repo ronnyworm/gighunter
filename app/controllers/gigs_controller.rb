@@ -333,7 +333,8 @@ class GigsController < ApplicationController
   end
 
   def post_jump
-    found = Gig.joins(:location).where("locations.name LIKE ?", "%#{params[:name]}%").first
+    # find search
+    found = Gig.joins(:location).where("locations.name LIKE ? or gigs.name LIKE ?", "%#{params[:name]}%", "%#{params[:name]}%").first
 
     if found
       redirect_to edit_gig_path(found), notice: "#{found.location.name} gefunden!"
