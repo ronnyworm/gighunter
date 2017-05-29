@@ -13,6 +13,15 @@
 <p><i class="glyphicon glyphicon-tent"></i> bedeutet Festival.</p>
 <p>Ganz rechts in jeder Zeile kann ein Gig kopiert werden. Er wird dann automatisch ins nächste Jahr kopiert. Ein Gig von 2017 würde dann also zu 2018 kopiert werden.</p>
 
+
+<p>
+  <% @count_statuses.each do |k,v| %>
+    <%= raw("<span class='#{k} count'>#{v} #{k}</span> ") %>
+  <% end %>
+  <%= raw("<span class='count'>#{@different.size} verschiedene Locations</span> ") %>
+  <%= raw("<span class='count'>#{@gigs.size} Zeilen</span> ") %>
+</p>
+
 <div class="table-responsive">
 <table class="table table-striped">
 <thead>

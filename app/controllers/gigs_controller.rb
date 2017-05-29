@@ -11,11 +11,20 @@ class GigsController < ApplicationController
     else
       @gigs = []
 
-      Gig.where("datetime >= :date", :date => 1.week.ago).order(:datetime).each do |g|
-        if g.current_status != "archiviert"
-          @gigs << g
+      Gig.where("datetime >= :date", :date => 1.week.ago).order(:datetime).each do |gig|
+        if gig.current_status != "archiviert"
+          @gigs << gig
         end
       end
+    end
+
+    @count_statuses = Hash.new
+    @different = Hash.new
+
+    @gigs.each do |gig|
+      @different[gig.location.name] = "ok"
+
+      @count_statuses[gig.current_status] ? @count_statuses[gig.current_status] += 1 : @count_statuses[gig.current_status] = 1
     end
 
     @status_values = StatusValue.all
