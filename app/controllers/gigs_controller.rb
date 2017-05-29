@@ -11,7 +11,7 @@ class GigsController < ApplicationController
     else
       @gigs = []
 
-      Gig.all.order(:datetime).each do |g|
+      Gig.where("datetime >= :date", :date => 1.week.ago).order(:datetime).each do |g|
         if g.current_status != "archiviert"
           @gigs << g
         end

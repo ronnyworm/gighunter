@@ -3,15 +3,14 @@
 <h1><i class="glyphicon glyphicon-star"></i> Gigs / Festivals</h1>
 <%= link_to "Gig / Festival anlegen", new_gig_path, class: "btn btn-default" %>
 <% if params[:archived] %>
-  <%= link_to "archivierte Gigs verstecken", gigs_path, class: "btn btn-default" %>
+  <%= link_to "archivierte und vergangene Gigs verstecken", gigs_path, class: "btn btn-default" %>
 <% else %>
-  <%= link_to "archivierte Gigs anzeigen", gigs_path(archived: true), class: "btn btn-default" %>
+  <%= link_to "archivierte und vergangene Gigs anzeigen", gigs_path(archived: true), class: "btn btn-default" %>
 <% end %>
 <br />
 <br />
 
 <p><i class="glyphicon glyphicon-tent"></i> bedeutet Festival.</p>
-<p>Klicke auf den Namen, um einen Gig zu bearbeiten.</p>
 <p>Ganz rechts in jeder Zeile kann ein Gig kopiert werden. Er wird dann automatisch ins nächste Jahr kopiert. Ein Gig von 2017 würde dann also zu 2018 kopiert werden.</p>
 
 <div class="table-responsive">
@@ -29,7 +28,20 @@
 
 <tbody>
   <% @gigs.each do |gig| %>
-    <tr class="<%= gig.archived ? "archived" : "" %>">
+
+    <%
+    tr_class = "" 
+
+    if gig.archived
+      tr_class = "archived"
+    elsif gig.datetime < 1.week.ago
+      tr_class = "old"
+    elsif gig.datetime < 0.week.ago
+      tr_class = "recent"
+    end
+    %>
+
+    <tr class="<%= tr_class %>">
       <td>
         <%= link_to edit_gig_path(gig) do %>
           <%= gig.location ? "#{gig.location.name} #{gig.name}" : "(nicht zugeordnet)" %>    
