@@ -56,6 +56,8 @@ class GigsController < ApplicationController
 
     @mails = @gig.email.order(:transferred_at).reverse
     @reminders = @gig.reminder
+
+    @statuses = @gig.status
   end
 
   def duplicate

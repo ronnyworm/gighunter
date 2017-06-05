@@ -155,15 +155,15 @@
       <%= f.label :user, "Verantwortlich" %><br />
       <%= f.select :user, options_for_select(@members.map { |e| e.name }, @gig.user ? @gig.user.name : @members.first), {}, class: "form-control" %>
     </div>
-    <div class="col-md-6">
+    <!--div class="col-md-6">
       <%= f.label :link_forum, "Link" %><br />
       <%= f.text_field :link_forum, placeholder: "zB zum Forum", class: "form-control" %>
-    </div>
+    </div-->
   </div>
 
   <div class="form-group">
       <%= f.label :vorhandenes_equipment, "Vorhandenes Equipment / Notizen zu diesem Gig" %><br />
-      <%= f.text_area :vorhandenes_equipment, cols: "40", rows: "6", class: "form-control" %>
+      <%= f.text_area :vorhandenes_equipment, cols: "40", rows: "3", class: "form-control" %>
   </div>
   </div>
 

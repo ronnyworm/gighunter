@@ -2,40 +2,34 @@
 
 <h1>Gig anzeigen / bearbeiten</h1>
 
-Gehe direkt zu:
-<ul>
-	<li><a href="#reminders">Erinnerungen</a></li>
-	<li><a href="#mails">Zugehörige E-Mails</a></li>
-</ul>
+<div>
+	<div class="col-md-9">
+		
+		<%= render 'form' %>
+	</div>
 
-<%= render 'form' %>
+	<div class="col-md-3 div-block">
+		<h3 id="statuses">Statusaenderungen</h3>
 
-<br>
-<br>
-
-<div class="div-block">
-<h3 id="reminders">Erinnerungen</h3>
-
-<%= link_to "#", "data-toggle" => "modal", "data-target" => "#reminderErstellenPopup", class: "btn btn-default" do %>
-  <div style="height:100%;width:100%">
-    erstellen <i class="glyphicon glyphicon-phone-alt"></i>
-  </div>
-<% end %>
-
-<br>
-<br>
-
-<% unless @reminders.empty? %>
-	<% @reminders.each do |r| %>
-		<p><strong>erledigt:</strong> <%= r.done ? "Ja" : "Nein" %></p>
-		<p><strong>fällig:</strong> <%= r.due %></p>
-		<p><%= raw(nl2br(r.text)) %></p>
-		<hr>
-	<% end %>
-<% else %>
-	<em>noch keine ...</em>
-<% end %>
+		<% unless @statuses.empty? %>
+			<ol style="padding-left: 1.5em;">
+			<% @statuses.each do |s| %>
+				<% text = StatusValue.find(s.status_value_id).text %>
+				<li class="<%= text %>"><%= Rails.date_relative(s.created_at.to_date) %>: <%= text %></li>
+			<% end %>
+			</ol>
+		<% else %>
+			<em>noch keine ...</em>
+		<% end %>
+	</div>
 </div>
+
+<div class="clearfix"></div>
+
+<br>
+<br>
+
+
 
 <br>
 <br>
