@@ -3,12 +3,12 @@
 <h1>Gig anzeigen / bearbeiten</h1>
 
 <div>
-	<div class="col-md-9">
+	<div class="col-md-12">
 		
 		<%= render 'form' %>
 	</div>
 
-	<div class="col-md-3 div-block">
+	<div class="col-md-3 div-block" style="position:fixed;right:1%;background-color:rgba(255,255,255,0.5);">
 		<h3 id="statuses">Statusaenderungen</h3>
 
 		<% unless @statuses.empty? %>

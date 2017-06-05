@@ -38,8 +38,8 @@
 
 
 
-
-  <div class="div-block">
+  <div>
+  <div class="div-block col-md-6">
   <h3>Location</h3>
   <div class="form-group row">
     <div class="col-md-6">
@@ -60,8 +60,8 @@
       <% if @no_edit_for_contact_and_location %>
         <% if params[:locationwebsite] and not params[:locationwebsite].empty? %>
           <%= link_to "http://#{without_http(params[:locationwebsite])}", class: "btn btn-default", target: "_blank" do %>
-            <div style="height:100%;width:100%">
-              <%= without_http(params[:locationwebsite]) %> <i class="glyphicon glyphicon-globe"></i>
+            <div>
+              <%= just_domain(without_http(params[:locationwebsite])) %> <i class="glyphicon glyphicon-globe"></i>
             </div>
           <% end %>
         <% end %>
@@ -76,7 +76,7 @@
     <div class="col-md-6">
       <br />
       <%= label_tag "Ist ein Festival?" %>
-      <%= check_box_tag :locationisfestival, nil, params[:locationisfestival], disabled: @no_edit_for_contact_and_location %>
+      <%= check_box_tag :locationisfestival, nil, params[:locationisfestival], disabled: @no_edit_for_contact_and_location, style: "font-size:2em" %>
     </div>
 
     <% if is_active? "gigs#edit" %>
@@ -99,8 +99,7 @@
 
 
 
-
-  <div class="div-block">
+  <div class="div-block col-md-6">
   <h3>Kontakt (fuer die Location)</h3>
   <% unless is_active? "gigs#edit" %>
     <p>⚠️&nbsp;&nbsp;Falls du nur eine E-Mail-Adresse eintragen möchtest, musst du trotzdem einen Namen eingeben (im Zweifelsfall einfach <em>Crew</em>).</p>
@@ -124,7 +123,7 @@
     </div>
 
     <div class="col-md-6">
-      <%= label_tag :contactinfo, "weitere Info (Nachname, Adresse, etc.)" %><br />
+      <%= label_tag :contactinfo, "Info (Nachname, Adresse, etc.)" %><br />
       <%= text_field_tag :contactinfo, nil, placeholder: @no_edit_for_contact_and_location ? "" : "(lass das leer, wenn es den Kontakt schon im System gibt)", class: "form-control", value: params[:contactinfo], disabled: @no_edit_for_contact_and_location %>
     </div>
 
@@ -141,7 +140,8 @@
   </div>
   </div>
 
-
+  </div>
+  <div class="clearfix"></div>
 
 
   <div class="div-block">
