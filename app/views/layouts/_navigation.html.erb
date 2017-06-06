@@ -21,23 +21,27 @@
             <%= link_to dringende_massnahmen_path do %>
               <i class="glyphicon glyphicon-fire"></i> Dringend
             <% end %>
-              
           </li>
-          <li<%= is_active?("gigs#index|new|edit") ? raw(" class='active'") : "" %>>
+          <li<%= is_active?("gigs#new") ? raw(" class='active'") : "" %>>
+            <%= link_to new_gig_path do %>    
+              <i class="glyphicon glyphicon-plus"></i> Neu
+            <% end %>  
+          </li>
+          <li<%= is_active?("gigs#index|edit") ? raw(" class='active'") : "" %>>
             <%= link_to gigs_path do %>    
               <i class="glyphicon glyphicon-star"></i> Gigs
             <% end %>  
           </li>
-          <li<%= is_active?("gigs#locations") ? raw(" class='active'") : "" %>>
+          <!--li<%= is_active?("gigs#locations") ? raw(" class='active'") : "" %>>
             <%= link_to locations_path do %>    
               <i class="glyphicon glyphicon-map-marker"></i> Locations
             <% end %>
-          </li>
-          <li<%= is_active?("gigs#contacts") ? raw(" class='active'") : "" %>>
+          </li-->
+          <!--li<%= is_active?("gigs#contacts") ? raw(" class='active'") : "" %>>
             <%= link_to contacts_path do %>  
               <i class="glyphicon glyphicon-user"></i> Kontakte
             <% end %>
-          </li>
+          </li-->
           <li<%= is_active?("gigs#fans") ? raw(" class='active'") : "" %>>
             <%= link_to fans_path do %>  
               <i class="glyphicon glyphicon-heart"></i> Fans
