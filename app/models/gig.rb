@@ -10,6 +10,14 @@ class Gig < ActiveRecord::Base
 	validates :datetime, presence: true
 	validates_format_of :datetime, :with => /(\d\d\d\d-\d\d-\d\d \d\d:\d\d)|(\d\d\d\d-\d\d-\d\d)/
 
+	def short_text
+		location ? "#{location.name} #{name}" : "(nicht zugeordnet)"
+	end
+
+	def short_location
+		location ? (location.address + (contact ? "" : "<strong style='color:red'> (Kontakt fehlt)</strong>")) : "(unklar)"
+	end
+
 	def current_status
 		if status and not status.empty?
 			StatusValue.find(status.order(:created_at).last.status_value_id).text

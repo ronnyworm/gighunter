@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170317095150) do
+ActiveRecord::Schema.define(version: 20170607091525) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "what"
@@ -89,8 +89,10 @@ ActiveRecord::Schema.define(version: 20170317095150) do
     t.string   "address"
     t.string   "website"
     t.boolean  "festival"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.decimal  "address_lat", precision: 12, scale: 10
+    t.decimal  "address_lng", precision: 12, scale: 10
   end
 
   create_table "reminders", force: :cascade do |t|

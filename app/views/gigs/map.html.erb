@@ -1,0 +1,49 @@
+<script src="https://maps.google.com/maps/api/js?sensor=false&key=<%= ENV["GIG_HUNTER_MAPS_API_KEY"] %>" type="text/javascript"></script>
+
+<% title "Karte" %>
+
+<h1><i class="glyphicon glyphicon-map-marker"></i> Karte</h1>
+
+<p>Hier werden alle Gigs / Festivals von vor zwei Wochen bis einschließlich zwei Wochen in der Zukunft (relativ zu <strong><%= @moment.strftime("%Y-%m-%d") %></strong>) angezeigt.</p>
+
+<div id="map" style="width: 100%; height: 500px;"></div>
+
+
+<h2>Gelistet sind (<%= @gigs.size %>):</h2>
+<ul>
+<% @gigs.each do |gig| %>
+  <li><%= raw "#{gig.short_text} am <span style='color:rgb(200,200,200)'>#{Rails.date_relative(gig.datetime.to_date)}</span> in <strong>#{gig.short_location}</strong>" %></li>
+<% end %>
+</ul>
+
+
+<script type="text/javascript">
+
+var locations = <%= raw(@locations.to_json) %>;
+console.log(locations);
+
+var map = new google.maps.Map(document.getElementById('map'), {
+  zoom: 4,
+  center: new google.maps.LatLng(<%= @avg_lat %>, <%= @avg_lng %>),
+  mapTypeId: google.maps.MapTypeId.ROADMAP
+});
+
+var infowindow = new google.maps.InfoWindow();
+
+var marker, i;
+
+for (i = 0; i < locations.length; i++) {  
+  marker = new google.maps.Marker({
+    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+    map: map
+  });
+
+  google.maps.event.addListener(marker, 'click', (function(marker, i) {
+    return function() {
+      infowindow.setContent(locations[i][0]);
+      infowindow.open(map, marker);
+    }
+  })(marker, i));
+}
+</script>
+

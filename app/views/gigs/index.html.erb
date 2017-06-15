@@ -52,8 +52,8 @@
 
     <tr class="<%= tr_class %>">
       <td>
-        <%= link_to edit_gig_path(gig) do %>
-          <%= gig.location ? "#{gig.location.name} #{gig.name}" : "(nicht zugeordnet)" %>    
+        <%= link_to(edit_gig_path(gig), target: "_blank") do %>
+          <%= gig.short_text %>    
           <% if gig.location.festival %>
             <i class="glyphicon glyphicon-tent"></i>
           <% end %>
@@ -61,10 +61,15 @@
       </td>
 
       <td>
-        <%= gig.location ? raw(gig.location.address + (gig.contact ? "" : "<strong style='color:red'> (Kontakt fehlt)</strong>")) : "(unklar)" %>
+        <%= raw(gig.short_location) %>
       </td>
 
-      <td><%= Rails.date_relative(gig.datetime.to_date) %></td>
+      <td>
+        <%= link_to(map_path(relative: gig.datetime.strftime("%Y-%m-%d")), target: "_blank") do %>
+          <%= Rails.date_relative(gig.datetime.to_date) %>    
+        <% end %>
+      </td>
+
       <td class="<%= gig.current_status %>"><%= gig.current_status %></td>
       <td><%= "(#{gig.email.count}) #{gig.last_message}" %></td>
 

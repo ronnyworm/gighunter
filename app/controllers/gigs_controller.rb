@@ -560,7 +560,50 @@ class GigsController < ApplicationController
     redirect_to fans_path, notice: "#{count} Fans wurden benachrichtigt."
   end
 
+  def map
+    @locations = []
 
+    @gigs = []
+
+    unless params[:relative]
+      @moment = DateTime.now
+    else
+      @moment = DateTime.parse(params[:relative])
+    end
+
+    Gig.where("datetime >= :startdate AND datetime <= :enddate", 
+      :startdate => (@moment - 2.week), 
+      :enddate => (@moment + 2.week)).order(:datetime).each do |gig|
+
+      if gig.current_status != "archiviert"
+        @gigs << gig
+      end
+    end
+
+    @gigs.each do |gig|
+      @locations.push([ "#{gig.location.name}<br>#{gig.location.address}<br>#{gig.datetime.to_date}", gig.location.get_coords[:lat], gig.location.get_coords[:lng] ])
+    end
+
+
+
+    sum_lat = 0
+    sum_lng = 0
+
+    @locations.each do |l|
+      lat = l[1]
+      lng = l[2]
+
+      sum_lat += lat
+      sum_lng += lng
+    end
+
+    if @locations.size
+      @avg_lat = sum_lat / @locations.size
+      @avg_lng = sum_lng / @locations.size
+    else
+      @avg_lat = @avg_lng = 0
+    end
+  end
 
 
 

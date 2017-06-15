@@ -32,11 +32,11 @@
               <i class="glyphicon glyphicon-star"></i> Gigs
             <% end %>  
           </li>
-          <!--li<%= is_active?("gigs#locations") ? raw(" class='active'") : "" %>>
-            <%= link_to locations_path do %>    
-              <i class="glyphicon glyphicon-map-marker"></i> Locations
+          <li<%= is_active?("gigs#map") ? raw(" class='active'") : "" %>>
+            <%= link_to map_path do %>    
+              <i class="glyphicon glyphicon-map-marker"></i> Karte
             <% end %>
-          </li-->
+          </li>
           <!--li<%= is_active?("gigs#contacts") ? raw(" class='active'") : "" %>>
             <%= link_to contacts_path do %>  
               <i class="glyphicon glyphicon-user"></i> Kontakte
