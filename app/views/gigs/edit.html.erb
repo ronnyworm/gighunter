@@ -37,7 +37,7 @@
 <div class="div-block">
 <h3 id="mails">Zugehoerige E-Mails / Nachrichten</h3>
 <% unless @mails.empty? %>
-	<% @mails.each do |m| %>
+	<% @mails.each_with_index do |m, i| %>
 		<div class="div-inner">
 		<p><strong>Übertragen:</strong> <%= m.transferred_at.blank? ? raw("<em>noch nicht übertragen</em>") : Rails.date_relative(m.transferred_at.to_date) %></p>
 		<span style="display: none" id="transferred_at-<%= m.id %>"><%= readable_datetime(m.transferred_at) %></span>
@@ -45,6 +45,10 @@
 		<p class="email_type"><strong>Typ:</strong> <%= EmailType.find(m.email_type_id).text %></p>
 		<p><%= raw(nl2br(m.text)) %></p>
 		<p style="display:none" id="text-<%= m.id %>"><%= raw(m.text) %></p>
+		<% if i == @mails.size - 1 %>
+			<%= link_to "Vorlage neu erstellen", recreate_mail_url(m.id), data: { confirm: 'Sicher? Bestätige nur, wenn du genau weißt, was du tust.' }, class: "btn btn-danger btn-xs" %>
+			&nbsp;
+		<% end %>	
 		<%= link_to "löschen", remove_mail_url(m.id), data: { confirm: 'Sicher? Das Löschen kann nicht rückgängig gemacht werden.' }, class: "btn btn-danger btn-xs" %>
 		&nbsp;
 		<%= link_to "bearbeiten", "#", id: "email-#{m.id}", "data-toggle" => "modal", "data-target" => "#emailBearbeitenPopup", class: "btn btn-default btn-xs" %>
