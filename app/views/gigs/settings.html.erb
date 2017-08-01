@@ -88,17 +88,17 @@ $(document).ready(function(){
 <div class="table-responsive">
 <table class="table table-striped">
 
-<!--thead>
+<thead>
   <tr>
     <th>Text</th>
     <th>Reihenfolge</th>
   </tr>
-</thead-->
+</thead>
 
 <tbody>
   <% @status_values.each do |sv| %>
     <tr>
-      <td id="text-<%= sv.id %>"><%= sv.text %></td>
+      <td id="text-<%= sv.id %>" class="<%= sv.text %>"><%= sv.text %></td>
       <td id="order-<%= sv.id %>"><%= sv.order %></td>
       <td align="center">
         <%= link_to "#", "data-toggle" => "modal", "data-target" => "#statusBearbeitenPopup", id: "status-#{sv.id}" do %>
