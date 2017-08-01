@@ -155,35 +155,24 @@ class Gig < ActiveRecord::Base
 
 
 	# class methods
-	def self.all_that_need_to_be_sent
+	def self.all_that_need_to_be_sent(how=nil)
 		result = []
 
 		all.each do |g|
-			next if g.current_status == "archiviert"
+			next if g.current_status == "archiviert" or g.current_status == "kontaktiert"
 
 			mail = g.get_apply_email
 			if mail
 				c = g.contact
-				if c and not c.email.empty? and c.email.include? "@"
-					result << g
-				end
-			end
-		end
 
-		result
-	end
-
-	def self.all_that_need_action_but_not_via_email
-		result = []
-
-		all.each do |g|
-			next if g.current_status == "archiviert"
-
-			mail = g.get_apply_email
-			if mail
-				c = g.contact
-				if c.email.empty? or not c.email.include? "@"
-					result << g
+				if how == "via email"
+					if c and not c.email.empty? and c.email.include? "@"
+						result << g
+					end
+				else
+					if c.email.empty? or not c.email.include? "@"
+						result << g
+					end
 				end
 			end
 		end

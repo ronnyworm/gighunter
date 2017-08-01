@@ -322,7 +322,7 @@ class GigsController < ApplicationController
     @next_relevant_gigs = []
     @relevant_gigs_no_email = []
 
-    Gig.all_that_need_to_be_sent.each do |g|
+    Gig.all_that_need_to_be_sent("via email").each do |g|
       if g.datetime < DateTime.now + Rails.configuration.months_until_application.month
         @relevant_gigs.push({ id: g.id, name: "#{g.location.name} #{g.name}", datetime: Rails.date_relative(g.datetime.to_date), raw_datetime: g.datetime, email: g.contact.email })
       else
@@ -330,7 +330,7 @@ class GigsController < ApplicationController
       end
     end
 
-    Gig.all_that_need_action_but_not_via_email.each do |g|
+    Gig.all_that_need_to_be_sent("not via email").each do |g|
       if g.datetime < DateTime.now + Rails.configuration.months_until_application.month
         @relevant_gigs_no_email.push({ id: g.id, name: "#{g.location.name} #{g.name}", datetime: Rails.date_relative(g.datetime.to_date), raw_datetime: g.datetime, info: g.contact.info })
       else
