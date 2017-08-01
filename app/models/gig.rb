@@ -159,7 +159,7 @@ class Gig < ActiveRecord::Base
 		result = []
 
 		all.each do |g|
-			next if g.current_status == "archiviert" or g.current_status == "kontaktiert"
+			next if not g.current_status == "unbearbeitet"
 
 			mail = g.get_apply_email
 			if mail
