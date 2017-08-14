@@ -29,7 +29,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'devise'
+gem 'devise', '~> 3.5'
 
 group :development, :test do
 	gem 'railroady', '~> 1.4', '>= 1.4.2'

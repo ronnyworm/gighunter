@@ -62,13 +62,44 @@ class Gig < ActiveRecord::Base
 		end
 	end
 
-	def last_message
+
+
+
+
+
+	def last_action_datetime
 		if email and not email.empty?
-			Rails.datetime_relative(email.order(:transferred_at).reverse.first.transferred_at)
-		else
-			nil
+			last_message_datetime = email.order(:transferred_at).reverse.first.transferred_at
+
+			if last_message_datetime
+				if status.last.updated_at > last_message_datetime
+					return status.last.updated_at
+				else
+					return last_message_datetime
+				end
+			end
 		end
+		
+		status.last.updated_at
 	end
+
+	def last_action
+		Rails.datetime_relative(last_action_datetime)
+	end
+
+	def last_action_style
+		Rails.datetime_relative_style(last_action_datetime)
+	end
+
+	def action_count
+		email.count + status.count
+	end
+
+
+
+
+
+
 
 	def get_apply_email
 		# es wird nil zurückgegeben, wenn für diesen Gig keine Bewerbung mehr abgeschickt werden muss

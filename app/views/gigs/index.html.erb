@@ -30,7 +30,7 @@
     <th>Adresse</th>
     <th>Stagetime</th>
     <th>Status</th>
-    <th>(Anzahl) Letzte Nachricht</th>
+    <th>(Anzahl) Letzte Aktion</th>
     <th colspan="1"></th>
   </tr>
 </thead>
@@ -71,7 +71,7 @@
       </td>
 
       <td class="<%= gig.current_status %>"><%= gig.current_status %></td>
-      <td><%= "(#{gig.email.count}) #{gig.last_message}" %></td>
+      <td style="<%= gig.last_action_style %>"><%= "(#{gig.action_count}) #{gig.last_action}" %></td>
 
       <td align="center" title="kopieren">
         <%= link_to duplicate_gig_path(gig) do %>
