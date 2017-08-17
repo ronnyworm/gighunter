@@ -10,7 +10,6 @@
 <br />
 <br />
 
-<p><i class="glyphicon glyphicon-tent"></i> bedeutet Festival.</p>
 <p>Ganz rechts in jeder Zeile kann ein Gig kopiert werden. Er wird dann automatisch ins nächste Jahr kopiert. Ein Gig von 2017 würde dann also zu 2018 kopiert werden.</p>
 
 
@@ -53,20 +52,18 @@
     <tr class="<%= tr_class %>">
       <td>
         <%= link_to(edit_gig_path(gig), target: "_blank") do %>
-          <%= gig.short_text %>    
-          <% if gig.location.festival %>
-            <i class="glyphicon glyphicon-tent"></i>
-          <% end %>
+          <%= gig.short_text %>
         <% end %>
       </td>
 
       <td>
-        <%= raw(gig.short_location) %>
+        <%= link_to gig.short_location, "https://www.google.de/maps?q=from:+w%C3%BCrzburg+to:+#{gig.short_location}", target: "_blank" %>
+
       </td>
 
       <td>
         <%= link_to(map_path(relative: gig.datetime.strftime("%Y-%m-%d")), target: "_blank") do %>
-          <%= Rails.date_relative(gig.datetime.to_date) %>    
+          <%= gig.datetime.strftime("%d.%m.%Y") %>    
         <% end %>
       </td>
 
