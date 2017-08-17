@@ -186,7 +186,7 @@ class Gig < ActiveRecord::Base
 
 
 	# class methods
-	def self.all_that_need_to_be_sent(how=nil)
+	def self.all_that_need_to_be_checked(how=nil)
 		result = []
 
 		all.each do |g|
@@ -200,10 +200,12 @@ class Gig < ActiveRecord::Base
 					if c and not c.email.empty? and c.email.include? "@"
 						result << g
 					end
-				else
+				elsif how == "via email"
 					if c.email.empty? or not c.email.include? "@"
 						result << g
 					end
+				else
+					result << g
 				end
 			end
 		end

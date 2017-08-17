@@ -11,55 +11,13 @@
 <% end %>
 </div>
 
-<div class="div-block">
-<h2>E-Mails an Veranstalter versenden</h2>
 
-<br>
-<p>Es werden nur die Gigs der nächsten <%= Rails.configuration.months_until_application %> Monate betrachtet, bei denen sich noch nicht beworben wurde.</p>
+<div class="div-block">
+<h2>Bewerbung erforderlich</h2>
+
+<p>Es werden nur die Gigs der nächsten <%= Rails.configuration.months_until_application %> Monate betrachtet, bei denen eine Aktion dringend nötig ist.</p>
 
 <% if @relevant_gigs.empty? %>
-  <strong>Gerade ist nichts zu tun 😊</strong>
-<% else %>
-  <div class="table-responsive">
-  <table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>(voraussichtliche) Stagetime</th>
-      <th>E-Mail-Adresse</th>
-      <th>Status</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @relevant_gigs.each do |g| %>
-      <tr>
-        <td><%= link_to g[:name], edit_gig_path(g[:id]) %></td>
-        <td><%= g[:datetime] %></td>
-        <td><%= "✉️ #{g[:email]}" %></td>
-        <td class="<%= g[:status] %>"><%= g[:status] %></td>
-        <td><%= link_to "ansehen", show_mail_url(g[:id]) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-  </table>
-  </div>
-
-
-  <%# form_tag "/apply" do %>
-    <%# button_tag "alle versenden", type: "submit", class: "btn btn-primary" %>
-  <%# end %>
-<% end %>
-</div>
-
-
-<div class="div-block">
-<h2>Bewerbung ueber andere Kanaele noetig</h2>
-
-<p>Es werden nur die Gigs der nächsten <%= Rails.configuration.months_until_application %> Monate betrachtet, bei denen sich noch nicht beworben wurde.</p>
-
-<% if @relevant_gigs_no_email.empty? %>
   <strong>Gerade ist nichts zu tun 😊</strong>
 <% else %>
   <div class="table-responsive">
@@ -75,55 +33,18 @@
   </thead>
 
   <tbody>
-    <% @relevant_gigs_no_email.each do |g| %>
+    <% @relevant_gigs.each do |g| %>
       <tr>
-        <td><%= link_to g[:name], edit_gig_path(g[:id]) %></td>
-        <td><%= g[:datetime] %></td>
-        <td><%= g[:info] %></td>
-        <td class="<%= g[:status] %>"><%= g[:status] %></td>
-        <td><%= link_to "ansehen", show_mail_url(g[:id]) %></td>
+        <td><%= link_to g.short_text, edit_gig_path(g.id) %></td>
+        <td><%= Rails.date_relative(g.datetime.to_date) %></td>
+        <td><%= g.contact.info %></td>
+        <td class="<%= g.current_status %>"><%= g.current_status %></td>
+        <td><%= link_to "ansehen", show_mail_url(g.id) %></td>
       </tr>
     <% end %>
   </tbody>
   </table>
   </div>
 
-<% end %>
-</div>
-
-
-<div class="div-block">
-<h2>Im Moment noch nicht relevant</h2>
-
-<p>Diese Gigs liegen mehr als <%= Rails.configuration.months_until_application %> Monate in der Zukunft.</p>
-
-<% if @next_relevant_gigs.empty? %>
-  <strong>Gerade steht nichts weiter an.</strong>
-<% else %>
-  <div class="table-responsive">
-  <table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>(voraussichtliche) Stagetime</th>
-      <th>E-Mail-Adresse / Info</th>
-      <th>Status</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @next_relevant_gigs.each do |g| %>
-      <tr>
-        <td><%= link_to g[:name], edit_gig_path(g[:id]) %></td>
-        <td><%= g[:datetime] %></td>
-        <td><%= g[:email] ? "✉️ #{g[:email]}" : g[:info] %></td>
-        <td class="<%= g[:status] %>"><%= g[:status] %></td>
-        <td><%= link_to "ansehen", show_mail_url(g[:id]) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-   </table>
-  </div>
 <% end %>
 </div>
