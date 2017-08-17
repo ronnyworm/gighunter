@@ -57,6 +57,12 @@
               <i class="glyphicon glyphicon-cog"></i> Einstellungen
             <% end %>
           </li>
+          <li>
+            <%= form_tag "/jump", class: "form-inline" do %>
+              <%= text_field_tag :name, nil, class: "form-control", placeholder: "z.B. Wacken" %>
+              <%= button_tag "Suchen", type: "submit", class: "btn-sm btn-primary" %>
+            <% end %>
+          </li>
         <% end %>
       </ul>
     </div>

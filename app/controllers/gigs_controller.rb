@@ -336,7 +336,7 @@ class GigsController < ApplicationController
     if found
       redirect_to edit_gig_path(found), notice: "#{found.location.name} gefunden!"
     else
-      redirect_to dringende_massnahmen_path, alert: "Unter diesem Namen konnte nichts gefunden werden ..."
+      redirect_to gigs_path, alert: "Unter diesem Namen konnte nichts gefunden werden ..."
     end
   end
 
