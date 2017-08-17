@@ -22,25 +22,26 @@ Rails.application.routes.draw do
   post 'edit_mail' => 'gigs#edit_mail', as: "edit_mail"
   get 'send_single_mail' => 'gigs#send_single_mail', as: "send_single_mail"
 
-  get 'locations' => 'gigs#locations'
-  post 'locations' => 'gigs#post_locations'
   post 'gigs/create_reminder'
   post 'gigs/create_email'
+
+  get 'locations' => 'gigs#locations'
+  post 'locations' => 'gigs#post_locations'
   post 'gigs/edit_location' => 'gigs#edit_location'
   get 'contacts' => 'gigs#contacts'
   post 'contacts' => 'gigs#post_contacts'
   post 'gigs/edit_contact' => 'gigs#edit_contact'
 
-  get 'fans' => 'gigs#fans'
-  post 'fans' => 'gigs#post_fans'
-  post 'fans/send' => 'gigs#send_to_fans'
+  # get 'fans' => 'gigs#fans'
+  # post 'fans' => 'gigs#post_fans'
+  # post 'fans/send' => 'gigs#send_to_fans'
   
   get 'map' => 'gigs#map'
 
   get 'activities' => 'gigs#activities'
   post 'activities' => 'gigs#post_activities'
 
-  root 'gigs#apply'
+  root 'gigs#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
