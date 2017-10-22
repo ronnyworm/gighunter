@@ -6,6 +6,17 @@ class GigsController < ApplicationController
   # GET /gigs
   # GET /gigs.json
   def index
+    count_next_years = 0
+    Gig.all.each do |gig|
+      count_next_years += gig.ensure_next_year
+    end
+    if count_next_years > 0
+      flash.now[:notice] = "#{count_next_years} Gigs für nächstes Jahr angelegt, weil sie dieses Jahr vorbei sind."
+    end
+
+
+
+
     if params[:archived]
       @gigs = Gig.all.order(:datetime)
     else
@@ -61,22 +72,8 @@ class GigsController < ApplicationController
   end
 
   def duplicate
-    result = "Der Gig wurde kopiert!"
-
-    copy = @gig.dup
-    if copy.location.festival
-      copy[:name] = (copy.name.to_i + 1).to_s
-      copy[:datetime] = copy.datetime + 1.year
-
-      result += " Weil es sich um ein Festival handelt, ist er bei #{copy.location.name} #{copy[:name]} zu finden."
-    end
-
-
-    copy.save
-
-    Status.create(gig_id: copy.id, status_value_id: StatusValue.find_by(text: "unbearbeitet").id)
-
-    redirect_to gigs_path, notice: result
+    new_gig = @gig.duplicate_for_next_year
+    redirect_to edit_gig_path(new_gig), notice: "Der Gig wurde dupliziert!"
   end
 
   # POST /gigs

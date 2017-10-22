@@ -30,7 +30,6 @@
     <th>Stagetime</th>
     <th>Status</th>
     <th>(Anzahl) Letzte Aktion</th>
-    <th colspan="1"></th>
   </tr>
 </thead>
 
@@ -52,12 +51,12 @@
     <tr class="<%= tr_class %>">
       <td>
         <%= link_to(edit_gig_path(gig), target: "_blank") do %>
-          <%= gig.short_text %>
+          <%= "#{gig.short_text}" %>
         <% end %>
       </td>
 
       <td>
-        <%= link_to gig.short_location, "https://www.google.de/maps?q=from:+w%C3%BCrzburg+to:+#{gig.short_location}", target: "_blank" %>
+        <%= link_to raw(gig.short_location), "https://www.google.de/maps?q=from:+w%C3%BCrzburg+to:+#{gig.short_location}", target: "_blank" %>
 
       </td>
 
@@ -69,14 +68,6 @@
 
       <td class="<%= gig.current_status %>"><%= gig.current_status %></td>
       <td style="<%= gig.last_action_style %>"><%= "(#{gig.action_count}) #{gig.last_action}" %></td>
-
-      <td align="center" title="kopieren">
-        <%= link_to duplicate_gig_path(gig) do %>
-          <div style="height:100%;width:100%">
-            <i class="glyphicon glyphicon-duplicate"></i>
-          </div>
-        <% end %>
-      </td>
     </tr>
   <% end %>
 </tbody>

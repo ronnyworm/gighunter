@@ -95,7 +95,31 @@ class Gig < ActiveRecord::Base
 		email.count + status.count
 	end
 
+	def duplicate_for_next_year
+	    copy = self.dup
+	    if copy.location.festival
+	      copy[:name] = (copy.name.to_i + 1).to_s
+	      copy[:datetime] = copy.datetime + 1.year
+	    end
 
+	    copy.save
+
+	    Status.create(gig_id: copy.id, status_value_id: StatusValue.find_by(text: "unbearbeitet").id)
+
+	    return copy
+	end
+
+	def ensure_next_year
+		if location.festival and not current_status == "archiviert"
+			last = location.gig.sort_by { |x| x.datetime }.last
+
+			if last.datetime < DateTime.now
+				duplicate_for_next_year
+				return 1
+			end
+		end
+		return 0
+	end
 
 
 

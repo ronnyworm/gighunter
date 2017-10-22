@@ -72,6 +72,8 @@
 
 <%= link_to "Gig löschen", @gig, method: :delete, data: { confirm: I18n.t('models.confirm_to_destroy') }, class: "btn btn-danger" %>
 
+<%= link_to "Gig duplizieren", duplicate_gig_path(@gig), class: "btn btn-default" %>
+
 <br>
 <br>
 <br>
